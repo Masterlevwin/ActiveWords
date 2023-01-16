@@ -9,6 +9,7 @@ public class GameBase : MonoBehaviour
     public static GameBase G;
     
     public Letter prefab;
+    public Wall wall;
     public Sprite[] letters;
     
     void Start()
@@ -26,7 +27,8 @@ public class GameBase : MonoBehaviour
 
     public void InitLevel()
     {
-        Letter let = Instantiate(prefab, new Vector2(Random.Range(-Screen.width/2,Screen.width/2), Random.Range(-Screen.height/2,Screen.height/2)), Quaternion.identity, transform.parent);
+        Letter let = Instantiate(prefab, new Vector2(Random.Range(-Screen.width/2 + wall.transform.localScale.x, Screen.width/2 - wall.transform.localScale.x),
+        Random.Range(-Screen.height/2 + wall.transform.localScale.y, Screen.height/2 - wall.transform.localScale.y)), Quaternion.identity, transform.parent);
         let.GetComponent<SpriteRenderer>().sprite = letters[0];
     }
 }
