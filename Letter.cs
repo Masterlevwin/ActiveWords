@@ -1,19 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class Letter : MonoBehaviour
+public class Letter : MonoBehaviour, IPointerClickHandler
 {
-    private Button b;
-    
-    private void OnEnable()
-    {
-        b = GetComponent<Button>();
-        b.onClick.AddListener(() => AddToWord());
-    }
-    
-    private void AddToWord()
+    public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log(name);
     }
