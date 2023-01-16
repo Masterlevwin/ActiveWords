@@ -36,4 +36,9 @@ public class GameBase : MonoBehaviour
         
         word.Add(let);
     }
+    
+    private List<Letter> Word()
+    {
+        
+    }
 }
