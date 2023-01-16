@@ -8,10 +8,10 @@ public class GameBase : MonoBehaviour
 {
     public static GameBase G;
     
-    public Letter prefab;
+    public GameObject prefab;
     public Wall wall;
     public Sprite[] letters;
-    public List<Letter> word;
+    public List<GameObject> word;
     
     void Start()
     {
@@ -28,16 +28,17 @@ public class GameBase : MonoBehaviour
 
     public void InitLevel()
     {
-        if (word == null) word = new List<Letter>();
-        
-        Letter let = Instantiate(prefab, new Vector2(Random.Range(-Screen.width/2 + wall.transform.localScale.x, Screen.width/2 - wall.transform.localScale.x),
-        Random.Range(-Screen.height/2 + wall.transform.localScale.y, Screen.height/2 - wall.transform.localScale.y)), Quaternion.identity, transform.parent);
-        let.GetComponent<SpriteRenderer>().sprite = letters[0];
+        if (word == null) word = new List<GameObject>();
+        GameObject ground = GameObject.Find("Ground");
+
+        GameObject let = Instantiate(prefab, new Vector2(Random.Range(-10, 10), Random.Range(-5, 5)), Quaternion.identity, ground.transform);
+        //let.GetComponent<SpriteRenderer>().sprite = letters[0];
+
         
         word.Add(let);
     }
     
-    private List<Letter> Word()
+    private List<GameObject> Word()
     {
         return word;
     }
