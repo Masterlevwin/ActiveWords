@@ -39,6 +39,6 @@ public class GameBase : MonoBehaviour
     
     private List<Letter> Word()
     {
-        
+        return word;
     }
 }
