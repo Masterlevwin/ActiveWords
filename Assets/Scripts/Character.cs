@@ -5,6 +5,8 @@ using UnityEngine.EventSystems;
 
 public class Character : MonoBehaviour, IPointerClickHandler
 {
+    public float speed = 10f;
+    
     void Start()
     {
         
@@ -12,11 +14,12 @@ public class Character : MonoBehaviour, IPointerClickHandler
 
     void Update()
     {
-        
+        var mp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        transform.position = Vector3.Lerp(transform.position, mp, Time.deltaTime * speed);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log(name);
+    
     }
 }
