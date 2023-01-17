@@ -31,7 +31,7 @@ public class GameBase : MonoBehaviour
         if (word == null) word = new List<GameObject>();
         GameObject ground = GameObject.Find("Ground");
 
-        GameObject let = Instantiate(prefab, new Vector2(Random.Range(-10, 10), Random.Range(-5, 5)), Quaternion.identity, ground.transform);
+        GameObject let = Instantiate(prefab, new Vector2(Random.Range(-9, 9), Random.Range(-4, 4)), Quaternion.identity, ground.transform);
         //let.GetComponent<SpriteRenderer>().sprite = letters[0];
 
         
