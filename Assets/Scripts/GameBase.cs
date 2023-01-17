@@ -42,4 +42,11 @@ public class GameBase : MonoBehaviour
     {
         return word;
     }
+    
+    public static float RandomWithoutInt(float from, float to, float without = 0f)
+    {
+        float res = Random.Range(from, to);
+        if (res != without) return res;
+        else return RandomWithoutInt(from, to, without);
+    }
 }
