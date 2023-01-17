@@ -36,16 +36,18 @@ public class GameBase : MonoBehaviour
 	    GameObject wordGO = new GameObject("Word");
 	    wordAnchor = wordGO.transform;
 	}
-        MakeLetters();
+        char[] letters = new char[] { "Б", "А", "Б", "А"};
+	for (int i = 0; i < letters.Length; i++) MakeLetter(letters[i]);
     }
     
-    private void MakeLetters()
+    private void MakeLetter(char l)
     {
         GameObject letGO = Instantiate(prefabLetter);
 	letGO.transform.SetParent(wordAnchor);
         letGO.transform.position = SpawnLetter();
 	spawns.Add(letGO.transform.position);
-        letGO.GetComponent<SpriteRenderer>().sprite = letters[0];	
+        if (l == "А") letGO.GetComponent<SpriteRenderer>().sprite = letters[0];
+	else if (l == "Б") letGO.GetComponent<SpriteRenderer>().sprite = letters[1];
         Letter let = LetGO.GetComponent<Letter>();
         word.Add(let);
     }
