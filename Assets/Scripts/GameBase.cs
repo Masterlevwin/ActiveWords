@@ -12,6 +12,7 @@ public class GameBase : MonoBehaviour
     public Sprite[] letters;
     public List<Letter> word;
     public Transform wordAnchor;
+    public List<Vector2> spawns;
     
     void Start()
     {
@@ -29,29 +30,37 @@ public class GameBase : MonoBehaviour
     public void InitLevel()
     {
         if (word == null) word = new List<Letter>();
+	if (spawns == null) spawns = new List<Vector2>();
         if (GameObject.Find("Word") == null)
-		{
-			GameObject wordGO = new GameObject("Word");
-			wordAnchor = wordGO.transform;
-		}
+	{
+	    GameObject wordGO = new GameObject("Word");
+	    wordAnchor = wordGO.transform;
+	}
         MakeLetters();
     }
     
     private void MakeLetters()
     {
         GameObject letGO = Instantiate(prefabLetter);
-		letGO.transform.SetParent(wordAnchor);
-        letGO.transform.position = new Vector2(RandomWithoutFloat(-9f, 9f).x, RandomWithoutFloat(-4f, 4f).y);
-        letGO.GetComponent<SpriteRenderer>().sprite = letters[0];
-		
+	letGO.transform.SetParent(wordAnchor);
+        letGO.transform.position = SpawnLetter();
+	spawns.Add(letGO.transform.position);
+        letGO.GetComponent<SpriteRenderer>().sprite = letters[0];	
         Letter let = LetGO.GetComponent<Letter>();
         word.Add(let);
+    }
+    
+    private Vector2 SpawnLetter()
+    {
+    	Vector2 spawnLet = new Vector2(RandomWithoutFloat(-9f, 9f).x, RandomWithoutFloat(-4f, 4f).y);
+	foreach (Vector2 v in spawns) if (v == spawnLet) return SpawnLetter();
+	return spawnLet;
     }
     
     public static float RandomWithoutFloat(float from, float to, float without = 0f)
     {
         float res = Random.Range(from, to);
         if (res != without) return res;
-        else return RandomWithoutInt(from, to, without);
+        else return RandomWithoutFloat(from, to, without);
     }
 }
