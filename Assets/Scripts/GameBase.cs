@@ -8,10 +8,10 @@ public class GameBase : MonoBehaviour
 {
     public static GameBase G;
     
-    public GameObject prefab;
-    public Wall wall;
+    public GameObject prefabLetter;
     public Sprite[] letters;
-    public List<GameObject> word;
+    public List<Letter> word;
+    public Transform wordAnchor;
     
     void Start()
     {
@@ -28,22 +28,27 @@ public class GameBase : MonoBehaviour
 
     public void InitLevel()
     {
-        if (word == null) word = new List<GameObject>();
-        GameObject ground = GameObject.Find("Ground");
-
-        GameObject let = Instantiate(prefab, new Vector2(Random.Range(-9, 9), Random.Range(-4, 4)), Quaternion.identity, ground.transform);
-        //let.GetComponent<SpriteRenderer>().sprite = letters[0];
-
-        
+        if (word == null) word = new List<Letter>();
+        if (GameObject.Find("Word") == null)
+		{
+			GameObject wordGO = new GameObject("Word");
+			wordAnchor = wordGO.transform;
+		}
+        MakeLetters();
+    }
+    
+    private void MakeLetters()
+    {
+        GameObject letGO = Instantiate(prefabLetter);
+		letGO.transform.SetParent(wordAnchor);
+        letGO.transform.position = new Vector2(RandomWithoutFloat(-9f, 9f).x, RandomWithoutFloat(-4f, 4f).y);
+        letGO.GetComponent<SpriteRenderer>().sprite = letters[0];
+		
+        Letter let = LetGO.GetComponent<Letter>();
         word.Add(let);
     }
     
-    private List<GameObject> Word()
-    {
-        return word;
-    }
-    
-    public static float RandomWithoutInt(float from, float to, float without = 0f)
+    public static float RandomWithoutFloat(float from, float to, float without = 0f)
     {
         float res = Random.Range(from, to);
         if (res != without) return res;
