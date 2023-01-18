@@ -7,6 +7,6 @@ public class Letter : MonoBehaviour, IPointerClickHandler
 {
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log(name);
+
     }
 }
