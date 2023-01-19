@@ -5,3 +5,6 @@
 reachedDestination: True, если ИИ достиг #destination. Все скрипты движения, включенные в пакет, реализуют интерфейс Pathfinding.IAstarAI;
 Ознакомиться с видео по 2Д с видом сверху;
 https://arongranberg.com/astar/documentation/4_2_3_2acad22a/turnbased.html
+https://github.com/Harrix/Russian-Nouns/tree/main/dist - словать слов
+https://harrix.dev/blog/2018/russian-nouns/ - скачать словарь слов
+https://www.cyberforum.ru/unity/thread2531800.html

@@ -8,9 +8,11 @@ public class GameBase : MonoBehaviour
 {
     public static GameBase G;
     
+    public TextAsset textAsset;
+    
     public GameObject prefabLetter;
     public Sprite[] letters;
-    public List<Letter> word;
+    public List<Letter> lets;
     public Transform wordAnchor;
     public List<Vector2> spawns;
     
@@ -29,16 +31,26 @@ public class GameBase : MonoBehaviour
 
     public void InitLevel()
     {
-        if (word == null) word = new List<Letter>();
-	    if (spawns == null) spawns = new List<Vector2>();
+        if (lets == null) lets = new List<Letter>();
+	if (spawns == null) spawns = new List<Vector2>();
         if (GameObject.Find("Word") == null)
-	    {
-	        GameObject wordGO = new GameObject("Word");
-	        wordAnchor = wordGO.transform;
-	    }
-	    string textLevel = "АБАБ";
-        char[] chars = textLevel.ToCharArray();
-	    for (int i = 0; i < chars.Length; i++) MakeLetter(chars[i]);
+	{
+	GameObject wordGO = new GameObject("Word");
+	wordAnchor = wordGO.transform;
+	}
+	
+	string[] words = ParseText(textAsset.text);
+	string wordLevel = word[0, word.Length];
+	
+	//string wordLevel = "АБАБ";
+        char[] chars = wordLevel.ToCharArray();
+	for (int i = 0; i < chars.Length; i++) MakeLetter(chars[i]);
+    }
+    
+    private string[] ParseText(string st)
+    {
+    	string[] lines = st.Split("\n"[0]);
+	return lines;
     }
     
     private void MakeLetter(char l)
@@ -50,7 +62,7 @@ public class GameBase : MonoBehaviour
         if (l == 'А') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[0];
 	    else if (l == 'Б') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[1];
         Letter let = letGO.GetComponentInChildren<Letter>();
-        word.Add(let);
+        lets.Add(let);
     }
     
     private Vector2 SpawnLetter()
