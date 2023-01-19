@@ -9,7 +9,7 @@ public class GameBase : MonoBehaviour
     public static GameBase G;
     
     public TextAsset textAsset;
-    
+    public Text wordLevelText;
     public GameObject prefabLetter;
     public Sprite[] letters;
     public List<Letter> lets;
@@ -40,9 +40,8 @@ public class GameBase : MonoBehaviour
 	}
 	
 	string[] words = ParseText(textAsset.text);
-	string wordLevel = word[0, word.Length];
-	
-	//string wordLevel = "АБАБ";
+	string wordLevel = words[Random.Range(0, words.Length)];
+	wordLevelText.text = wordLevel;
         char[] chars = wordLevel.ToCharArray();
 	for (int i = 0; i < chars.Length; i++) MakeLetter(chars[i]);
     }
@@ -59,8 +58,39 @@ public class GameBase : MonoBehaviour
 	    letGO.transform.SetParent(wordAnchor);
         letGO.transform.position = SpawnLetter();
 	    spawns.Add(letGO.transform.position);
-        if (l == 'А') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[0];
-	    else if (l == 'Б') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[1];
+        if (l == 'а') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[0];
+	    else if (l == 'б') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[1];
+        else if (l == 'в') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[2];
+        else if (l == 'г') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[3];
+        else if (l == 'д') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[4];
+        else if (l == 'е') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[5];
+        else if (l == 'ё') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[6];
+        else if (l == 'ж') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[7];
+        else if (l == 'з') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[8];
+        else if (l == 'и') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[9];
+        else if (l == 'й') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[10];
+        else if (l == 'к') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[11];
+        else if (l == 'л') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[12];
+        else if (l == 'м') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[13];
+        else if (l == 'н') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[14];
+        else if (l == 'о') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[15];
+        else if (l == 'п') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[16];
+        else if (l == 'р') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[17];
+        else if (l == 'с') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[18];
+        else if (l == 'т') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[19];
+        else if (l == 'у') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[20];
+        else if (l == 'ф') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[21];
+        else if (l == 'х') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[22];
+        else if (l == 'ц') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[23];
+        else if (l == 'ч') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[24];
+        else if (l == 'ш') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[25];
+        else if (l == 'щ') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[26];
+        else if (l == 'ъ') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[27];
+        else if (l == 'ы') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[28];
+        else if (l == 'ь') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[29];
+        else if (l == 'э') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[30];
+        else if (l == 'ю') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[31];
+        else if (l == 'я') letGO.GetComponentInChildren<SpriteRenderer>().sprite = letters[32];
         Letter let = letGO.GetComponentInChildren<Letter>();
         lets.Add(let);
     }
