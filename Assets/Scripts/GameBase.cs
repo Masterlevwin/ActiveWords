@@ -9,7 +9,7 @@ public class GameBase : MonoBehaviour
     public static GameBase G;
     
     public TextAsset textAsset;
-    private string[] wordsWithText;
+    private string[] wordsFromText;
     private Transform wordAnchor;
     public Text wordLevelText;
     
@@ -69,10 +69,9 @@ public class GameBase : MonoBehaviour
     
     private Vector2 SpawnLetter()
     {
-    	Vector2 radiusLet = new Vector2(0.1f, 0.1f);
-    	Vector2 spawnLet = new Vector2(Random.Range(-8f, 8f), Random.Range(-3f, 3f));
+     	Vector2 spawnLet = new Vector2(Random.Range(-8f, 8f), Random.Range(-3f, 3f));
 	
-	foreach (Vector2 v in spawns) if (v + radiusLet == spawnLet) return SpawnLetter();
+	foreach (Vector2 v in spawns) if (v == spawnLet) return SpawnLetter();
 	return spawnLet;
     }
     
@@ -80,7 +79,7 @@ public class GameBase : MonoBehaviour
     {
     	Sprite spLet = null;
     	if (l == 'а') spLet = letters[0];
-	else if (l == 'б') spLet = letters[1];
+        else if (l == 'б') spLet = letters[1];
         else if (l == 'в') spLet = letters[2];
         else if (l == 'г') spLet = letters[3];
         else if (l == 'д') spLet = letters[4];
@@ -112,8 +111,7 @@ public class GameBase : MonoBehaviour
         else if (l == 'э') spLet = letters[30];
         else if (l == 'ю') spLet = letters[31];
         else if (l == 'я') spLet = letters[32];
-	else spLet = none;
-	return spLet;
+        return spLet;
     }
 	
     public static float RandomWithoutFloat(float from, float to, float without = 0f)

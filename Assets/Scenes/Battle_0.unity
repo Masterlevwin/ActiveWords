@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 180526195}
   - component: {fileID: 180526196}
   - component: {fileID: 180526197}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -524,9 +524,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b3c7ce9ea81a7dc46b1df123724bde5b, type: 3}
   - {fileID: 21300000, guid: 795686d7888d7264882b23eed49a719e, type: 3}
   - {fileID: 21300000, guid: 6aa108bf75b8d3c43bf601d9fb2701ba, type: 3}
-  lets: []
-  wordAnchor: {fileID: 0}
-  spawns: []
 --- !u!1 &565480132
 GameObject:
   m_ObjectHideFlags: 0
@@ -684,7 +681,9 @@ GameObject:
   m_Component:
   - component: {fileID: 827562243}
   - component: {fileID: 827562244}
-  m_Layer: 0
+  - component: {fileID: 827562245}
+  - component: {fileID: 827562246}
+  m_Layer: 3
   m_Name: Player_Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -758,6 +757,43 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &827562245
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827562242}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!50 &827562246
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827562242}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &1059791757
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,7 +1033,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1246530016}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 2, z: 0}
+  m_LocalPosition: {x: 4, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
