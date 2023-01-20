@@ -9,4 +9,12 @@ public class Letter : MonoBehaviour, IPointerClickHandler
     {
 
     }
+    
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag != "Player")
+        {
+            Destroy(collision.gameObject);
+        }
+    }
 }
