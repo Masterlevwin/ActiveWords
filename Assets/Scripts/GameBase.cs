@@ -97,8 +97,9 @@ public class GameBase : MonoBehaviour
     
     private Vector2 SpawnLetter()
     {
+    	Vector2 radiusLet = new Vector2(0.1f, 0.1f);
     	Vector2 spawnLet = new Vector2(RandomWithoutFloat(-8f, 8f), RandomWithoutFloat(-3f, 3f));
-	    foreach (Vector2 v in spawns) if (v == spawnLet) return SpawnLetter();
+	    foreach (Vector2 v in spawns) if (v + radiusLet == spawnLet) return SpawnLetter();
 	    return spawnLet;
     }
     
