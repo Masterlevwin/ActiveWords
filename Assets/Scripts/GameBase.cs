@@ -16,7 +16,7 @@ public class GameBase : MonoBehaviour
     public GameObject prefabLetter;
     public Sprite[] letters;
     private List<Letter> lets;
-    private List<Vector2> spawns;
+    private List<BoxCollider2D> cols;
     
     void Start()
     {
@@ -57,9 +57,11 @@ public class GameBase : MonoBehaviour
         GameObject letGO = Instantiate(prefabLetter);		// Инициализируем объект буквы
 	letGO.transform.SetParent(wordAnchor);			// Прячем её в иерархии
 	
-	if (spawns == null) spawns = new List<Vector2>();	// Создаем список мест для букв
+	//if (spawns == null) spawns = new List<Vector2>();	// Создаем список мест для букв
+	if (cols == null) cols = new List<BoxCollider2D>();
 	letGO.transform.position = SpawnLetter();		// Определяем место буквы на игровом поле
-	spawns.Add(letGO.transform.position);			// Полученное место добавляем в список занятых
+	cols.Add(letGO.GetComponent<BoxCollider2D>());
+	//spawns.Add(letGO.transform.position);			// Полученное место добавляем в список занятых
 	
         letGO.GetComponentInChildren<SpriteRenderer>().sprite = SetLetterSprite(l);	// Устанавливаем спрайт буквы
 	if (lets == null) lets = new List<Letter>();			// Создаем список букв
@@ -70,8 +72,7 @@ public class GameBase : MonoBehaviour
     private Vector2 SpawnLetter()
     {
      	Vector2 spawnLet = new Vector2(Random.Range(-8f, 8f), Random.Range(-3f, 3f));
-	
-	foreach (Vector2 v in spawns) if (v == spawnLet) return SpawnLetter();
+	foreach (BoxCollider2D col in cols) if (col.bounds.Contains(spawnLet)) return SpawnLetter();
 	return spawnLet;
     }
     
