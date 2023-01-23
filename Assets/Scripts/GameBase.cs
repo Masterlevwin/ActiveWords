@@ -16,8 +16,7 @@ public class GameBase : MonoBehaviour
     public GameObject prefabLetter;
     public Sprite[] letters;
     private List<Letter> lets;
-    private List<BoxCollider2D> cols;
-    private GameObject table;
+    private BoxCollider2D table;
     private Vector2 pos;
     
     void Start()
@@ -31,70 +30,61 @@ public class GameBase : MonoBehaviour
             Destroy(gameObject);
         }
 	
-	wordsFromText = ParseText(textAsset.text);	// Загружаем в массив все слова из текстового ассета
-	if (GameObject.Find("Word") == null)		// Создаем пустой объект в иерархии, чтобы спрятать туда сгенерированные буквы
-	{
-	    GameObject wordGO = new GameObject("Word");
-	    wordAnchor = wordGO.transform;
-	}
-	table = GameObject.Find("Ground");
-	pos = table.transform.position;
+	    wordsFromText = ParseText(textAsset.text);	// Загружаем в массив все слова из текстового ассета
+	    if (GameObject.Find("Word") == null)		// Создаем пустой объект в иерархии, чтобы спрятать туда сгенерированные буквы
+	    {
+	        GameObject wordGO = new GameObject("Word");
+	        wordAnchor = wordGO.transform;
+	    }
+	    table = GameObject.Find("BG").GetComponent<BoxCollider2D>();
+	    pos = table.transform.position;
         InitLevel(wordsFromText);
     }
     
     private string[] ParseText(string txt)
     {
     	string[] lines = txt.Split("\n");
-	return lines;
+	    return lines;
     }
     
     private void InitLevel(string[] words)
     {
-	string wordLevel = words[Random.Range(0, words.Length)];	// Выбираем слово для уровня из массива
-	wordLevelText.text = wordLevel;					// Отображаем это слово в канвасе - временно для отладки
-        char[] chars = wordLevel.ToCharArray();				// Преобразуем выбранное слово в массив символов (букв)
-	for (int i = 0; i < chars.Length; i++) MakeLetter(chars[i]);	// Рисуем каждую букву
+	    string wordLevel = words[Random.Range(0, words.Length)];	    // Выбираем слово для уровня из массива
+	    wordLevelText.text = wordLevel;					                // Отображаем это слово в канвасе - временно для отладки
+        char[] chars = wordLevel.ToCharArray();				            // Преобразуем выбранное слово в массив символов (букв)
+	    for (int i = 0; i < chars.Length; i++) MakeLetter(chars[i]);	// Рисуем каждую букву
     }
     
     private void MakeLetter(char l)
     {
-        GameObject letGO = Instantiate(prefabLetter);		// Инициализируем объект буквы
-	letGO.transform.SetParent(wordAnchor);			// Прячем её в иерархии
-	
-	//if (spawns == null) spawns = new List<Vector2>();	// Создаем список мест для букв
-	if (cols == null) cols = new List<BoxCollider2D>();
-	letGO.transform.position = SpawnLetter();		// Определяем место буквы на игровом поле
-	cols.Add(letGO.GetComponent<BoxCollider2D>());
-	//spawns.Add(letGO.transform.position);			// Полученное место добавляем в список занятых
-	//letGO.transform.position = Spawn();
-        letGO.GetComponentInChildren<SpriteRenderer>().sprite = SetLetterSprite(l);	// Устанавливаем спрайт буквы
-	if (lets == null) lets = new List<Letter>();			// Создаем список букв
-        Letter let = letGO.GetComponentInChildren<Letter>();		// Сохраняем ссылку на класс буквы дочернего объекта
-        lets.Add(let);							// Добавляем букву в список для дальнейшей работы со списком
-    }
-    
-    private Vector2 SpawnLetter()
-    {
-     	Vector2 spawnLet = new Vector2(Random.Range(-8f, 8f), Random.Range(-3f, 3f));
-	foreach (BoxCollider2D col in cols) if (col.bounds.Contains(spawnLet)) return SpawnLetter();
-	return spawnLet;
+        GameObject letGO = Instantiate(prefabLetter);		            // Инициализируем объект буквы
+	    letGO.transform.SetParent(wordAnchor);			                // Прячем её в иерархии
+	    
+        letGO.transform.position = Spawn();                             // Определяем позицию буквы на сцене
+        
+        letGO.GetComponentInChildren<SpriteRenderer>().sprite = SetLetterSprite(l);     // Устанавливаем спрайт буквы
+	    if (lets == null) lets = new List<Letter>();			        // Создаем список букв
+        Letter let = letGO.GetComponentInChildren<Letter>();		    // Сохраняем ссылку на класс буквы дочернего объекта
+        lets.Add(let);							                        // Добавляем букву в список для дальнейшей работы со списком
     }
     
     private Vector2 Spawn()
     {
     	float x, y;
-	x = Random.Range(pos.x - Random.Range(0, table.bounds.extents.x), pos.x + Random.Range(0, table.bounds.extents.x));
+	    x = Random.Range(pos.x - Random.Range(0, table.bounds.extents.x), pos.x + Random.Range(0, table.bounds.extents.x));
      	y = Random.Range(pos.y - Random.Range(0, table.bounds.extents.y), pos.y + Random.Range(0, table.bounds.extents.y));
-	Vector2 spawnLet = new Vector2(x, y);
-	check = Point(spawnLet);
-	if (check) return spawnLet;
-	else Spawn;
-	bool Point(Vector2 spawn)
-	{
-	    cols = Physics2D.OverlapBox(spawn, table.transform.localScale/2, 0f);
-	    if (cols.Length > 0) return false;
-	    else return true;
-	}
+	    Vector2 spawnLet = new Vector3(x, y);
+
+	    bool check = Point(spawnLet);
+	    if (check) return spawnLet;
+	    else return Spawn();
+
+	    bool Point(Vector2 spawn)
+	    {
+	        Collider[] cols = Physics.OverlapBox(spawn, table.transform.localScale/2);
+	        if (cols.Length > 0) return false;
+	        else return true;
+	    }
     }
     
     private Sprite SetLetterSprite(char l)

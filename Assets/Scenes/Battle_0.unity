@@ -133,7 +133,8 @@ GameObject:
   m_Component:
   - component: {fileID: 165427250}
   - component: {fileID: 165427251}
-  m_Layer: 0
+  - component: {fileID: 165427252}
+  m_Layer: 3
   m_Name: Enemy_Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,6 +208,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &165427252
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165427249}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.28866667}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &180526191
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,7 +709,6 @@ GameObject:
   - component: {fileID: 827562243}
   - component: {fileID: 827562244}
   - component: {fileID: 827562245}
-  - component: {fileID: 827562246}
   m_Layer: 3
   m_Name: Player_Sprite
   m_TagString: Untagged
@@ -700,7 +726,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 180526192}
   m_RootOrder: 0
@@ -757,8 +783,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &827562245
-CircleCollider2D:
+--- !u!61 &827562245
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -771,29 +797,18 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.5
---- !u!50 &827562246
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 827562242}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &1059791757
 GameObject:
   m_ObjectHideFlags: 0
@@ -804,7 +819,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1059791758}
   - component: {fileID: 1059791759}
-  - component: {fileID: 1059791761}
+  - component: {fileID: 1059791760}
   m_Layer: 0
   m_Name: Block_0
   m_TagString: Untagged
@@ -879,7 +894,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &1059791761
+--- !u!61 &1059791760
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1018,7 +1033,7 @@ GameObject:
   - component: {fileID: 1246530019}
   - component: {fileID: 1246530020}
   - component: {fileID: 1246530018}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1318,7 +1333,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1639532844}
   - component: {fileID: 1639532845}
-  m_Layer: 0
+  - component: {fileID: 1639532846}
+  m_Layer: 3
   m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1334,7 +1350,7 @@ Transform:
   m_GameObject: {fileID: 1639532843}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0, z: 0}
-  m_LocalScale: {x: 20, y: 10, z: 0}
+  m_LocalScale: {x: 20, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 565480133}
@@ -1392,6 +1408,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &1639532846
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639532843}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &1688206313
 GameObject:
   m_ObjectHideFlags: 0
@@ -1491,7 +1533,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAAAYIexCpCsKWgIAAA8FAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VEtz2jAQ/iuMzk3HkAfQW0uA9JCECe3k4ouw1liDLHn0CJAM/727so1NOjmxfPvt7rcP+YNJ7SrIvLFLK8WjEcB+DBjZ7Nugcz7AgW+NXst3aDmvUviCSDxyXriXBvEhhTlTgrcy+6m3isgJgkHL3NhyLrYwM847hHOuHKDLGk/RGqGPATvgz9WUQo5ojcZkvaM1TQYnNDPQHmxHbYktrWYFnSleViBIckceThr2NLI09tIQku+3lNwoJV0jhfljFVtdVwVYoF6F5NhZLE+NFiC3hSeV/djnPHfgG0mWH++lxQHVSdkvU0+t5G5X63rjKlCZq2HUVOd8/MqdW1M+tGWHCZXwhcx2L/yYced7U+3D95e6g95zteMbBa8F6CeztCZogU5vA4UGB6P77u+5s1kB2a7Da6mfwFB9vRvq4RSbP8yULDdx7jc1sFYmTjtuHixu5jcKjnfhmhSIkoq/Dv7wbf+AGsdCWufR1XSpSd7GBEtUtkCDBp8FPzNWQ0QbzRVorvxxhVl8f4Gj/329qp88C04vpand+NoH8Ckkwh0/brHvWpn9eVeuMPtHcMVz8Epq6EST4wnHNDNa1/flLp0UtQ4251kvahukuDwsdnM3nvINTJLJaLzJN9Or62Q8uU2uEwG3IhvndyxentTYJlerWmezEtyZ7pJrvLL2+zFYWl7FUxeW75fyvTQ9fVLnZp1ZAP1cZ2gn5MBiEXyTYi4kzmcN3ksdt80+UqZMtgORnhOlsdP5wVuedllSVsk34wlJ2Sx+MFJG8PmSVxbeJOypeJvsxE7/AFBLAwQUAAAICAAAGCHsOpLhAW0AAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9IzNNdRUEovSizIKAaKGII4pZkpIHa0komZuWViUqqFgYWReVJakqWusYG5hamBsUFKqmlKsnmamVIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAAGCHsQqQrCloCAAAPBQAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAGCHsOpLhAW0AAAB4AAAACQAkAAAAAAAAAAAAAACnAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAF8DAAAAAA==
+    dataString: UEsDBBQAAAgIAAAYIex5+TACYAIAABIFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1T4kAQ/SvUnFcroAjsbRcV96BS4paXXIZMh0wxmUnNh4AW/327JwmJWHuief26+/XH5JNJ7SrIvLELK8WjEcB+DhjZ7Megcz7Anm+MXskPaDlvUviCSDxyXriXBvEhhTlTgrcy+6U3isgJgkHL3NjyTmxgbpx3COdcOUCXNZ6iNUKfA7bHn4sZhRzQGk3I+kBrlgyOaGagPdiO2hJbWs0KOlO8rECQ5I48nDTs6eU48jR201CSyzGlN0pJ14hh/lDFZldVARaoWyE59hYFUKsFyE3hSWc/9jnPHfhGlOWHW2lxRHVS9tvUcyu529bK3rkKVGY4nEVRddLHb/6LYXTn1pQPbd1hQjV8IbPtCz9k3PneYPvw7VfhQe+42vK1grcC9JNZWBO0QKe3gUKDg9Ft9/fU2ryAbNvhtdQzMFT/Xw/1cIzd7+dKlus4+OsaWCkTxx2XDxZX8wcFx9NwTQpEScVfB69807+hxnEvrfPoarrUJG9tgiUqu0eDJp8FPzdWQ0QbzRVorvxhiVl8f4Oj775e1TPPPafH0tRufO0bOAuJcMePW+y7lmZ32pUrzO4RXPEcvJIaOtHkeMIxzY3W9YG5r06KWgWb86wXtQlSfD0sdn0zmfE1TJPpaLLO17OLq2QyHSdXiYCxyCb5DYuXJzW2ydWy1tmsBHemu+Qar6z9hAwWllfx1oXlu4X8KE1Pn9S5WWUWQD/XGdoJObBYBB+luBMS57MC76WO22afKVMm24JIT4nS2Ond3luedllSVsl34wlJ2Tx+M1JG8OmSlxbeJeyoeJvsyI7/AFBLAwQUAAAICAAAGCHsOpLhAW0AAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9IzNNdRUEovSizIKAaKGII4pZkpIHa0komZuWViUqqFgYWReVJakqWusYG5hamBsUFKqmlKsnmamVIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAAGCHsefkwAmACAAASBQAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAGCHsOpLhAW0AAAB4AAAACQAkAAAAAAAAAAAAAACtAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAGUDAAAAAA==
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
