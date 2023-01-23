@@ -5,6 +5,8 @@
 reachedDestination: True, если ИИ достиг #destination. Все скрипты движения, включенные в пакет, реализуют интерфейс Pathfinding.IAstarAI;
 Ознакомиться с видео по 2Д с видом сверху;
 https://arongranberg.com/astar/documentation/4_2_3_2acad22a/turnbased.html
+
+Повесить BoxCollider2D на всех, включая сам Ground;
 Проверить инициализацию букв согласно правкам BoxCollider2D.bounds, заменить на Collider, если не сработает;
 Проверить метод Spawn();
 В коллайдере буквы поставить галочку триггер и проверить уничтожение, когда прикасается игрок;
