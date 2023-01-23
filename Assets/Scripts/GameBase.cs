@@ -18,6 +18,7 @@ public class GameBase : MonoBehaviour
     private List<Letter> lets;
     private List<BoxCollider2D> cols;
     private GameObject table;
+    private Vector2 pos;
     
     void Start()
     {
@@ -37,6 +38,7 @@ public class GameBase : MonoBehaviour
 	    wordAnchor = wordGO.transform;
 	}
 	table = GameObject.Find("Ground");
+	pos = table.transform.position;
         InitLevel(wordsFromText);
     }
     
@@ -80,7 +82,6 @@ public class GameBase : MonoBehaviour
     
     private Vector2 Spawn()
     {
-    	pos = table.transform.position;
     	float x, y;
 	x = Random.Range(pos.x - Random.Range(0, table.bounds.extents.x), pos.x + Random.Range(0, table.bounds.extents.x));
      	y = Random.Range(pos.y - Random.Range(0, table.bounds.extents.y), pos.y + Random.Range(0, table.bounds.extents.y));
