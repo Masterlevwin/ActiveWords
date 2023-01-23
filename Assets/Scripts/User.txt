@@ -11,3 +11,4 @@ https://arongranberg.com/astar/documentation/4_2_3_2acad22a/turnbased.html
 Проверить метод Spawn();
 В коллайдере буквы поставить галочку триггер и проверить уничтожение, когда прикасается игрок;
 Проверить работу Invoke в SunRays.GameController;
+The Last of Us (Google и сериал);
