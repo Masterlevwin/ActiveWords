@@ -91,7 +91,7 @@ public class GameBase : MonoBehaviour
 	else Spawn;
 	bool Point(Vector2 spawn)
 	{
-	    cols = Physics2D.OverlapBox(spawn, table.localScale/2);
+	    cols = Physics2D.OverlapBox(spawn, table.transform.localScale/2, 0f);
 	    if (cols.Length > 0) return false;
 	    else return true;
 	}
