@@ -17,6 +17,7 @@ public class GameBase : MonoBehaviour
     public Sprite[] letters;
     private List<Letter> lets;
     private List<BoxCollider2D> cols;
+    private GameObject table;
     
     void Start()
     {
@@ -35,6 +36,7 @@ public class GameBase : MonoBehaviour
 	    GameObject wordGO = new GameObject("Word");
 	    wordAnchor = wordGO.transform;
 	}
+	table = GameObject.Find("Ground");
         InitLevel(wordsFromText);
     }
     
@@ -62,7 +64,7 @@ public class GameBase : MonoBehaviour
 	letGO.transform.position = SpawnLetter();		// Определяем место буквы на игровом поле
 	cols.Add(letGO.GetComponent<BoxCollider2D>());
 	//spawns.Add(letGO.transform.position);			// Полученное место добавляем в список занятых
-	
+	//letGO.transform.position = Spawn();
         letGO.GetComponentInChildren<SpriteRenderer>().sprite = SetLetterSprite(l);	// Устанавливаем спрайт буквы
 	if (lets == null) lets = new List<Letter>();			// Создаем список букв
         Letter let = letGO.GetComponentInChildren<Letter>();		// Сохраняем ссылку на класс буквы дочернего объекта
@@ -74,6 +76,24 @@ public class GameBase : MonoBehaviour
      	Vector2 spawnLet = new Vector2(Random.Range(-8f, 8f), Random.Range(-3f, 3f));
 	foreach (BoxCollider2D col in cols) if (col.bounds.Contains(spawnLet)) return SpawnLetter();
 	return spawnLet;
+    }
+    
+    private Vector2 Spawn()
+    {
+    	pos = table.transform.position;
+    	float x, y;
+	x = Random.Range(pos.x - Random.Range(0, table.bounds.extents.x), pos.x + Random.Range(0, table.bounds.extents.x));
+     	y = Random.Range(pos.y - Random.Range(0, table.bounds.extents.y), pos.y + Random.Range(0, table.bounds.extents.y));
+	Vector2 spawnLet = new Vector2(x, y);
+	check = Point(spawnLet);
+	if (check) return spawnLet;
+	else Spawn;
+	bool Point(Vector2 spawn)
+	{
+	    cols = Physics2D.OverlapBox(spawn, table.localScale/2);
+	    if (cols.Length > 0) return false;
+	    else return true;
+	}
     }
     
     private Sprite SetLetterSprite(char l)
