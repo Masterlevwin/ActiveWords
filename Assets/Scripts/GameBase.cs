@@ -12,7 +12,7 @@ public class GameBase : MonoBehaviour
     private string[] wordsFromText;
     private Transform wordAnchor;
     public Text wordLevelText;
-    
+    public LayerMask m_LayerMask;
     public GameObject prefabLetter;
     public Sprite[] letters;
     private List<Letter> lets;
@@ -81,8 +81,9 @@ public class GameBase : MonoBehaviour
 
 	    bool Point(Vector2 spawn)
 	    {
-	        Collider[] cols = Physics.OverlapBox(spawn, table.transform.localScale/2);
-	        if (cols.Length > 0) return false;
+            Vector2 size = new Vector2(2f, 2f);
+	        Collider2D[] cols = Physics2D.OverlapBoxAll(spawn, size, 0f, m_LayerMask);
+            if (cols.Length > 0) return false;
 	        else return true;
 	    }
     }

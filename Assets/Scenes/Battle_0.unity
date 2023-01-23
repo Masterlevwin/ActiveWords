@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 165427250}
   - component: {fileID: 165427251}
-  - component: {fileID: 165427252}
   m_Layer: 3
   m_Name: Enemy_Sprite
   m_TagString: Untagged
@@ -208,32 +207,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &165427252
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 165427249}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.28866667}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!1 &180526191
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,6 +220,7 @@ GameObject:
   - component: {fileID: 180526195}
   - component: {fileID: 180526196}
   - component: {fileID: 180526197}
+  - component: {fileID: 180526198}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -366,6 +340,32 @@ MonoBehaviour:
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 1
   constrainInsideGraph: 0
+--- !u!61 &180526198
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180526191}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,6 +516,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textAsset: {fileID: 4900000, guid: 6d542f91817e9bb45abae6167be7c149, type: 3}
   wordLevelText: {fileID: 1610253523}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 72
   prefabLetter: {fileID: 4570235006794951168, guid: bc4f577ebb6a97d4381e59718f96e239, type: 3}
   letters:
   - {fileID: 21300000, guid: b69385d1ec70d1840a2b943b644bb71a, type: 3}
@@ -708,7 +711,6 @@ GameObject:
   m_Component:
   - component: {fileID: 827562243}
   - component: {fileID: 827562244}
-  - component: {fileID: 827562245}
   m_Layer: 3
   m_Name: Player_Sprite
   m_TagString: Untagged
@@ -783,32 +785,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &827562245
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 827562242}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!1 &1059791757
 GameObject:
   m_ObjectHideFlags: 0
@@ -820,7 +796,7 @@ GameObject:
   - component: {fileID: 1059791758}
   - component: {fileID: 1059791759}
   - component: {fileID: 1059791760}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Block_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1033,6 +1009,7 @@ GameObject:
   - component: {fileID: 1246530019}
   - component: {fileID: 1246530020}
   - component: {fileID: 1246530018}
+  - component: {fileID: 1246530021}
   m_Layer: 3
   m_Name: Enemy
   m_TagString: Untagged
@@ -1140,6 +1117,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   target: {fileID: 180526192}
+--- !u!61 &1246530021
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246530016}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &1446242352
 GameObject:
   m_ObjectHideFlags: 0
@@ -1334,7 +1337,7 @@ GameObject:
   - component: {fileID: 1639532844}
   - component: {fileID: 1639532845}
   - component: {fileID: 1639532846}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1533,7 +1536,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAAAYIex5+TACYAIAABIFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1T4kAQ/SvUnFcroAjsbRcV96BS4paXXIZMh0wxmUnNh4AW/327JwmJWHuief26+/XH5JNJ7SrIvLELK8WjEcB+DhjZ7Megcz7Anm+MXskPaDlvUviCSDxyXriXBvEhhTlTgrcy+6U3isgJgkHL3NjyTmxgbpx3COdcOUCXNZ6iNUKfA7bHn4sZhRzQGk3I+kBrlgyOaGagPdiO2hJbWs0KOlO8rECQ5I48nDTs6eU48jR201CSyzGlN0pJ14hh/lDFZldVARaoWyE59hYFUKsFyE3hSWc/9jnPHfhGlOWHW2lxRHVS9tvUcyu529bK3rkKVGY4nEVRddLHb/6LYXTn1pQPbd1hQjV8IbPtCz9k3PneYPvw7VfhQe+42vK1grcC9JNZWBO0QKe3gUKDg9Ft9/fU2ryAbNvhtdQzMFT/Xw/1cIzd7+dKlus4+OsaWCkTxx2XDxZX8wcFx9NwTQpEScVfB69807+hxnEvrfPoarrUJG9tgiUqu0eDJp8FPzdWQ0QbzRVorvxhiVl8f4Oj775e1TPPPafH0tRufO0bOAuJcMePW+y7lmZ32pUrzO4RXPEcvJIaOtHkeMIxzY3W9YG5r06KWgWb86wXtQlSfD0sdn0zmfE1TJPpaLLO17OLq2QyHSdXiYCxyCb5DYuXJzW2ydWy1tmsBHemu+Qar6z9hAwWllfx1oXlu4X8KE1Pn9S5WWUWQD/XGdoJObBYBB+luBMS57MC76WO22afKVMm24JIT4nS2Ond3luedllSVsl34wlJ2Tx+M1JG8OmSlxbeJeyoeJvsyI7/AFBLAwQUAAAICAAAGCHsOpLhAW0AAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9IzNNdRUEovSizIKAaKGII4pZkpIHa0komZuWViUqqFgYWReVJakqWusYG5hamBsUFKqmlKsnmamVIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAAGCHsefkwAmACAAASBQAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAGCHsOpLhAW0AAAB4AAAACQAkAAAAAAAAAAAAAACtAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAGUDAAAAAA==
+    dataString: UEsDBBQAAAgIAAAYIewLDWexXwIAABEFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1T4kAQ/SvUnFcroAjsbRcV96BS4paXXIZMh0wxmUnNh4AW/327JwmJWHuief26+/XH5JNJ7SrIvLELK8WjEcB+DhjZ7Megcz7Anm+MXskPaDlvUviCSDxyXriXBvEhhTlTgrcy+6U3isgJgkHL3NjyTmxgbpx3COdcOUCXNZ6iNUKfA7bHn4sZhRzQGk3I+kBrlgyOaGagPdiO2hJbWs0KOlO8rECQ5I48nDTs6eU48jR201CSyzGlN0pJ14hh/lDFZldVARaoWyE59hYFUKsFyE3hSWc/9jnPHfhGlOWHW2lxRHVS9tvUcyu529bK3rkKVObmOmqqcz5+c18Mozu3pnxoyw4TKuELmW1f+CHjzvfm2odvv+oOesfVlq8VvBWgn8zCmqAFOr0NFBocjG67v6fO5gVk2w6vpZ6Bofr/dqiHY2x+P1eyXMe5X9fASpk47bh7sLiZPyg4XoZrUiBKKv46eOWb/gk1jntpnUdX06UmeWsTLFHZPRo0+Cz4ubEaItporkBz5Q9LzOL7Cxx99/WqnnnuOb2Vpnbja5/AWUiEO37cYt+1NLvTrlxhdo/giufgldTQiSbHE45pbrSu78t9dVLUKticZ72oTZDi62Gx65vJjK9hmkxHk3W+nl1cJZPpOLlKBIxFNslvWLw8qbFNrpa1zmYluDPdJdd4Ze0XZLCwvIqnLizfLeRHaXr6pM7NKrMA+rnO0E7IgcUi+CbFnZA4nxV4L3XcNvtMmTLZFkR6SpTGTu/23vK0y5KySr4bT0jK5vGTkTKCT5e8tPAuYUfF22RHdvwHUEsDBBQAAAgIAAAYIew6kuEBbQAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM011FQSi9KLMgoBooYgjilmSkgdrSSiZm5ZWJSqoWBhZF5UlqSpa6xgbmFqYGxQUqqaUqyeZqZUixQfUllQapfYm4qRE9AYklGWmZeSmZeup57UWaKO8hopdhaAFBLAQItABQAAAgIAAAYIewLDWexXwIAABEFAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAAAYIew6kuEBbQAAAHgAAAAJACQAAAAAAAAAAAAAAKwCAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAZAMAAAAA
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
