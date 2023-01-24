@@ -58,12 +58,12 @@ public class GameBase : MonoBehaviour
     private void MakeLetter(char l)
     {
         GameObject letGO = Instantiate(prefabLetter);		            // Инициализируем объект буквы
-	    letGO.transform.SetParent(wordAnchor);			                // Прячем её в иерархии
+	letGO.transform.SetParent(wordAnchor);			                // Прячем её в иерархии
 	    
         letGO.transform.position = Spawn();                             // Определяем позицию буквы на сцене
         
         letGO.GetComponentInChildren<SpriteRenderer>().sprite = SetLetterSprite(l);     // Устанавливаем спрайт буквы
-	    if (lets == null) lets = new List<Letter>();			        // Создаем список букв
+	if (lets == null) lets = new List<Letter>();			        // Создаем список букв
         Letter let = letGO.GetComponentInChildren<Letter>();		    // Сохраняем ссылку на класс буквы дочернего объекта
         lets.Add(let);							                        // Добавляем букву в список для дальнейшей работы со списком
     }
@@ -71,21 +71,20 @@ public class GameBase : MonoBehaviour
     private Vector2 Spawn()
     {
     	float x, y;
-	    x = Random.Range(pos.x - Random.Range(0, table.bounds.extents.x), pos.x + Random.Range(0, table.bounds.extents.x));
-     	y = Random.Range(pos.y - Random.Range(0, table.bounds.extents.y), pos.y + Random.Range(0, table.bounds.extents.y));
-	    Vector2 spawnLet = new Vector3(x, y);
-
-	    bool check = Point(spawnLet);
-	    if (check) return spawnLet;
-	    else return Spawn();
-
-	    bool Point(Vector2 spawn)
-	    {
+	x = Random.Range(pos.x - Random.Range(0, table.bounds.extents.x), pos.x + Random.Range(0, table.bounds.extents.x));
+	y = Random.Range(pos.y - Random.Range(0, table.bounds.extents.y), pos.y + Random.Range(0, table.bounds.extents.y));
+	Vector2 spawnLet = new Vector2(x, y);
+	
+	bool check = Point(spawnLet);
+	if (check) return spawnLet;
+	else return Spawn();
+	bool Point(Vector2 spawn)
+	{
             Vector2 size = new Vector2(2f, 2f);
-	        Collider2D[] cols = Physics2D.OverlapBoxAll(spawn, size, 0f, m_LayerMask);
+	    Collider2D[] cols = Physics2D.OverlapBoxAll(spawn, size, 0f, m_LayerMask);
             if (cols.Length > 0) return false;
-	        else return true;
-	    }
+	    else return true;
+	}
     }
     
     private Sprite SetLetterSprite(char l)
@@ -125,12 +124,5 @@ public class GameBase : MonoBehaviour
         else if (l == 'ю') spLet = letters[31];
         else if (l == 'я') spLet = letters[32];
         return spLet;
-    }
-	
-    public static float RandomWithoutFloat(float from, float to, float without = 0f)
-    {
-        float res = Random.Range(from, to);
-        if (res != without) return res;
-        else return RandomWithoutFloat(from, to, without);
     }
 }
