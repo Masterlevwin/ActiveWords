@@ -5,8 +5,8 @@ using UnityEngine.EventSystems;
 
 public class Letter : MonoBehaviour, IPointerClickHandler
 {
-    public delegate void Take(Letter l);
-    public event Take takeNotify;
+    public delegate void DelegateTake(Letter l);
+    public DelegateTake takeNotify;
     
     public void OnPointerClick(PointerEventData eventData)
     {
