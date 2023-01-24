@@ -5,7 +5,10 @@ using UnityEngine.EventSystems;
 
 public class Letter : MonoBehaviour, IPointerClickHandler
 {
-    public Vector2 posLet { get; private set };
+    public delegate void Take(Letter l);
+    public event Take takeNotify, cancelNotify;
+    
+    public Vector2 posLet { private set; get; }
     
     private void OnEnable()
     {
@@ -19,14 +22,16 @@ public class Letter : MonoBehaviour, IPointerClickHandler
     
     public void OnPointerClick(PointerEventData eventData)
     {
-        GameBase.G.cancelNotify(this);
+        Debug.Log(name);
+        cancelNotify?.Invoke(this);
     }
     
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player")
         {
-            GameBase.G.takeNotify(this);
+            Debug.Log(name);
+            takeNotify?.Invoke(this);
         }
     }
     

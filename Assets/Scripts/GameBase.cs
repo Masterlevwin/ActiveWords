@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Pathfinding;
 
 public enum GamePhase
 {
+    init,
     game,
     complete,
     pause
@@ -15,11 +17,8 @@ public class GameBase : MonoBehaviour
 {
     public static GameBase G;
     public GamePhase phase = GamePhase.init;
-    public IAstarAI enemy;
+    public AIPath enemy;
     public Init init;
-    
-    public delegate void Take(Letter l);
-    public event Take takeNotify, cancelNotify;
     
     void Start()
     {
@@ -31,8 +30,11 @@ public class GameBase : MonoBehaviour
 
     public void StartGame()
     {
-        takeNotify += AddToWord;
-        cancelNotify += RemoveAtWord;
+        foreach (Letter l in init.lets)
+        {
+            l.takeNotify += AddToWord;
+            l.cancelNotify += RemoveAtWord;
+        }
         phase = GamePhase.game;
     }
     
@@ -67,16 +69,5 @@ public class GameBase : MonoBehaviour
     {
         if (phase != GamePhase.game) enemy.gameObject.SetActive(false);
         else enemy.gameObject.SetActive(true);
-    }
-    
-    public static Coroutine Invoke(this MonoBehaviour monoBehaviour, Action action, float time)
-    {
-        return monoBehaviour.StartCoroutine(InvokeAct(action, time));
-    }
-    
-    private static IEnumerator InvokeAct(Action action, float time)
-    {
-        yield return new WaitForSeconds(time);
-        action();
     }
 }

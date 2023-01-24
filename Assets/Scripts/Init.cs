@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Threading.Tasks;
+using System.Threading;
 
 public class Init : MonoBehaviour
 {    
@@ -16,7 +18,7 @@ public class Init : MonoBehaviour
     public LayerMask obtacleMask;
     
     public Sprite[] letters;
-    private List<Letter> lets;
+    public List<Letter> lets;
     
     private BoxCollider2D table;
     private Vector2 pos;
@@ -24,60 +26,52 @@ public class Init : MonoBehaviour
     
     void Start()
     {
-    	wordsFromTextAsset = ParseText(textAsset.text);	// Загружаем в массив все слова из текстового ассета
-	if (GameObject.Find("Words") == null)		// Создаем пустой объект в иерархии, чтобы спрятать туда сгенерированные буквы
-	{
-	    GameObject wordGO = new GameObject("Words");
-	    wordAnchor = wordGO.transform;
-	}
-	table = GameObject.Find("BG").GetComponent<BoxCollider2D>();
-	pos = table.transform.position;
-	InitLevel(wordsFromTextAsset);
+        wordsFromTextAsset = ParseText(textAsset.text);	// Загружаем в массив все слова из текстового ассета
+	    if (GameObject.Find("Words") == null)		// Создаем пустой объект в иерархии, чтобы спрятать туда сгенерированные буквы
+	    {
+	        GameObject wordGO = new GameObject("Words");
+	        wordAnchor = wordGO.transform;
+	    }
+	    table = GameObject.Find("BG").GetComponent<BoxCollider2D>();
+	    pos = table.transform.position;
+	    InitLevel(wordsFromTextAsset);
     }
     
     private string[] ParseText(string txt)
     {
     	string[] lines = txt.Split("\n");
-	return lines;
+	    return lines;
     }
     
     public void Reset()
     {
     	wordLevelText.text = $"";
     	if (lets != null && lets.Count > 0) lets.Clear();
-	if (cols != null && cols.Count > 0) cols.Clear();
 	foreach (Transform child in wordAnchor) Destroy(child.gameObject);
 	InitLevel(wordsFromTextAsset);
     }
     
-    private void InitLevel(string[] words)
+    private async void InitLevel(string[] words)
     {
     	GameBase.G.phase = GamePhase.pause;
     	if (lets == null) lets = new List<Letter>();
     	string wordLevel = words[Random.Range(0, words.Length)];	// Выбираем слово для уровня из массива
     	wordLevelText.text = wordLevel;					// Отображаем это слово в канвасе - временно для отладки
     	char[] chars = wordLevel.ToCharArray();				// Преобразуем выбранное слово в массив символов (букв)
-    	for (int i = 0; i < chars.Length; i++) StartCoroutine(MakeLetter(chars[i]));	// Рисуем каждую букву
-	//for (int j = 0; j < lets.Count; j++) StartCoroutine(SetActiveLetter(lets[j]));
-	GameBase.G.StartGame();
+    	for (int i = 0; i < chars.Length; i++) await MakeLetter(chars[i]);	// Рисуем каждую букву
+	    GameBase.G.StartGame();
     }
     
-    private IEnumerator MakeLetter(char l, float delay = 1f)		// Рисуем каждую букву с интервалом в секунду по умолчанию
+    private async Task MakeLetter(char l, float delay = 1f)		// Рисуем каждую букву с интервалом в секунду по умолчанию
     {
-    	yield return new WaitForSeconds(delay);
+        await Task.Delay(500);
         GameObject letGO = Instantiate(prefabLetter);			// Инициализируем объект буквы
-	letGO.transform.SetParent(wordAnchor);				// Прячем её в иерархии
+	    letGO.transform.SetParent(wordAnchor);				// Прячем её в иерархии
         letGO.transform.position = Spawn();				// Определяем позицию буквы на сцене
-	letGO.GetComponentInChildren<SpriteRenderer>().sprite = SetLetterSprite(l);     // Устанавливаем спрайт буквы
-	Letter let = letGO.GetComponentInChildren<Letter>();
-	lets.Add(let);
+	    letGO.GetComponentInChildren<SpriteRenderer>().sprite = SetLetterSprite(l);     // Устанавливаем спрайт буквы
+	    Letter let = letGO.GetComponent<Letter>();
+	    lets.Add(let);
     }
-    
-    private IEnumerator SetActiveLetter(Letter l, float delay = 1f)
-    {
-    	yield return new WaitForSeconds(delay);
-	l.gameObject.SetActive(true);
-    } 
     
     private Vector2 Spawn()
     {
@@ -100,7 +94,7 @@ public class Init : MonoBehaviour
     private Sprite SetLetterSprite(char l)
     {
     	Sprite spLet = null;
-	if (l == 'а') spLet = letters[0];
+	    if (l == 'а') spLet = letters[0];
         else if (l == 'б') spLet = letters[1];
         else if (l == 'в') spLet = letters[2];
         else if (l == 'г') spLet = letters[3];
