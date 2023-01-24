@@ -18,18 +18,21 @@ public class GameBase : MonoBehaviour
     public IAstarAI enemy;
     public Init init;
     
+    public delegate void Take(Letter l);
+    public event Take takeNotify, cancelNotify;
+    
     void Start()
     {
         if (G == null) G = this;
         else if (G == this) Destroy(gameObject);
         
         init = GetComponent<Init>();
-        foreach (GameObject lGO in init.lets) lGO.takeNotify += MoveToWord;
     }
 
-    public void StartGame(ref List<GameObject> lets)
+    public void StartGame()
     {
-        foreach (GameObject g in lets) Debug.Log(g.name);
+        takeNotify += AddToWord;
+        cancelNotify += RemoveAtWord;
         phase = GamePhase.game;
     }
     
@@ -38,20 +41,21 @@ public class GameBase : MonoBehaviour
         phase = GamePhase.complete;
     }
     
-    public void CancelLetter()
+    private void RemoveAtWord(Letter l)
     {
-        
-    }
+        if (init.lets.Contains(l)) init.lets.Remove(l);
+        StartCoroutine(Move(l, l.posLet));
+    } 
     
-    private void MoveToWord(GameObject l)
+    private void AddToWord(Letter l)
     {
-        StartCoroutine(Move(l));
+        if (!init.lets.Contains(l)) init.lets.Add(l);
+        StartCoroutine(Move(l, new Vector2(0, -5f)));
     }
 
-    private IEnumerator Move(GameObject l)
+    private IEnumerator Move(Letter l, Vector2 target)
     {
         float step = 5f * Time.deltaTime;
-        Vector2 target = new Vector2(0, -5f);
         while (Vector2.Distance(l.transform.position, target) > float.Epsilon)
         {
             l.transform.position = Vector2.MoveTowards(l.transform.position, target, step);
