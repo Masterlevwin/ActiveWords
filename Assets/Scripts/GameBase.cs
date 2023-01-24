@@ -125,4 +125,15 @@ public class GameBase : MonoBehaviour
         else if (l == 'я') spLet = letters[32];
         return spLet;
     }
+    
+    public static Coroutine Invoke(this MonoBehaviour monoBehaviour, Action action, float time)
+    {
+        return monoBehaviour.StartCoroutine(InvokeAct(action, time));
+    }
+
+    private static IEnumerator InvokeAct(Action action, float time)
+    {
+        yield return new WaitForSeconds(time);
+        action();
+    }
 }
