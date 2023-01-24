@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Letter : MonoBehaviour
+public class Letter : MonoBehaviour, IPointerClickHandler
 {
-    public delegate void DelegateTake(GameObject l);
-    public DelegateTake takeDelegate;
-    
     public Vector2 posLet { get; private set };
     
     private void OnEnable()
@@ -20,11 +17,17 @@ public class Letter : MonoBehaviour
         posLet = pos;
     }
     
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        GameBase.G.cancelNotify(this);
+    }
+    
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player")
         {
-            takeDelegate(this.gameObject);
+            GameBase.G.takeNotify(this);
         }
     }
+    
 }
