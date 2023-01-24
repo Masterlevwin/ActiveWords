@@ -5,6 +5,9 @@ using UnityEngine.EventSystems;
 
 public class Letter : MonoBehaviour, IPointerClickHandler
 {
+    public delegate void Take(Letter l);
+    public event Take takeNotify;
+    
     public void OnPointerClick(PointerEventData eventData)
     {
 
@@ -14,6 +17,7 @@ public class Letter : MonoBehaviour, IPointerClickHandler
     {
         if (other.gameObject.tag == "Player")
         {
+            takeNotify(this);
             Destroy(gameObject);
         }
     }
