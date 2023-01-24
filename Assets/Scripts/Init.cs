@@ -45,11 +45,12 @@ public class Init : MonoBehaviour
     	string wordLevel = words[Random.Range(0, words.Length)];	// Выбираем слово для уровня из массива
     	wordLevelText.text = wordLevel;					// Отображаем это слово в канвасе - временно для отладки
     	char[] chars = wordLevel.ToCharArray();				// Преобразуем выбранное слово в массив символов (букв)
-    	for (int i = 0; i < chars.Length; i++) GameBase.Invoke(MakeLetter(chars[i]), 1f);	// Рисуем каждую букву с интервалом в секунду
+    	for (int i = 0; i < chars.Length; i++) StartCoroutine(MakeLetter(chars[i]));	// Рисуем каждую букву
     }
     
-    private void MakeLetter(char l)
+    private IEnumerator MakeLetter(char l, float delay = 1f)		// Рисуем каждую букву с интервалом в секунду по умолчанию
     {
+    	yield return new WaitForSeconds(delay);
         GameObject letGO = Instantiate(prefabLetter);			// Инициализируем объект буквы
 	letGO.transform.SetParent(wordAnchor);				// Прячем её в иерархии
         letGO.transform.position = Spawn();				// Определяем позицию буквы на сцене
