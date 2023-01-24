@@ -59,7 +59,7 @@ public class Init : MonoBehaviour
     	char[] chars = wordLevel.ToCharArray();				// Преобразуем выбранное слово в массив символов (букв)
     	for (int i = 0; i < chars.Length; i++) StartCoroutine(MakeLetter(chars[i]));	// Рисуем каждую букву
 	//for (int j = 0; j < lets.Count; j++) StartCoroutine(SetActiveLetter(lets[j]));
-	GameBase.G.StartGame();
+	GameBase.G.StartGame(ref lets);
     }
     
     private IEnumerator MakeLetter(char l, float delay = 1f)		// Рисуем каждую букву с интервалом в секунду по умолчанию
