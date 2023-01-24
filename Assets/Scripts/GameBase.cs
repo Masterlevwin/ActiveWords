@@ -26,18 +26,22 @@ public class GameBase : MonoBehaviour
     public void StartGame()
     {
         phase = GamePhase.game;
-        enemy.gameObject.SetActive(true);
     }
     
     public void CompleteGame()
     {
         phase = GamePhase.complete;
-        enemy.gameObject.SetActive(false);
     }
     
     public static Coroutine Invoke(this MonoBehaviour monoBehaviour, Action action, float time)
     {
         return monoBehaviour.StartCoroutine(InvokeAct(action, time));
+    }
+
+    void Update()
+    {
+        if (phase != GamePhase.game) enemy.gameObject.SetActive(false);
+        else enemy.gameObject.SetActive(true);
     }
 
     private static IEnumerator InvokeAct(Action action, float time)
