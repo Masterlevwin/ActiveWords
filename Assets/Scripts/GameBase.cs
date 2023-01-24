@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public enum GamePhase
 {
-    init,
+    game,
     complete,
     pause
 }
@@ -15,11 +15,18 @@ public class GameBase : MonoBehaviour
 {
     public static GameBase G;
     public GamePhase phase = GamePhase.init;
+    public IAstarAI enemy;
     
     void Start()
     {
         if (G == null) G = this;
         else if (G == this) Destroy(gameObject);
+    }
+
+    public void StartGame()
+    {
+        phase = GamePhase.game;
+        enemy.gameObject.SetActive(true);
     }
 
     public static Coroutine Invoke(this MonoBehaviour monoBehaviour, Action action, float time)
