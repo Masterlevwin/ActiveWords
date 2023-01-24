@@ -23,8 +23,9 @@ public class GameBase : MonoBehaviour
         else if (G == this) Destroy(gameObject);
     }
 
-    public void StartGame()
+    public void StartGame(ref List<GameObject> lets)
     {
+        foreach (GameObject g in lets) Debug.Log(g.name);
         phase = GamePhase.game;
     }
     
