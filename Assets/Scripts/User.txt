@@ -12,3 +12,6 @@ https://arongranberg.com/astar/documentation/4_2_3_2acad22a/turnbased.html
 В коллайдере буквы поставить галочку триггер и проверить уничтожение, когда прикасается игрок;
 Проверить работу Invoke в SunRays.GameController;
 The Last of Us (Google и сериал);
+Заменить слои Player и Letter на Obtacle, и выставить его на всех объектах кроме земли;
+Добавить теги Player и Letter и назначить их соответствующим объектам;
+Проверить инициализацию букв каждую секунду;
