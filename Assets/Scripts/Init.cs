@@ -43,12 +43,14 @@ public class Init : MonoBehaviour
     
     private void InitLevel(string[] words)
     {
+    	GameBase.G.phase = GamePhase.pause;
     	if (lets == null) lets = new List<GameObject>();
     	string wordLevel = words[Random.Range(0, words.Length)];	// Выбираем слово для уровня из массива
     	wordLevelText.text = wordLevel;					// Отображаем это слово в канвасе - временно для отладки
     	char[] chars = wordLevel.ToCharArray();				// Преобразуем выбранное слово в массив символов (букв)
     	for (int i = 0; i < chars.Length; i++) StartCoroutine(MakeLetter(chars[i]));	// Рисуем каждую букву
 	//for (int j = 0; j < lets.Count; j++) StartCoroutine(SetActiveLetter(lets[j]));
+	GameBase.G.phase = GamePhase.game;
     }
     
     private IEnumerator MakeLetter(char l, float delay = 1f)		// Рисуем каждую букву с интервалом в секунду по умолчанию
