@@ -41,6 +41,15 @@ public class Init : MonoBehaviour
 	return lines;
     }
     
+    public void Reset()
+    {
+    	wordLevelText.text = $"";
+    	if (lets != null && lets.Count > 0) lets.Clear();
+	if (cols != null && cols.Count > 0) cols.Clear();
+	foreach (Transform child in wordAnchor) Destroy(child.gameObject);
+	InitLevel(wordsFromTextAsset);
+    }
+    
     private void InitLevel(string[] words)
     {
     	GameBase.G.phase = GamePhase.pause;
