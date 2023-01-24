@@ -16,7 +16,7 @@ public class Init : MonoBehaviour
     public LayerMask obtacleMask;
     
     public Sprite[] letters;
-    private List<GameObject> lets;
+    private List<Letter> lets;
     
     private BoxCollider2D table;
     private Vector2 pos;
@@ -53,7 +53,7 @@ public class Init : MonoBehaviour
     private void InitLevel(string[] words)
     {
     	GameBase.G.phase = GamePhase.pause;
-    	if (lets == null) lets = new List<GameObject>();
+    	if (lets == null) lets = new List<Letter>();
     	string wordLevel = words[Random.Range(0, words.Length)];	// Выбираем слово для уровня из массива
     	wordLevelText.text = wordLevel;					// Отображаем это слово в канвасе - временно для отладки
     	char[] chars = wordLevel.ToCharArray();				// Преобразуем выбранное слово в массив символов (букв)
@@ -69,13 +69,14 @@ public class Init : MonoBehaviour
 	letGO.transform.SetParent(wordAnchor);				// Прячем её в иерархии
         letGO.transform.position = Spawn();				// Определяем позицию буквы на сцене
 	letGO.GetComponentInChildren<SpriteRenderer>().sprite = SetLetterSprite(l);     // Устанавливаем спрайт буквы
-	lets.Add(letGO);
+	Letter let = letGO.GetComponentInChildren<Letter>();
+	lets.Add(let);
     }
     
-    private IEnumerator SetActiveLetter(GameObject go, float delay = 1f)
+    private IEnumerator SetActiveLetter(Letter l, float delay = 1f)
     {
     	yield return new WaitForSeconds(delay);
-	go.SetActive(true);
+	l.gameObject.SetActive(true);
     } 
     
     private Vector2 Spawn()
