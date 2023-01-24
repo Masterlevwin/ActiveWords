@@ -5,8 +5,8 @@ using UnityEngine.EventSystems;
 
 public class Letter : MonoBehaviour
 {
-    public delegate void DelegateTake(Letter l);
-    public DelegateTake takeNotify;
+    public delegate void DelegateTake(GameObject l);
+    public DelegateTake takeDelegate;
     
     public Vector2 posLet { get; private set };
     
@@ -24,8 +24,7 @@ public class Letter : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            takeNotify(this);
-            Destroy(gameObject);
+            takeDelegate(this.gameObject);
         }
     }
 }
