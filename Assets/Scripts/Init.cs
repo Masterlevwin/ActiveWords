@@ -27,7 +27,7 @@ public class Init : MonoBehaviour
     void Start()
     {
         wordsFromTextAsset = ParseText(textAsset.text);	// Загружаем в массив все слова из текстового ассета
-	    if (GameObject.Find("Words") == null)		// Создаем пустой объект в иерархии, чтобы спрятать туда сгенерированные буквы
+	    if (GameObject.Find("Words") == null)		    // Создаем пустой объект в иерархии, чтобы спрятать туда сгенерированные буквы
 	    {
 	        GameObject wordGO = new GameObject("Words");
 	        wordAnchor = wordGO.transform;
@@ -47,8 +47,8 @@ public class Init : MonoBehaviour
     {
     	wordLevelText.text = $"";
     	if (lets != null && lets.Count > 0) lets.Clear();
-	foreach (Transform child in wordAnchor) Destroy(child.gameObject);
-	InitLevel(wordsFromTextAsset);
+	    foreach (Transform child in wordAnchor) Destroy(child.gameObject);
+	    InitLevel(wordsFromTextAsset);
     }
     
     private async void InitLevel(string[] words)
@@ -56,39 +56,40 @@ public class Init : MonoBehaviour
     	GameBase.G.phase = GamePhase.pause;
     	if (lets == null) lets = new List<Letter>();
     	string wordLevel = words[Random.Range(0, words.Length)];	// Выбираем слово для уровня из массива
-    	wordLevelText.text = wordLevel;					// Отображаем это слово в канвасе - временно для отладки
-    	char[] chars = wordLevel.ToCharArray();				// Преобразуем выбранное слово в массив символов (букв)
-    	for (int i = 0; i < chars.Length; i++) await MakeLetter(chars[i]);	// Рисуем каждую букву
+    	wordLevelText.text = wordLevel;					            // Отображаем это слово в канвасе - временно для отладки
+    	char[] chars = wordLevel.ToCharArray();				        // Преобразуем выбранное слово в массив символов (букв)
+    	for (int i = 0; i < chars.Length; i++) await MakeLetter(chars[i]);	            // Рисуем каждую букву
 	    GameBase.G.StartGame();
     }
     
-    private async Task MakeLetter(char l, float delay = 1f)		// Рисуем каждую букву с интервалом в секунду по умолчанию
+    private async Task MakeLetter(char l, float delay = 1f)		    // Рисуем каждую букву с интервалом в секунду по умолчанию
     {
         await Task.Delay(500);
-        GameObject letGO = Instantiate(prefabLetter);			// Инициализируем объект буквы
-	    letGO.transform.SetParent(wordAnchor);				// Прячем её в иерархии
-        letGO.transform.position = Spawn();				// Определяем позицию буквы на сцене
+        GameObject letGO = Instantiate(prefabLetter);			    // Инициализируем объект буквы
+	    letGO.transform.SetParent(wordAnchor);				        // Прячем её в иерархии
+        letGO.transform.position = Spawn();				            // Определяем позицию буквы на сцене
 	    letGO.GetComponentInChildren<SpriteRenderer>().sprite = SetLetterSprite(l);     // Устанавливаем спрайт буквы
 	    Letter let = letGO.GetComponent<Letter>();
+        let.SetLetterPos(let.transform.position);
 	    lets.Add(let);
     }
     
     private Vector2 Spawn()
     {
     	float x, y;
-	x = Random.Range(pos.x - Random.Range(0, table.bounds.extents.x), pos.x + Random.Range(0, table.bounds.extents.x));
-	y = Random.Range(pos.y - Random.Range(0, table.bounds.extents.y), pos.y + Random.Range(0, table.bounds.extents.y));
-	Vector2 spawnLet = new Vector2(x, y);
+	    x = Random.Range(pos.x - Random.Range(0, table.bounds.extents.x), pos.x + Random.Range(0, table.bounds.extents.x));
+	    y = Random.Range(pos.y - Random.Range(0, table.bounds.extents.y), pos.y + Random.Range(0, table.bounds.extents.y));
+	    Vector2 spawnLet = new Vector2(x, y);
 
-	if (Point(spawnLet)) return spawnLet;
-	else return Spawn();
-	bool Point(Vector2 spawn)
-	{
-	    Vector2 size = new Vector2(2f, 2f);
-	    cols = Physics2D.OverlapBoxAll(spawn, size, 0f, obtacleMask);
+	    if (Point(spawnLet)) return spawnLet;
+	    else return Spawn();
+	    bool Point(Vector2 spawn)
+	    {
+	        Vector2 size = new Vector2(2f, 2f);
+	        cols = Physics2D.OverlapBoxAll(spawn, size, 0f, obtacleMask);
             if (cols.Length > 0) return false;
-	    else return true;
-	}
+	        else return true;
+	    }
     }
     
     private Sprite SetLetterSprite(char l)

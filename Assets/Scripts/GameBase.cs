@@ -17,6 +17,9 @@ public class GameBase : MonoBehaviour
 {
     public static GameBase G;
     public GamePhase phase = GamePhase.init;
+
+    public List<Letter> word;
+    public AIPath player;
     public AIPath enemy;
     public Init init;
     
@@ -30,6 +33,7 @@ public class GameBase : MonoBehaviour
 
     public void StartGame()
     {
+        if (word == null) word = new List<Letter>();
         foreach (Letter l in init.lets)
         {
             l.takeNotify += AddToWord;
@@ -45,19 +49,25 @@ public class GameBase : MonoBehaviour
     
     private void RemoveAtWord(Letter l)
     {
-        if (init.lets.Contains(l)) init.lets.Remove(l);
-        StartCoroutine(Move(l, l.posLet));
+        if (word != null && word.Contains(l))
+        {
+            word.Remove(l);
+            StartCoroutine(Move(l, l.posLet));
+        }
     } 
     
     private void AddToWord(Letter l)
     {
-        if (!init.lets.Contains(l)) init.lets.Add(l);
-        StartCoroutine(Move(l, new Vector2(0, -5f)));
+        if (word != null && !word.Contains(l))
+        {
+            word.Add(l);
+            StartCoroutine(Move(l, new Vector2(0, -4f)));
+        } 
     }
 
     private IEnumerator Move(Letter l, Vector2 target)
     {
-        float step = 5f * Time.deltaTime;
+        float step = 3f * Time.deltaTime;
         while (Vector2.Distance(l.transform.position, target) > float.Epsilon)
         {
             l.transform.position = Vector2.MoveTowards(l.transform.position, target, step);
@@ -67,7 +77,15 @@ public class GameBase : MonoBehaviour
     
     void Update()
     {
-        if (phase != GamePhase.game) enemy.gameObject.SetActive(false);
-        else enemy.gameObject.SetActive(true);
+        if (phase != GamePhase.game)
+        {
+            player.canMove = false;
+            enemy.canMove = false;
+        } 
+        else
+        {
+            player.canMove = true;
+            enemy.canMove = true;
+        }
     }
 }

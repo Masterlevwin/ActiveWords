@@ -22,7 +22,6 @@ public class Letter : MonoBehaviour, IPointerClickHandler
     
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log(name);
         cancelNotify?.Invoke(this);
     }
     
@@ -30,7 +29,6 @@ public class Letter : MonoBehaviour, IPointerClickHandler
     {
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log(name);
             takeNotify?.Invoke(this);
         }
     }
