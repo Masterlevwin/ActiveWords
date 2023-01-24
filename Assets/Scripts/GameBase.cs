@@ -16,11 +16,15 @@ public class GameBase : MonoBehaviour
     public static GameBase G;
     public GamePhase phase = GamePhase.init;
     public IAstarAI enemy;
+    public Init init;
     
     void Start()
     {
         if (G == null) G = this;
         else if (G == this) Destroy(gameObject);
+        
+        init = GetComponent<Init>();
+        foreach (GameObject lGO in init.lets) lGO.takeNotify += MoveToWord;
     }
 
     public void StartGame(ref List<GameObject> lets)
@@ -32,6 +36,27 @@ public class GameBase : MonoBehaviour
     public void CompleteGame()
     {
         phase = GamePhase.complete;
+    }
+    
+    public void CancelLetter()
+    {
+        
+    }
+    
+    private void MoveToWord(GameObject l)
+    {
+        StartCoroutine(Move(l));
+    }
+
+    private IEnumerator Move(GameObject l)
+    {
+        float step = 5f * Time.deltaTime;
+        Vector2 target = new Vector2(0, -5f);
+        while (Vector2.Distance(l.transform.position, target) > float.Epsilon)
+        {
+            l.transform.position = Vector2.MoveTowards(l.transform.position, target, step);
+            yield return null;
+        }
     }
     
     void Update()
