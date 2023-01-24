@@ -28,7 +28,13 @@ public class GameBase : MonoBehaviour
         phase = GamePhase.game;
         enemy.gameObject.SetActive(true);
     }
-
+    
+    public void CompleteGame()
+    {
+        phase = GamePhase.complete;
+        enemy.gameObject.SetActive(false);
+    }
+    
     public static Coroutine Invoke(this MonoBehaviour monoBehaviour, Action action, float time)
     {
         return monoBehaviour.StartCoroutine(InvokeAct(action, time));
