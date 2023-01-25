@@ -67,6 +67,8 @@ public class Init : MonoBehaviour
     private async void InitLevel(string[] words)
     {
     	GameBase.G.phase = GamePhase.pause;
+	GameBase.G.player.transform.position = Spawn();
+	GameBase.G.enemy.transform.position = Spawn();
     	if (lets == null) lets = new List<Letter>();
     	string wordLevel = words[Random.Range(0, words.Length)];			// Выбираем слово для уровня из массива
     	wordLevelText.text = wordLevel;							// Отображаем это слово в канвасе - временно для отладки
