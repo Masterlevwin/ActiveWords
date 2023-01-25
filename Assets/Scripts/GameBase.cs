@@ -33,20 +33,19 @@ public class GameBase : MonoBehaviour
         init = GetComponent<Init>();
     }
 
-    public void StartGame(char[] chars)
+    public void StartGame()
     {
         if (letDict == null) letDict = new Dictionary<Vector2, Letter>();
-        letDict.Count = chars.Length;
-        
+        else letDict.Clear();
         if (GameObject.Find("Cells") == null) GameObject cellGO = new GameObject("Cells");
         Letter l = null;
         Vector2 cell = Vector2.zero;
-        for (int i = 0; i < letDict.Count; i++) 
+        for (int i = 0; i < init.lets.Count; i++) 
         {
-            float v = letDict.Count/2;
+            float v = init.lets.Count/2;
             cell = new Vector2(.5f - v + i, -4f);
             Instantiate(cellPrefab, cell, cellGO.transform);
-            letDict.Add(cell, l);
+            letDict.Add(cell, null); //l
         }
 
         foreach (Letter l in init.lets)
