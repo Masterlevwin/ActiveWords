@@ -30,20 +30,20 @@ public class Init : MonoBehaviour
     void Start()
     {
     	if (cancelTokenSource == null)
-        {
+	{
             cancelTokenSource = new CancellationTokenSource();
             token = cancelTokenSource.Token;
-        }
+	}
 	
-        wordsFromTextAsset = ParseText(textAsset.text);	// Загружаем в массив все слова из текстового ассета
-	    if (GameObject.Find("Words") == null)		    // Создаем пустой объект в иерархии, чтобы спрятать туда сгенерированные буквы
-	    {
-	        GameObject wordGO = new GameObject("Words");
-	        wordAnchor = wordGO.transform;
-	    }
-	    table = GameObject.Find("BG").GetComponent<BoxCollider2D>();
-	    pos = table.transform.position;
-	    InitLevel(wordsFromTextAsset);
+        wordsFromTextAsset = ParseText(textAsset.text);		// Загружаем в массив все слова из текстового ассета
+	if (GameObject.Find("Words") == null)			// Создаем пустой объект в иерархии, чтобы спрятать туда сгенерированные буквы
+	{
+	    GameObject wordGO = new GameObject("Words");
+	    wordAnchor = wordGO.transform;
+	}
+	table = GameObject.Find("BG").GetComponent<BoxCollider2D>();
+	pos = table.transform.position;
+	InitLevel(wordsFromTextAsset);
     }
     
     private string[] ParseText(string txt)
@@ -60,31 +60,33 @@ public class Init : MonoBehaviour
     	
 	wordLevelText.text = $"";
     	if (lets != null && lets.Count > 0) lets.Clear();
-	    foreach (Transform child in wordAnchor) Destroy(child.gameObject);
-	    InitLevel(wordsFromTextAsset);
+	foreach (Transform child in wordAnchor) Destroy(child.gameObject);
+	InitLevel(wordsFromTextAsset);
     }
     
     private async void InitLevel(string[] words)
     {
     	GameBase.G.phase = GamePhase.pause;
     	if (lets == null) lets = new List<Letter>();
-    	string wordLevel = words[Random.Range(0, words.Length)];	// Выбираем слово для уровня из массива
-    	wordLevelText.text = wordLevel;					            // Отображаем это слово в канвасе - временно для отладки
-    	char[] chars = wordLevel.ToCharArray();				        // Преобразуем выбранное слово в массив символов (букв)
-    	for (int i = 0; i < chars.Length; i++) await MakeLetter(chars[i], token);	            // Рисуем каждую букву
-	    GameBase.G.StartGame();
+    	string wordLevel = words[Random.Range(0, words.Length)];			// Выбираем слово для уровня из массива
+    	wordLevelText.text = wordLevel;							// Отображаем это слово в канвасе - временно для отладки
+    	char[] chars = wordLevel.ToCharArray();						// Преобразуем выбранное слово в массив символов (букв)
+    	for (int i = 0; i < chars.Length; i++) await MakeLetter(chars[i], token);	// Рисуем каждую букву
+	GameBase.G.StartGame();
     }
     
     private async Task MakeLetter(char l, float delay = 1f, CancellationToken token = default)	// Рисуем каждую букву с интервалом в секунду по умолчанию
-    {
+    {                                              
+        if (token.IsCancellationRequested) return;	// Проверяем наличие сигнала отмены задачи и выходим из метода и тем самым завершаем задачу
         await Task.Delay(500);
-        GameObject letGO = Instantiate(prefabLetter);			    // Инициализируем объект буквы
-	    letGO.transform.SetParent(wordAnchor);				        // Прячем её в иерархии
-        letGO.transform.position = Spawn();				            // Определяем позицию буквы на сцене
-	    letGO.GetComponentInChildren<SpriteRenderer>().sprite = SetLetterSprite(l);     // Устанавливаем спрайт буквы
-	    Letter let = letGO.GetComponent<Letter>();
+	
+        GameObject letGO = Instantiate(prefabLetter);			    		// Инициализируем объект буквы
+	letGO.transform.SetParent(wordAnchor);				        	// Прячем её в иерархии
+        letGO.transform.position = Spawn();				            	// Определяем позицию буквы на сцене
+	letGO.GetComponentInChildren<SpriteRenderer>().sprite = SetLetterSprite(l);     // Устанавливаем спрайт буквы
+	Letter let = letGO.GetComponent<Letter>();
         let.SetLetterPos(let.transform.position);
-	    lets.Add(let);
+	lets.Add(let);
     }
     
     private Vector2 Spawn()
@@ -100,7 +102,7 @@ public class Init : MonoBehaviour
 	    {
 	        Vector2 size = new Vector2(2f, 2f);
 	        cols = Physics2D.OverlapBoxAll(spawn, size, 0f, obtacleMask);
-            if (cols.Length > 0) return false;
+            	if (cols.Length > 0) return false;
 	        else return true;
 	    }
     }
@@ -108,7 +110,7 @@ public class Init : MonoBehaviour
     private Sprite SetLetterSprite(char l)
     {
     	Sprite spLet = null;
-	    if (l == 'а') spLet = letters[0];
+	if (l == 'а') spLet = letters[0];
         else if (l == 'б') spLet = letters[1];
         else if (l == 'в') spLet = letters[2];
         else if (l == 'г') spLet = letters[3];
