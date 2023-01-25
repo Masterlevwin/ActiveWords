@@ -72,7 +72,7 @@ public class Init : MonoBehaviour
     	wordLevelText.text = wordLevel;							// Отображаем это слово в канвасе - временно для отладки
     	char[] chars = wordLevel.ToCharArray();						// Преобразуем выбранное слово в массив символов (букв)
     	for (int i = 0; i < chars.Length; i++) await MakeLetter(chars[i], token);	// Рисуем каждую букву
-	GameBase.G.StartGame();
+	GameBase.G.StartGame(chars);
     }
     
     private async Task MakeLetter(char l, float delay = 1f, CancellationToken token = default)	// Рисуем каждую букву с интервалом в секунду по умолчанию
