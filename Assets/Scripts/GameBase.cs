@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Pathfinding;
+using System.Linq;
 
 public enum GamePhase
 {
@@ -21,9 +22,11 @@ public class GameBase : MonoBehaviour
     public AIPath player;
     public AIPath enemy;
     public Init init;
+
     public GameObject cellPrefab;
-    
-    public Dictionary<Vector2, Letter> letDict;
+    private Transform cellAnchor;
+    private List<Vector2> letPositions;
+    private Dictionary<Vector2, Letter> letDict;
     
     void Start()
     {
@@ -31,21 +34,28 @@ public class GameBase : MonoBehaviour
         else if (G == this) Destroy(gameObject);
         
         init = GetComponent<Init>();
+
+        if (GameObject.Find("Cells") == null)
+        {
+            GameObject cellGO = new GameObject("Cells");
+            cellAnchor = cellGO.transform;
+        }     
     }
 
     public void StartGame()
     {
+        foreach (Transform child in cellAnchor) Destroy(child.gameObject);
+        if (letPositions == null) letPositions = new List<Vector2>();
+        else letPositions.Clear();
         if (letDict == null) letDict = new Dictionary<Vector2, Letter>();
         else letDict.Clear();
-        if (GameObject.Find("Cells") == null) GameObject cellGO = new GameObject("Cells");
-        Letter l = null;
         Vector2 cell = Vector2.zero;
         for (int i = 0; i < init.lets.Count; i++) 
         {
             float v = init.lets.Count/2;
-            cell = new Vector2(.5f - v + i, -4f);
-            Instantiate(cellPrefab, cell, cellGO.transform);
-            letDict.Add(cell, null); //l
+            cell = new Vector2(.5f - v + i, -4.5f);
+            Instantiate(cellPrefab, cell, Quaternion.identity, cellAnchor);
+            letPositions.Add(cell);
         }
 
         foreach (Letter l in init.lets)
@@ -65,19 +75,20 @@ public class GameBase : MonoBehaviour
     {
         if (letDict.ContainsValue(l))
         {
+            phase = GamePhase.pause;
             letDict.Remove(l.transform.position);
-            StartCoroutine(Move(l, l.posLet);
+            StartCoroutine(Move(l, l.posLet));
         }
     } 
     
     private void AddToWord(Letter l)
     {
-        for (int i = 0; i < letDict.Count; i++)
-        {
-            if (!letDict.ContainsValue(l) && !letDict.ContainsKey(letDict.ElementAt(i).Key))
+        for (int i = 0; i < letPositions.Count; i++)
+        { 
+            if (!letDict.ContainsKey(letPositions[i]))
             {
-                letDict.Add(letDict.ElementAt(i).Key, l);
-                StartCoroutine(Move(l, letDict.ElementAt(i).Key));
+                letDict.Add(letPositions[i], l);
+                StartCoroutine(Move(l, letPositions[i]));
                 break;
             }
         }
@@ -91,6 +102,7 @@ public class GameBase : MonoBehaviour
             l.transform.position = Vector2.MoveTowards(l.transform.position, target, step);
             yield return null;
         }
+        if (phase != GamePhase.game) phase = GamePhase.game;
     }
     
     void Update()

@@ -77,7 +77,7 @@ public class Init : MonoBehaviour
 	GameBase.G.StartGame();
     }
     
-    private async Task MakeLetter(char l, float delay = 1f, CancellationToken token = default)	// Рисуем каждую букву с интервалом в секунду по умолчанию
+    private async Task MakeLetter(char l, CancellationToken token = default, float delay = 1f)	// Рисуем каждую букву с интервалом в секунду по умолчанию
     {                                              
         if (token.IsCancellationRequested) return;	// Проверяем наличие сигнала отмены задачи и выходим из метода и тем самым завершаем задачу
         await Task.Delay(500);
