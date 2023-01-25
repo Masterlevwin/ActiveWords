@@ -18,10 +18,12 @@ public class GameBase : MonoBehaviour
     public static GameBase G;
     public GamePhase phase = GamePhase.init;
 
-    public List<Letter> word;
     public AIPath player;
     public AIPath enemy;
     public Init init;
+    public GameObject cellPrefab;
+    
+    public Dictionary<Vector2, Letter> letDict;
     
     void Start()
     {
@@ -31,9 +33,22 @@ public class GameBase : MonoBehaviour
         init = GetComponent<Init>();
     }
 
-    public void StartGame()
+    public void StartGame(char[] chars)
     {
-        if (word == null) word = new List<Letter>();
+        if (letDict == null) letDict = new Dictionary<Vector2, Letter>();
+        letDict.Count = chars.Length;
+        
+        if (GameObject.Find("Cells") == null) GameObject cellGO = new GameObject("Cells");
+        Letter l = null;
+        Vector2 cell = Vector2.zero;
+        for (int i = 0; i < letDict.Count; i++) 
+        {
+            float v = letDict.Count/2;
+            cell = new Vector2(.5f - v + i, -4f);
+            Instantiate(cellPrefab, cell, cellGO.transform);
+            letDict.Add(cell, l);
+        }
+
         foreach (Letter l in init.lets)
         {
             l.takeNotify += AddToWord;
@@ -42,27 +57,31 @@ public class GameBase : MonoBehaviour
         phase = GamePhase.game;
     }
     
-    public void CompleteGame()
+    private void CompleteGame()
     {
         phase = GamePhase.complete;
     }
     
     private void RemoveAtWord(Letter l)
     {
-        if (word != null && word.Contains(l))
+        if (letDict.ContainsValue(l))
         {
-            word.Remove(l);
-            StartCoroutine(Move(l, l.posLet));
+            letDict.Remove(l.transform.position);
+            StartCoroutine(Move(l, l.posLet);
         }
     } 
     
     private void AddToWord(Letter l)
     {
-        if (word != null && !word.Contains(l))
+        for (int i = 0; i < letDict.Count; i++)
         {
-            word.Add(l);
-            StartCoroutine(Move(l, new Vector2(0, -4f)));
-        } 
+            if (!letDict.ContainsValue(l) && !letDict.ContainsKey(letDict.ElementAt(i).Key))
+            {
+                letDict.Add(letDict.ElementAt(i).Key, l);
+                StartCoroutine(Move(l, letDict.ElementAt(i).Key));
+                break;
+            }
+        }
     }
 
     private IEnumerator Move(Letter l, Vector2 target)
