@@ -24,8 +24,17 @@ public class Init : MonoBehaviour
     private Vector2 pos;
     private Collider2D[] cols;
     
+    static public CancellationTokenSource cancelTokenSource;
+    static public CancellationToken token;
+    
     void Start()
     {
+    	if (cancelTokenSource == null)
+        {
+            cancelTokenSource = new CancellationTokenSource();
+            token = cancelTokenSource.Token;
+        }
+	
         wordsFromTextAsset = ParseText(textAsset.text);	// Загружаем в массив все слова из текстового ассета
 	    if (GameObject.Find("Words") == null)		    // Создаем пустой объект в иерархии, чтобы спрятать туда сгенерированные буквы
 	    {
@@ -45,7 +54,11 @@ public class Init : MonoBehaviour
     
     public void Reset()
     {
-    	wordLevelText.text = $"";
+    	cancelTokenSource.Dispose();                        // Освобождаем ресурсы
+        cancelTokenSource = new CancellationTokenSource();  // Создаем новый токен для ассинхронных задач
+        token = cancelTokenSource.Token;                    // Обновляем токен
+    	
+	wordLevelText.text = $"";
     	if (lets != null && lets.Count > 0) lets.Clear();
 	    foreach (Transform child in wordAnchor) Destroy(child.gameObject);
 	    InitLevel(wordsFromTextAsset);
@@ -58,11 +71,11 @@ public class Init : MonoBehaviour
     	string wordLevel = words[Random.Range(0, words.Length)];	// Выбираем слово для уровня из массива
     	wordLevelText.text = wordLevel;					            // Отображаем это слово в канвасе - временно для отладки
     	char[] chars = wordLevel.ToCharArray();				        // Преобразуем выбранное слово в массив символов (букв)
-    	for (int i = 0; i < chars.Length; i++) await MakeLetter(chars[i]);	            // Рисуем каждую букву
+    	for (int i = 0; i < chars.Length; i++) await MakeLetter(chars[i], token);	            // Рисуем каждую букву
 	    GameBase.G.StartGame();
     }
     
-    private async Task MakeLetter(char l, float delay = 1f)		    // Рисуем каждую букву с интервалом в секунду по умолчанию
+    private async Task MakeLetter(char l, float delay = 1f, CancellationToken token = default)	// Рисуем каждую букву с интервалом в секунду по умолчанию
     {
         await Task.Delay(500);
         GameObject letGO = Instantiate(prefabLetter);			    // Инициализируем объект буквы
