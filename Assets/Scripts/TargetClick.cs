@@ -7,7 +7,7 @@ namespace Pathfinding {
 		public LayerMask mask;
 		public Transform target;
 		IAstarAI[] ais;
-
+		public bool ignor;
 		public bool oneClick;
 		public bool use2D;
 
@@ -22,17 +22,18 @@ namespace Pathfinding {
 
 		private void IgnorClick(Letter l)
 		{
-			onClick = false;
+			if (GameBase.G.letDict.Contains(l)) ignor = true;
+			else ignor = false;
 		}
 
 		public void OnGUI () {
-			if (oneClick && cam != null && Event.current.type == EventType.MouseDown && Event.current.clickCount == 1) {
+			if (!ignor && oneClick && cam != null && Event.current.type == EventType.MouseDown && Event.current.clickCount == 1) {
 				UpdateTargetPosition();
 			}
 		}
 
 		void Update () {
-			if (!oneClick && cam != null) {
+			if (!ignor && !oneClick && cam != null) {
 				UpdateTargetPosition();
 			}
 		}
