@@ -17,6 +17,12 @@ namespace Pathfinding {
 			cam = Camera.main;
 			ais = FindObjectsOfType<MonoBehaviour>().OfType<IAstarAI>().ToArray();
 			useGUILayout = false;
+			GameBase.G.cancelNotify += IgnorClick;
+		}
+
+		private void IgnorClick(Letter l)
+		{
+			onClick = false;
 		}
 
 		public void OnGUI () {
