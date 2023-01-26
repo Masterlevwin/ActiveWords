@@ -69,6 +69,7 @@ public class GameBase : MonoBehaviour
     private void CompleteGame()
     {
         phase = GamePhase.complete;
+        // Здесь показать картинки и анимации
     }
     
     private void RemoveAtWord(Letter l)
@@ -109,6 +110,8 @@ public class GameBase : MonoBehaviour
     
     void Update()
     {
+        if (letDict.Count == init.lets.Count) CompleteGame();
+        
         if (phase != GamePhase.game)
         {
             player.canMove = false;
