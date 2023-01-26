@@ -71,6 +71,7 @@ public class GameBase : MonoBehaviour
         {
             phase = GamePhase.pause;
             player.SetPath(null);
+            enemy.SetPath(null);
             letDict.Remove(l.transform.position);
             StartCoroutine(Move(l, l.posLet));
         }
@@ -91,7 +92,7 @@ public class GameBase : MonoBehaviour
 
     private IEnumerator Move(Letter l, Vector2 target)
     {
-        float step = 3f * Time.deltaTime;
+        float step = 4f * Time.deltaTime;
         while (Vector2.Distance(l.transform.position, target) > float.Epsilon)
         {
             l.transform.position = Vector2.MoveTowards(l.transform.position, target, step);
