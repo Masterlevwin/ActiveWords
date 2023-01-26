@@ -22,12 +22,11 @@ public class GameBase : MonoBehaviour
     public AIPath player;
     public AIPath enemy;
     public Init init;
-
     public GameObject cellPrefab;
     private Transform cellAnchor;
     private List<Vector2> letPositions;
     private Dictionary<Vector2, Letter> letDict;
-    
+
     void Start()
     {
         if (G == null) G = this;
@@ -57,12 +56,6 @@ public class GameBase : MonoBehaviour
             Instantiate(cellPrefab, cell, Quaternion.identity, cellAnchor);
             letPositions.Add(cell);
         }
-
-        foreach (Letter l in init.lets)
-        {
-            l.takeNotify += AddToWord;
-            l.cancelNotify += RemoveAtWord;
-        }
         phase = GamePhase.game;
     }
     
@@ -72,24 +65,23 @@ public class GameBase : MonoBehaviour
         // Здесь показать картинки и анимации
     }
     
-    private void RemoveAtWord(Letter l)
+    public void RemoveAtWord(Letter l)
     {
         if (letDict.ContainsValue(l))
         {
             phase = GamePhase.pause;
-            l.GetComponent<BoxCollider2D>().isTrigger = true;
+            player.SetPath(null);
             letDict.Remove(l.transform.position);
             StartCoroutine(Move(l, l.posLet));
         }
     } 
     
-    private void AddToWord(Letter l)
+    public void AddToWord(Letter l)
     {
         for (int i = 0; i < letPositions.Count; i++)
         { 
             if (!letDict.ContainsValue(l) && !letDict.ContainsKey(letPositions[i]))
             {
-                l.GetComponent<BoxCollider2D>().isTrigger = false;
                 letDict.Add(letPositions[i], l);
                 StartCoroutine(Move(l, letPositions[i]));
                 break;
@@ -110,7 +102,7 @@ public class GameBase : MonoBehaviour
     
     void Update()
     {
-        if (letDict.Count == init.lets.Count) CompleteGame();
+        if (letDict != null && letDict.Count == init.lets.Count) CompleteGame();
         
         if (phase != GamePhase.game)
         {

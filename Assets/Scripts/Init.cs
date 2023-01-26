@@ -73,7 +73,7 @@ public class Init : MonoBehaviour
     	string wordLevel = words[Random.Range(0, words.Length)];			// Выбираем слово для уровня из массива
     	wordLevelText.text = wordLevel;							// Отображаем это слово в канвасе - временно для отладки
     	char[] chars = wordLevel.ToCharArray();						// Преобразуем выбранное слово в массив символов (букв)
-    	for (int i = 0; i < chars.Length-1; i++) await MakeLetter(chars[i], token);	// Рисуем каждую букву
+    	for (int i = 1; i < chars.Length-1; i++) await MakeLetter(chars[i], token);	// Рисуем каждую букву
 	GameBase.G.StartGame();
     }
     

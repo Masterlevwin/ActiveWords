@@ -4,10 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Letter : MonoBehaviour, IPointerClickHandler
-{
-    public delegate void Take(Letter l);
-    public event Take takeNotify, cancelNotify;
-    
+{ 
     public Vector2 posLet { private set; get; }
     
     private void OnEnable()
@@ -22,14 +19,16 @@ public class Letter : MonoBehaviour, IPointerClickHandler
     
     public void OnPointerClick(PointerEventData eventData)
     {
-        cancelNotify?.Invoke(this);
+        GameBase.G.RemoveAtWord(this);
+        GetComponent<BoxCollider2D>().isTrigger = true;
     }
     
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player")
         {
-            takeNotify?.Invoke(this);
+            GameBase.G.AddToWord(this);
+            GetComponent<BoxCollider2D>().isTrigger = false;
         }
     }
     
