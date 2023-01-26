@@ -76,6 +76,7 @@ public class GameBase : MonoBehaviour
         if (letDict.ContainsValue(l))
         {
             phase = GamePhase.pause;
+            l.GetComponent<BoxCollider2D>().isTrigger = true;
             letDict.Remove(l.transform.position);
             StartCoroutine(Move(l, l.posLet));
         }
@@ -85,8 +86,9 @@ public class GameBase : MonoBehaviour
     {
         for (int i = 0; i < letPositions.Count; i++)
         { 
-            if (!letDict.ContainsKey(letPositions[i]))
+            if (!letDict.ContainsValue(l) && !letDict.ContainsKey(letPositions[i]))
             {
+                l.GetComponent<BoxCollider2D>().isTrigger = false;
                 letDict.Add(letPositions[i], l);
                 StartCoroutine(Move(l, letPositions[i]));
                 break;
