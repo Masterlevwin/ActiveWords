@@ -20,7 +20,6 @@ public class Letter : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         GameBase.G.RemoveAtWord(this);
-        GetComponent<BoxCollider2D>().isTrigger = true;
     }
     
     void OnTriggerEnter2D(Collider2D other)
@@ -28,7 +27,6 @@ public class Letter : MonoBehaviour, IPointerClickHandler
         if (other.gameObject.tag == "Player")
         {
             GameBase.G.AddToWord(this);
-            GetComponent<BoxCollider2D>().isTrigger = false;
         }
     }
     
