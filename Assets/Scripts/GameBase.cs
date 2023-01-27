@@ -69,11 +69,10 @@ public class GameBase : MonoBehaviour
     {
         if (letDict.ContainsValue(l))
         {
-            //phase = GamePhase.pause;
             player.SetPath(null);
             enemy.SetPath(null);
             letDict.Remove(l.transform.position);
-            StartCoroutine(Move(l, l.posLet), true);
+            StartCoroutine(Move(l, l.posLet, true));
         }
     } 
     
@@ -84,7 +83,7 @@ public class GameBase : MonoBehaviour
             if (!letDict.ContainsValue(l) && !letDict.ContainsKey(letPositions[i]))
             {
                 letDict.Add(letPositions[i], l);
-                StartCoroutine(Move(l, letPositions[i]), false);
+                StartCoroutine(Move(l, letPositions[i], false));
                 break;
             }
         }
@@ -99,7 +98,6 @@ public class GameBase : MonoBehaviour
             yield return null;
         }
         l.GetComponent<BoxCollider2D>().isTrigger = b;
-        //if (phase != GamePhase.game) phase = GamePhase.game;
     }
     
     void Update()
