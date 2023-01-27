@@ -69,7 +69,7 @@ public class GameBase : MonoBehaviour
     {
         if (letDict.ContainsValue(l))
         {
-            phase = GamePhase.pause;
+            //phase = GamePhase.pause;
             player.SetPath(null);
             enemy.SetPath(null);
             letDict.Remove(l.transform.position);
@@ -99,7 +99,7 @@ public class GameBase : MonoBehaviour
             yield return null;
         }
         l.GetComponent<BoxCollider2D>().isTrigger = b;
-        if (phase != GamePhase.game) phase = GamePhase.game;
+        //if (phase != GamePhase.game) phase = GamePhase.game;
     }
     
     void Update()
