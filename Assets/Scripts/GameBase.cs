@@ -73,7 +73,7 @@ public class GameBase : MonoBehaviour
             player.SetPath(null);
             enemy.SetPath(null);
             letDict.Remove(l.transform.position);
-            StartCoroutine(Move(l, l.posLet));
+            StartCoroutine(Move(l, l.posLet), true);
         }
     } 
     
@@ -84,13 +84,13 @@ public class GameBase : MonoBehaviour
             if (!letDict.ContainsValue(l) && !letDict.ContainsKey(letPositions[i]))
             {
                 letDict.Add(letPositions[i], l);
-                StartCoroutine(Move(l, letPositions[i]));
+                StartCoroutine(Move(l, letPositions[i]), false);
                 break;
             }
         }
     }
 
-    private IEnumerator Move(Letter l, Vector2 target)
+    private IEnumerator Move(Letter l, Vector2 target, bool b)
     {
         float step = 4f * Time.deltaTime;
         while (Vector2.Distance(l.transform.position, target) > float.Epsilon)
@@ -98,6 +98,7 @@ public class GameBase : MonoBehaviour
             l.transform.position = Vector2.MoveTowards(l.transform.position, target, step);
             yield return null;
         }
+        l.GetComponent<BoxCollider2D>().isTrigger = b;
         if (phase != GamePhase.game) phase = GamePhase.game;
     }
     
