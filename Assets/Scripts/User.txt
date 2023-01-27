@@ -39,3 +39,4 @@ The Last of Us (Google и сериал);
 
 Сплит разбивает строку через указанный символ;
 https://arongranberg.com/astar/docs/iastarai.html#reachedEndOfPath;
+Убрал паузу при клике на букву в слове - проверить;
