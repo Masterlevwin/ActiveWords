@@ -57,7 +57,7 @@ public class Init : MonoBehaviour
     	cancelTokenSource.Dispose();                        // Освобождаем ресурсы
         cancelTokenSource = new CancellationTokenSource();  // Создаем новый токен для ассинхронных задач
         token = cancelTokenSource.Token;                    // Обновляем токен
-    	
+    	GameBase.G.player.SetPath(null);
 	wordLevelText.text = $"";
     	if (lets != null && lets.Count > 0) lets.Clear();
 	foreach (Transform child in wordAnchor) Destroy(child.gameObject);
@@ -74,7 +74,7 @@ public class Init : MonoBehaviour
     	wordLevelText.text = wordLevel;							// Отображаем это слово в канвасе - временно для отладки
     	char[] chars = wordLevel.ToCharArray();						// Преобразуем выбранное слово в массив символов (букв)
     	for (int i = 1; i < chars.Length-1; i++) await MakeLetter(chars[i], token);	// Рисуем каждую букву
-    GameBase.G.StartGame();
+        GameBase.G.StartGame();
     }
     
     private async Task MakeLetter(char l, CancellationToken token = default, float delay = 1f)	// Рисуем каждую букву с интервалом в секунду по умолчанию
