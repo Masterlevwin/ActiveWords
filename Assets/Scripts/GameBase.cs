@@ -18,14 +18,15 @@ public class GameBase : MonoBehaviour
 {
     public static GameBase G;
     public GamePhase phase = GamePhase.init;
-
+    
     public AIPath player;
     public AIPath enemy;
+
     public Init init;
     public GameObject cellPrefab;
     private Transform cellAnchor;
     private List<Vector2> letPositions;
-    private Dictionary<Vector2, Letter> letDict;
+    private Dictionary<Vector2, Letter> letDict; 
 
     void Start()
     {

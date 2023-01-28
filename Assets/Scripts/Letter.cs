@@ -5,27 +5,30 @@ using UnityEngine.EventSystems;
 
 public class Letter : MonoBehaviour, IPointerClickHandler
 { 
-    public Vector2 posLet { private set; get; }
-    
+    public Vector3 posLet { private set; get; }
+
     private void OnEnable()
     {
         SetLetterPos(transform.position);
+
     }
     
-    public void SetLetterPos(Vector2 pos)
+    public void SetLetterPos(Vector3 pos)
     {
         posLet = pos;
     }
     
     public void OnPointerClick(PointerEventData eventData)
     {
+        //Debug.Log(name);
         GameBase.G.RemoveAtWord(this);
     }
     
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && Vector2.Distance(transform.position, GameBase.G.player.destination) < 1f)
         {
+            //Debug.Log(name);
             GameBase.G.AddToWord(this);
         }
     }
