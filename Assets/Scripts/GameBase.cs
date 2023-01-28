@@ -20,7 +20,7 @@ public class GameBase : MonoBehaviour
     public GamePhase phase = GamePhase.init;
     
     public AIPath player;
-    public AIPath enemy;
+    //public AIPath enemy;
 
     public Init init;
     public GameObject cellPrefab;
@@ -71,7 +71,7 @@ public class GameBase : MonoBehaviour
         if (letDict.ContainsValue(l))
         {
             player.SetPath(null);
-            enemy.SetPath(null);
+            //enemy.SetPath(null);
             letDict.Remove(l.transform.position);
             StartCoroutine(Move(l, l.posLet, true));
         }
