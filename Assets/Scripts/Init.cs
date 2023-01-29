@@ -78,17 +78,18 @@ public class Init : MonoBehaviour
         GameBase.G.StartGame();
     }
     
-    private async Task MakeLetter(char l, CancellationToken token = default, float delay = 1f)	// Рисуем каждую букву с интервалом в секунду по умолчанию
+    private async Task MakeLetter(char l, CancellationToken token = default)	        // Рисуем каждую букву
     {                                              
         if (token.IsCancellationRequested) return;	// Проверяем наличие сигнала отмены задачи и выходим из метода и тем самым завершаем задачу
-        await Task.Delay(500);
+        await Task.Delay(500);                          // Ожидаем полсекунды
 	
         GameObject letGO = Instantiate(prefabLetter);			    		// Инициализируем объект буквы
 	letGO.transform.SetParent(wordAnchor);				        	// Прячем её в иерархии
         letGO.transform.position = Spawn();				            	// Определяем позицию буквы на сцене
-	letGO.GetComponent<SpriteRenderer>().sprite = SetLetterSprite(l);     // Устанавливаем спрайт буквы
+	letGO.GetComponent<SpriteRenderer>().sprite = SetLetterSprite(l);               // Устанавливаем спрайт буквы
 	Letter let = letGO.GetComponent<Letter>();
         let.SetLetterPos(let.transform.position);
+        let.SetChar(l);
 	lets.Add(let);
     }
     
