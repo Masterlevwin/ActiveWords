@@ -86,7 +86,7 @@ public class Init : MonoBehaviour
         GameObject letGO = Instantiate(prefabLetter);			    		// Инициализируем объект буквы
 	letGO.transform.SetParent(wordAnchor);				        	// Прячем её в иерархии
         letGO.transform.position = Spawn();				            	// Определяем позицию буквы на сцене
-	letGO.GetComponentInChildren<SpriteRenderer>().sprite = SetLetterSprite(l);     // Устанавливаем спрайт буквы
+	letGO.GetComponent<SpriteRenderer>().sprite = SetLetterSprite(l);     // Устанавливаем спрайт буквы
 	Letter let = letGO.GetComponent<Letter>();
         let.SetLetterPos(let.transform.position);
 	lets.Add(let);

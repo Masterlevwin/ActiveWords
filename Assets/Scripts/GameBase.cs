@@ -18,7 +18,7 @@ public class GameBase : MonoBehaviour
 {
     public static GameBase G;
     public GamePhase phase = GamePhase.init;
-    
+
     public AIPath player;
     public AIPath enemy;
     public GameObject block;
@@ -41,6 +41,7 @@ public class GameBase : MonoBehaviour
             cellAnchor = cellGO.transform;
         }
         Instantiate(block, Vector2.zero, Quaternion.identity, transform.parent);
+        //enemy.target = player.transform;
     }
 
     public void StartGame()
@@ -58,6 +59,8 @@ public class GameBase : MonoBehaviour
             Instantiate(cellPrefab, cell, Quaternion.identity, cellAnchor);
             letPositions.Add(cell);
         }
+        if (!player.gameObject.activeSelf) player.gameObject.SetActive(true);
+        player.GetComponent<Player>().hitPlayer = 3;
         phase = GamePhase.game;
     }
     
