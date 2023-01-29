@@ -21,7 +21,7 @@ public class GameBase : MonoBehaviour
     
     public AIPath player;
     public AIPath enemy;
-
+    public GameObject block;
     public Init init;
     public GameObject cellPrefab;
     private Transform cellAnchor;
@@ -40,6 +40,7 @@ public class GameBase : MonoBehaviour
             GameObject cellGO = new GameObject("Cells");
             cellAnchor = cellGO.transform;
         }
+        Instantiate(block, Vector2.zero, Quaternion.identity, transform.parent);
     }
 
     public void StartGame()
@@ -65,7 +66,7 @@ public class GameBase : MonoBehaviour
         phase = GamePhase.complete;
         // Здесь показать картинки и анимации
     }
-    
+
     public void RemoveAtWord(Letter l)
     {
         if (letDict.ContainsValue(l))

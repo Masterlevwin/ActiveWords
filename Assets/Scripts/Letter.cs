@@ -10,10 +10,9 @@ public class Letter : MonoBehaviour, IPointerClickHandler
     private void OnEnable()
     {
         SetLetterPos(transform.position);
-
     }
     
-    public void SetLetterPos(Vector3 pos)
+    public void SetLetterPos(Vector2 pos)
     {
         posLet = pos;
     }
