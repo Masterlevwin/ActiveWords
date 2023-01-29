@@ -58,6 +58,7 @@ public class Init : MonoBehaviour
         cancelTokenSource = new CancellationTokenSource();  // Создаем новый токен для ассинхронных задач
         token = cancelTokenSource.Token;                    // Обновляем токен
     	GameBase.G.player.SetPath(null);
+        GameBase.G.enemy.SetPath(null);
 	wordLevelText.text = $"";
     	if (lets != null && lets.Count > 0) lets.Clear();
 	foreach (Transform child in wordAnchor) Destroy(child.gameObject);

@@ -20,7 +20,7 @@ public class GameBase : MonoBehaviour
     public GamePhase phase = GamePhase.init;
     
     public AIPath player;
-    //public AIPath enemy;
+    public AIPath enemy;
 
     public Init init;
     public GameObject cellPrefab;
@@ -39,7 +39,7 @@ public class GameBase : MonoBehaviour
         {
             GameObject cellGO = new GameObject("Cells");
             cellAnchor = cellGO.transform;
-        }     
+        }
     }
 
     public void StartGame()
