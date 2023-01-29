@@ -18,6 +18,7 @@ public class Init : MonoBehaviour
     public LayerMask obtacleMask;
     
     public Sprite[] letters;
+    public char[] chars;
     public List<Letter> lets;
     
     public BoxCollider2D table;
@@ -60,6 +61,7 @@ public class Init : MonoBehaviour
     	GameBase.G.player.SetPath(null);
         GameBase.G.enemy.SetPath(null);
 	wordLevelText.text = $"";
+        if (chars != null && chars.Length > 0) Clear(chars);
     	if (lets != null && lets.Count > 0) lets.Clear();
 	foreach (Transform child in wordAnchor) Destroy(child.gameObject);
 	InitLevel(wordsFromTextAsset);
@@ -73,7 +75,7 @@ public class Init : MonoBehaviour
     	if (lets == null) lets = new List<Letter>();
     	string wordLevel = words[Random.Range(0, words.Length)];			// Выбираем слово для уровня из массива
     	wordLevelText.text = wordLevel;							// Отображаем это слово в канвасе - временно для отладки
-    	char[] chars = wordLevel.ToCharArray();						// Преобразуем выбранное слово в массив символов (букв)
+    	chars = wordLevel.ToCharArray();						// Преобразуем выбранное слово в массив символов (букв)
     	for (int i = 1; i < chars.Length-1; i++) await MakeLetter(chars[i], token);	// Рисуем каждую букву
         GameBase.G.StartGame();
     }
