@@ -67,8 +67,18 @@ public class GameBase : MonoBehaviour
     private void CompleteGame()
     {
         phase = GamePhase.complete;
-        // Здесь показать картинки и анимации
+        int numValues = 0;
+        for (int i = 0; i < letPositions.Count; i++)
+            if (letDict[letPositions[i]].charLet == init.lets[i].charLet)
+                numValues++;
+        if (numValues == init.lets.Count) Win();
+        else Lose();
+        numValues = null;
     }
+
+    private void Win() {} 
+// Здесь показать картинки и анимации
+    private void Lose() {}
 
     public void RemoveAtWord(Letter l)
     {
