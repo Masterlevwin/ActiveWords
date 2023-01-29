@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class Letter : MonoBehaviour, IPointerClickHandler
 { 
     public Vector3 posLet { private set; get; }
+    public char charLet { private set; get; }
 
     private void OnEnable()
     {
@@ -17,17 +18,21 @@ public class Letter : MonoBehaviour, IPointerClickHandler
         posLet = pos;
     }
     
+    public void SetChar(char l)
+    {
+        charLet = l;
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
-        //Debug.Log(name);
         GameBase.G.RemoveAtWord(this);
     }
     
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player" && Vector2.Distance(transform.position, GameBase.G.player.destination) < 1f)
+        if (collision.gameObject.tag == "Player"
+            && Vector2.Distance(transform.position, GameBase.G.player.destination) < 1f)
         {
-            //Debug.Log(name);
             GameBase.G.AddToWord(this);
         }
     }
