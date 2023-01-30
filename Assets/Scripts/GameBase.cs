@@ -69,7 +69,7 @@ public class GameBase : MonoBehaviour
         phase = GamePhase.complete;
         int numValues = 0;
         for (int i = 0; i < letPositions.Count; i++)
-            if (letDict[letPositions[i]].charLet == init.lets[i].charLet)
+            if (letDict.TryGetValue(letPositions[i], out l) && l.charLet == init.lets[i].charLet)
                 numValues++;
         if (numValues == init.lets.Count) Win();
         else Lose();
