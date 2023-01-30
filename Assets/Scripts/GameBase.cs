@@ -41,7 +41,6 @@ public class GameBase : MonoBehaviour
             cellAnchor = cellGO.transform;
         }
         Instantiate(block, Vector2.zero, Quaternion.identity, transform.parent);
-        //enemy.target = player.transform;
     }
 
     public void StartGame()
@@ -66,19 +65,19 @@ public class GameBase : MonoBehaviour
     
     private void CompleteGame()
     {
-        phase = GamePhase.complete;
+        phase = GamePhase.pause;
         int numValues = 0;
+        
         for (int i = 0; i < letPositions.Count; i++)
-            if (letDict.TryGetValue(letPositions[i], out l) && l.charLet == init.lets[i].charLet)
+            if (letDict.TryGetValue(letPositions[i], out Letter l) && l.charLet == init.lets[i].charLet)
                 numValues++;
         if (numValues == init.lets.Count) Win();
         else Lose();
-        numValues = null;
     }
 
-    private void Win() {} 
+    private void Win() { Debug.Log("Win"); } 
 // Здесь показать картинки и анимации
-    private void Lose() {}
+    private void Lose() { Debug.Log("Lose"); }
 
     public void RemoveAtWord(Letter l)
     {
@@ -117,7 +116,7 @@ public class GameBase : MonoBehaviour
     
     void Update()
     {
-        if (letDict != null && letDict.Count == init.lets.Count) CompleteGame();
+        if (phase != GamePhase.pause && letDict != null && letDict.Count == init.lets.Count) CompleteGame();
         
         if (phase != GamePhase.game)
         {

@@ -88,7 +88,7 @@ public class Init : MonoBehaviour
         letGO.transform.position = Spawn();				            	// Определяем позицию буквы на сцене
 	letGO.GetComponent<SpriteRenderer>().sprite = SetLetterSprite(l);               // Устанавливаем спрайт буквы
 	Letter let = letGO.GetComponent<Letter>();
-        //let.SetLetterPos(let.transform.position);
+        let.SetLetterPos(let.transform.position);
         let.SetChar(l);
 	lets.Add(let);
     }
