@@ -43,7 +43,6 @@ public class GameBase : MonoBehaviour
             cellAnchor = cellGO.transform;
         }
         //Instantiate(block, Vector2.zero, Quaternion.identity, transform.parent);
-        if (level > 2) CreateTeleport();
     }
 
     public void StartGame()
@@ -53,6 +52,11 @@ public class GameBase : MonoBehaviour
         else letPositions.Clear();
         if (letDict == null) letDict = new Dictionary<Vector2, Letter>();
         else letDict.Clear();
+        if (!player.gameObject.activeSelf) player.gameObject.SetActive(true);
+        player.GetComponent<Player>().hitPlayer = 3;
+        if (teleport != null) Destroy(teleport);
+        if (level > 2) CreateTeleport();
+        
         Vector2 cell = Vector2.zero;
         for (int i = 0; i < init.lets.Count; i++) 
         {
@@ -61,9 +65,7 @@ public class GameBase : MonoBehaviour
             Instantiate(cellPrefab, cell, Quaternion.identity, cellAnchor);
             letPositions.Add(cell);
         }
-        if (!player.gameObject.activeSelf) player.gameObject.SetActive(true);
-        player.GetComponent<Player>().hitPlayer = 3;
-        if (level > 2) CreateTeleport();
+        
         phase = GamePhase.game;
     }
     
@@ -92,7 +94,7 @@ public class GameBase : MonoBehaviour
 
     private void Teleport()
     {
-        Instantiate(teleport, transform.parent);
+        teleport = Instantiate(teleport, transform.parent);
         teleport.transform.position = init.Spawn();
     }
     
