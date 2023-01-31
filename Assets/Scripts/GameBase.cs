@@ -61,7 +61,7 @@ public class GameBase : MonoBehaviour
         for (int i = 0; i < init.lets.Count; i++) 
         {
             float v = init.lets.Count/2;
-            cell = new Vector2(.5f - v + i, -4.5f);
+            cell = new Vector2(.5f - v + i, -5f);
             Instantiate(cellPrefab, cell, Quaternion.identity, cellAnchor);
             letPositions.Add(cell);
         }
