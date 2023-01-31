@@ -79,7 +79,8 @@ public class Init : MonoBehaviour
     {
     	GameBase.G.phase = GamePhase.pause;
 	CreateBlocks();
-	GameBase.G.player.transform.position = Spawn();
+	//GameBase.G.player.transform.position = Spawn();
+	GameBase.G.player.SetPos(Spawn());
 	GameBase.G.enemy.transform.position = Spawn();
     	if (lets == null) lets = new List<Letter>();
     	string wordLevel = words[Random.Range(0, words.Length)];			// Выбираем слово для уровня из массива
