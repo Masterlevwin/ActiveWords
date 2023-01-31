@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Pathfinding;
 using System.Linq;
+using TMPro;
 
 public enum GamePhase
 {
@@ -19,6 +20,7 @@ public class GameBase : MonoBehaviour
     public static GameBase G;
     public GamePhase phase = GamePhase.init;
     public static int level = 0;
+    public TMP_Text levelText;
     
     public AIPath player;
     public AIPath enemy;
@@ -47,6 +49,7 @@ public class GameBase : MonoBehaviour
 
     public void StartGame()
     {
+        levelText = "${level}";
         foreach (Transform child in cellAnchor) Destroy(child.gameObject);
         if (letPositions == null) letPositions = new List<Vector2>();
         else letPositions.Clear();
@@ -84,12 +87,14 @@ public class GameBase : MonoBehaviour
     private void Win()
     {
         level++;
+        levelText = "${level}";
     }
     
     
     private void Lose()
     {
         level--;
+        levelText = "${level}";
     }
 
     private void Teleport()
