@@ -18,6 +18,7 @@ public class Init : MonoBehaviour
     public LayerMask obtacleMask;
     
     public GameObject prefabBlock;
+    public Sprite[] blocks;
     private Transform blockAnchor;
     
     public Sprite[] letters;
@@ -90,10 +91,12 @@ public class Init : MonoBehaviour
     
     private void CreateBlocks()
     {
-    	int numBlocks = Random.Range(5, 20);
+    	int numBlocks = Random.Range(1, 4);
 	for (int i = 0; i < numBlocks; i++)
 	{
 	    GameObject block = Instantiate(prefabBlock, Spawn(), Quaternion.identity, blockAnchor);
+	    block.GetComponent<SpriteRenderer>().sprite = Random.Range(0, blocks.Length);
+	    block.transform.localScale = new Vector2(Random.Range(1, 3).x, Random.Range(1, 3).y);
 	}
     }
     
