@@ -5,20 +5,26 @@ using Pathfinding;
 
 public class Player : MonoBehaviour
 {
-    public Vector2 posPlayer { private set; get; }
-    
+    private Vector2 startPos;
     public int hitPlayer = 3;
     private Color colorPlayer;
 
     void Start()
     {
         colorPlayer = GetComponentInChildren<SpriteRenderer>().color;
-        SetPos(transform.position);
+        startPos = GetPos();
     }
 
     public void SetPos(Vector2 pos)
     {
-        posPlayer = pos;
+        if (pos == startPos && !gameObject.activeSelf) gameObject.SetActive(true);
+        transform.position = pos;
+        startPos = GetPos();
+    }
+    
+    public Vector2 GetPos()
+    {
+        return transform.position;
     }
     
     void OnTriggerEnter2D(Collider2D collision)
@@ -32,6 +38,12 @@ public class Player : MonoBehaviour
             hitPlayer--;
             GetComponentInChildren<SpriteRenderer>().color = new Color(colorPlayer.r, colorPlayer.g - .5f, colorPlayer.b - .5f, colorPlayer.a);
         } 
+        
+        if (collision.gameObject.tag == "Teleport")
+        {
+            gameObject.SetActive(false);
+            SetPos(startPos);
+        }
     }
 
     void OnTriggerExit2D(Collider2D collision)
