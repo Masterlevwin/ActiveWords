@@ -5,14 +5,22 @@ using Pathfinding;
 
 public class Player : MonoBehaviour
 {
+    public Vector2 posPlayer { private set; get; }
+    
     public int hitPlayer = 3;
     private Color colorPlayer;
 
     void Start()
     {
         colorPlayer = GetComponentInChildren<SpriteRenderer>().color;
+        SetPos(transform.position);
     }
 
+    public void SetPos(Vector2 pos)
+    {
+        posPlayer = pos;
+    }
+    
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player" && hitPlayer <= 0)
