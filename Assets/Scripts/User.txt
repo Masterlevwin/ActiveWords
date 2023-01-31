@@ -44,3 +44,4 @@ https://arongranberg.com/astar/docs/iastarai.html#reachedEndOfPath;
 https://habr.com/ru/post/424257/ - карта из шестиугольников;
 Создать префаб блока-спрайта, добавить BoxCollider2D;
 Добавить в массив блоков спрайты-заглушки;
+Добавить в рестарт игры Fader();
