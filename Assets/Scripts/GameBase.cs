@@ -18,10 +18,12 @@ public class GameBase : MonoBehaviour
 {
     public static GameBase G;
     public GamePhase phase = GamePhase.init;
-
+    public static int level = 0;
+    
     public AIPath player;
     public AIPath enemy;
-    public GameObject block;
+    //public GameObject block;
+    public GameObject teleport;
     public Init init;
     public GameObject cellPrefab;
     private Transform cellAnchor;
@@ -40,7 +42,8 @@ public class GameBase : MonoBehaviour
             GameObject cellGO = new GameObject("Cells");
             cellAnchor = cellGO.transform;
         }
-        Instantiate(block, Vector2.zero, Quaternion.identity, transform.parent);
+        //Instantiate(block, Vector2.zero, Quaternion.identity, transform.parent);
+        if (level > 2) CreateTeleport();
     }
 
     public void StartGame()
@@ -60,6 +63,7 @@ public class GameBase : MonoBehaviour
         }
         if (!player.gameObject.activeSelf) player.gameObject.SetActive(true);
         player.GetComponent<Player>().hitPlayer = 3;
+        if (level > 2) CreateTeleport();
         phase = GamePhase.game;
     }
     
@@ -75,10 +79,23 @@ public class GameBase : MonoBehaviour
         else Lose();
     }
 
-    private void Win() { Debug.Log("Win"); } 
-// Здесь показать картинки и анимации
-    private void Lose() { Debug.Log("Lose"); }
+    private void Win()
+    {
+        level++;
+    }
+    
+    
+    private void Lose()
+    {
+        level--;
+    }
 
+    private void Teleport()
+    {
+        Instantiate(teleport, transform.parent);
+        teleport.transform.position = init.Spawn();
+    }
+    
     public void RemoveAtWord(Letter l)
     {
         if (letDict.ContainsValue(l))
