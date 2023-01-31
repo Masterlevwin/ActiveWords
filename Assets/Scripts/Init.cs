@@ -17,6 +17,9 @@ public class Init : MonoBehaviour
     public GameObject prefabLetter;
     public LayerMask obtacleMask;
     
+    public GameObject prefabBlock;
+    private Transform blockAnchor;
+    
     public Sprite[] letters;
     public List<Letter> lets;
     
@@ -41,6 +44,11 @@ public class Init : MonoBehaviour
 	    GameObject wordGO = new GameObject("Words");
 	    wordAnchor = wordGO.transform;
 	}
+	if (GameObject.Find("Blocks") == null)			// Создаем пустой объект в иерархии, чтобы спрятать туда сгенерированные блоки
+	{
+	    GameObject blockGO = new GameObject("Blocs");
+	    blockAnchor = blockGO.transform;
+	}
 	table = GameObject.Find("BG").GetComponent<BoxCollider2D>();
 	pos = table.transform.position;
 	InitLevel(wordsFromTextAsset);
@@ -62,12 +70,14 @@ public class Init : MonoBehaviour
 	wordLevelText.text = $"";
     	if (lets != null && lets.Count > 0) lets.Clear();
 	foreach (Transform child in wordAnchor) Destroy(child.gameObject);
+	foreach (Transform child in blockAnchor) Destroy(child.gameObject);
 	InitLevel(wordsFromTextAsset);
     }
     
     private async void InitLevel(string[] words)
     {
     	GameBase.G.phase = GamePhase.pause;
+	CreateBlocks();
 	GameBase.G.player.transform.position = Spawn();
 	GameBase.G.enemy.transform.position = Spawn();
     	if (lets == null) lets = new List<Letter>();
@@ -76,6 +86,15 @@ public class Init : MonoBehaviour
     	char[] chars = wordLevel.ToCharArray();						// Преобразуем выбранное слово в массив символов (букв)
     	for (int i = 1; i < chars.Length-1; i++) await MakeLetter(chars[i], token);	// Рисуем каждую букву
         GameBase.G.StartGame();
+    }
+    
+    private void CreateBlocks()
+    {
+    	int numBlocks = Random.Range(5, 20);
+	for (int i = 0; i < numBlocks; i++)
+	{
+	    GameObject block = Instantiate(prefabBlock, Spawn(), Quaternion.identity, blockAnchor);
+	}
     }
     
     private async Task MakeLetter(char l, CancellationToken token = default)	        // Рисуем каждую букву
