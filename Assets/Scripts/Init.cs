@@ -20,7 +20,7 @@ public class Init : MonoBehaviour
     public GameObject prefabBlock;
     public Sprite[] blocks;
     private Transform blockAnchor;
-    
+    public GameObject prefabTeleport;
     public Sprite[] letters;
     public List<Letter> lets;
     
@@ -66,7 +66,8 @@ public class Init : MonoBehaviour
     	cancelTokenSource.Dispose();                        // Освобождаем ресурсы
         cancelTokenSource = new CancellationTokenSource();  // Создаем новый токен для ассинхронных задач
         token = cancelTokenSource.Token;                    // Обновляем токен
-    	GameBase.G.player.SetPath(null);
+    	
+        GameBase.G.player.SetPath(null);
         GameBase.G.enemy.SetPath(null);
 	wordLevelText.text = $"";
     	if (lets != null && lets.Count > 0) lets.Clear();
@@ -78,9 +79,11 @@ public class Init : MonoBehaviour
     private async void InitLevel(string[] words)
     {
     	GameBase.G.phase = GamePhase.pause;
-	CreateBlocks();
+	    CreateBlocks();
+
+        if (GameBase.level > 2) CreateTeleport();
 	//GameBase.G.player.transform.position = Spawn();
-	GameBase.G.player.SetPos(Spawn());
+	GameBase.G.player.GetComponent<Player>().SetPos(Spawn());
 	GameBase.G.enemy.transform.position = Spawn();
     	if (lets == null) lets = new List<Letter>();
     	string wordLevel = words[Random.Range(0, words.Length)];			// Выбираем слово для уровня из массива
@@ -90,14 +93,20 @@ public class Init : MonoBehaviour
         GameBase.G.StartGame();
     }
     
+    private void CreateTeleport()
+    {
+        GameObject teleport = Instantiate(prefabTeleport, blockAnchor);
+        teleport.transform.position = Spawn();
+    }
+
     private void CreateBlocks()
     {
     	int numBlocks = Random.Range(1, 4);
 	for (int i = 0; i < numBlocks; i++)
 	{
 	    GameObject block = Instantiate(prefabBlock, Spawn(), Quaternion.identity, blockAnchor);
-	    block.GetComponent<SpriteRenderer>().sprite = Random.Range(0, blocks.Length);
-	    block.transform.localScale = new Vector2(Random.Range(1, 3).x, Random.Range(1, 3).y);
+	    block.GetComponent<SpriteRenderer>().sprite = blocks[Random.Range(0, blocks.Length)];
+	    block.transform.localScale = new Vector2(Random.Range(1, 3), Random.Range(1, 3));
 	}
     }
     
@@ -116,7 +125,7 @@ public class Init : MonoBehaviour
 	lets.Add(let);
     }
     
-    private Vector2 Spawn()
+    public Vector2 Spawn()
     {
     	float x, y;
 	    x = Random.Range(pos.x - Random.Range(0, table.bounds.extents.x), pos.x + Random.Range(0, table.bounds.extents.x));

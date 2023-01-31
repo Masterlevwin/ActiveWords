@@ -25,7 +25,6 @@ public class GameBase : MonoBehaviour
     public AIPath player;
     public AIPath enemy;
     //public GameObject block;
-    public GameObject teleport;
     public Init init;
     public GameObject cellPrefab;
     private Transform cellAnchor;
@@ -49,7 +48,7 @@ public class GameBase : MonoBehaviour
 
     public void StartGame()
     {
-        levelText = "${level}";
+        levelText.text = $"{level}";
         foreach (Transform child in cellAnchor) Destroy(child.gameObject);
         if (letPositions == null) letPositions = new List<Vector2>();
         else letPositions.Clear();
@@ -57,8 +56,6 @@ public class GameBase : MonoBehaviour
         else letDict.Clear();
         if (!player.gameObject.activeSelf) player.gameObject.SetActive(true);
         player.GetComponent<Player>().hitPlayer = 3;
-        if (teleport != null) Destroy(teleport);
-        if (level > 2) CreateTeleport();
         
         Vector2 cell = Vector2.zero;
         for (int i = 0; i < init.lets.Count; i++) 
@@ -87,20 +84,13 @@ public class GameBase : MonoBehaviour
     private void Win()
     {
         level++;
-        levelText = "${level}";
-    }
-    
+        levelText.text = $"{level}";
+    }    
     
     private void Lose()
     {
         level--;
-        levelText = "${level}";
-    }
-
-    private void Teleport()
-    {
-        teleport = Instantiate(teleport, transform.parent);
-        teleport.transform.position = init.Spawn();
+        levelText.text = $"{level}";
     }
     
     public void RemoveAtWord(Letter l)
