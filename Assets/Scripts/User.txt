@@ -51,3 +51,12 @@ https://habr.com/ru/post/424257/ - карта из шестиугольнико�
 Добавить в рестарт игры Fader();
 LineRenderer или TrailRenderer;
 Скачать и нарезать спрайты cells, добавить в массив, проверить рендер;
+https://ru.freepik.com/free-vector/cartoon-character-animation-frames_13818807.htm#page=2&query=sprite%20animation&position=8&from_view=search&track=sph
+https://ru.freepik.com/free-vector/cute-sea-animals_1530802.htm?query=sprite%20animation#from_view=detail_alsolike
+https://ru.freepik.com/free-vector/burning-fire-on-candle-for-2d-animation_20873482.htm#page=3&query=sprite%20animation&position=5&from_view=search&track=sph
+https://ru.freepik.com/free-vector/hourglass-animation-sprite-sheet-glass-clock_27776358.htm#page=3&query=sprite%20animation&position=32&from_view=search&track=sph
+https://ru.freepik.com/free-vector/flat-design-animation-frames-element-collection_31630031.htm#page=3&query=sprite%20animation&position=44&from_view=search&track=sph
+https://ru.freepik.com/free-vector/milk-splash-animation-sprite-liquid-splatters_35393106.htm#page=5&query=sprite%20animation&position=15&from_view=search&track=sph
+
+
+
