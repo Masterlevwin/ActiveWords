@@ -26,7 +26,8 @@ public class GameBase : MonoBehaviour
     public AIPath enemy;
     //public GameObject block;
     public Init init;
-    public GameObject[] cells;
+    public GameObject cellPrefab;
+    public Sprite[] cells;
     private Transform cellAnchor;
     private List<Vector2> letPositions;
     private Dictionary<Vector2, Letter> letDict; 
@@ -49,7 +50,6 @@ public class GameBase : MonoBehaviour
     public void StartGame()
     {
         levelText.text = $"{level}";
-        foreach (Transform child in cellAnchor) Destroy(child.gameObject);
         if (letPositions == null) letPositions = new List<Vector2>();
         else letPositions.Clear();
         if (letDict == null) letDict = new Dictionary<Vector2, Letter>();
@@ -57,16 +57,20 @@ public class GameBase : MonoBehaviour
         if (!player.gameObject.activeSelf) player.gameObject.SetActive(true);
         player.GetComponent<Player>().hitPlayer = 3;
         
+        GameObject c;
         Vector2 cell = Vector2.zero;
         for (int i = 0; i < init.lets.Count; i++) 
         {
             float v = init.lets.Count/2;
             cell = new Vector2(.5f - v + i, -4.5f);
-            Instantiate(cells[0], cell, Quaternion.identity, cellAnchor);
+            c = Instantiate(cellPrefab, cell, Quaternion.identity, cellAnchor);
+            c.GetComponent<SpriteRenderer>().sprite = cells[0];
             letPositions.Add(cell);
         }
-        Instantiate(cells[1], new Vector2(letPositions[0].x - 3f, letPositions[0].y), Quaternion.identity, cellAnchor);
-        Instantiate(cells[2], new Vector2(letPositions[letPositions.Count - 1].x + 3f, letPositions[letPositions.Count - 1].y), Quaternion.identity, cellAnchor);
+        c = Instantiate(cellPrefab, new Vector2(letPositions[0].x - 2f, letPositions[0].y), Quaternion.identity, cellAnchor);
+        c.GetComponent<SpriteRenderer>().sprite = cells[1];
+        c = Instantiate(cellPrefab, new Vector2(letPositions[letPositions.Count - 1].x + 2f, letPositions[letPositions.Count - 1].y), Quaternion.identity, cellAnchor);
+        c.GetComponent<SpriteRenderer>().sprite = cells[2];
         phase = GamePhase.game;
     }
     
@@ -84,12 +88,14 @@ public class GameBase : MonoBehaviour
 
     private void Win()
     {
+        foreach (Transform child in cellAnchor) Destroy(child.gameObject);
         level++;
         levelText.text = $"{level}";
     }    
     
     private void Lose()
     {
+        foreach (Transform child in cellAnchor) Destroy(child.gameObject);
         level--;
         levelText.text = $"{level}";
     }
