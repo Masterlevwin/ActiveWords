@@ -26,7 +26,7 @@ public class GameBase : MonoBehaviour
     public AIPath enemy;
     //public GameObject block;
     public Init init;
-    public GameObject cellPrefab;
+    public GameObject[] cells;
     private Transform cellAnchor;
     private List<Vector2> letPositions;
     private Dictionary<Vector2, Letter> letDict; 
@@ -61,11 +61,12 @@ public class GameBase : MonoBehaviour
         for (int i = 0; i < init.lets.Count; i++) 
         {
             float v = init.lets.Count/2;
-            cell = new Vector2(.5f - v + i, -5f);
-            Instantiate(cellPrefab, cell, Quaternion.identity, cellAnchor);
+            cell = new Vector2(.5f - v + i, -4.5f);
+            Instantiate(cells[0], cell, Quaternion.identity, cellAnchor);
             letPositions.Add(cell);
         }
-        
+        Instantiate(cells[1], new Vector2(letPositions[0].x - 3f, letPositions[0].y), Quaternion.identity, cellAnchor);
+        Instantiate(cells[2], new Vector2(letPositions[letPositions.Count - 1].x + 3f, letPositions[letPositions.Count - 1].y), Quaternion.identity, cellAnchor);
         phase = GamePhase.game;
     }
     
