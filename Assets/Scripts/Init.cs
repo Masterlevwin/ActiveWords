@@ -7,42 +7,39 @@ using System.Threading.Tasks;
 using System.Threading;
 
 public class Init : MonoBehaviour
-{    
-    public TextAsset textAsset;
-    private string[] wordsFromTextAsset;
-    
-    public TMP_Text wordLevelText;
-    private Transform wordAnchor;
-    
-    public GameObject prefabLetter;
-    public LayerMask obtacleMask;
-    
-    public GameObject prefabBlock;
-    public Sprite[] blocks;
-    private Transform blockAnchor;
-    public GameObject prefabTeleport;
-    public Sprite[] letters;
-    public List<Letter> lets;
-    
-    public BoxCollider2D table;
-    private Vector2 pos;
-    private Collider2D[] cols;
-
+{
     static public CancellationTokenSource cancelTokenSource;
     static public CancellationToken token;
     
+    public TextAsset textAsset;
+    private string[] wordsFromTextAsset;
+    private TMP_Text wordLevelText;
+    
+    private Transform wordAnchor;
+    public GameObject prefabLetter;
+    public Sprite[] letters;
+    public List<Letter> lets; 
+    public LayerMask obtacleMask;
+    
+    private Transform blockAnchor;
+    public GameObject prefabBlock;
+    public Sprite[] blocks;
+    public GameObject prefabTeleport;
+
+    private BoxCollider2D table;
+    private Collider2D[] cols;
+
     void Start()
     {
-    	if (cancelTokenSource == null)
+    	if (cancelTokenSource == null)				// Создаем токен для отмены ассихронных задач
 	{
             cancelTokenSource = new CancellationTokenSource();
             token = cancelTokenSource.Token;
 	}
-	
         wordsFromTextAsset = ParseText(textAsset.text);		// Загружаем в массив все слова из текстового ассета
-	if (GameObject.Find("Words") == null)			// Создаем пустой объект в иерархии, чтобы спрятать туда сгенерированные буквы
+	if (GameObject.Find("Letters") == null)			// Создаем пустой объект в иерархии, чтобы спрятать туда сгенерированные буквы
 	{
-	    GameObject wordGO = new GameObject("Words");
+	    GameObject wordGO = new GameObject("Letters");
 	    wordAnchor = wordGO.transform;
 	}
 	if (GameObject.Find("Blocks") == null)			// Создаем пустой объект в иерархии, чтобы спрятать туда сгенерированные блоки
@@ -50,99 +47,93 @@ public class Init : MonoBehaviour
 	    GameObject blockGO = new GameObject("Blocs");
 	    blockAnchor = blockGO.transform;
 	}
-	table = GameObject.Find("BG").GetComponent<BoxCollider2D>();
-	pos = table.transform.position;
-	InitLevel(wordsFromTextAsset);
+	table = GameObject.Find("BG").GetComponent<BoxCollider2D>();	// Сохраняем ссылку на коллайдер стола,
+									// к которому будем обращаться каждый раз, как потребуется спавнить объект
+	InitLevel();				// Инициализируем уровень
     }
     
-    private string[] ParseText(string txt)
+    private string[] ParseText(string txt)	// Метод преобразования текста в массив строк
     {
     	string[] lines = txt.Split("\n");
 	    return lines;
     }
     
-    public void Reset()
+    public void Reset()				// Метод обновления уровня, временно вызывается кнопкой
     {
-    	cancelTokenSource.Dispose();                        // Освобождаем ресурсы
-        cancelTokenSource = new CancellationTokenSource();  // Создаем новый токен для ассинхронных задач
-        token = cancelTokenSource.Token;                    // Обновляем токен
+    	cancelTokenSource.Dispose();                        	// Освобождаем ресурсы
+        cancelTokenSource = new CancellationTokenSource();  	// Создаем новый токен для ассинхронных задач
+        token = cancelTokenSource.Token;                    	// Обновляем токен
     	
-        GameBase.G.player.SetPath(null);
-        GameBase.G.enemy.SetPath(null);
-	wordLevelText.text = $"";
-    	if (lets != null && lets.Count > 0) lets.Clear();
-	foreach (Transform child in wordAnchor) Destroy(child.gameObject);
-	foreach (Transform child in blockAnchor) Destroy(child.gameObject);
-	InitLevel(wordsFromTextAsset);
+        GameBase.G.player.SetPath(null);			// Останавливаем поиск пути у игрока
+        GameBase.G.enemy.SetPath(null);				// Останавливаем поиск пути у бота
+	wordLevelText.text = $"";				// Очищаем отображение слова
+    	if (lets != null && lets.Count > 0) lets.Clear();	// Очищаем список букв
+	foreach (Transform child in wordAnchor) Destroy(child.gameObject);	// Удаляем объекты букв
+	foreach (Transform child in blockAnchor) Destroy(child.gameObject);	// Удаляем объекты блоков
+	InitLevel();					// Инициализируем новый уровень
     }
     
-    private async void InitLevel(string[] words)
+    private void InitLevel()				// Метод инициализации уровня
     {
-    	GameBase.G.phase = GamePhase.pause;
-	    CreateBlocks();
-
-        if (GameBase.level > 2) CreateTeleport();
-	//GameBase.G.player.transform.position = Spawn();
-	GameBase.G.player.GetComponent<Player>().SetPos(Spawn());
-	GameBase.G.enemy.transform.position = Spawn();
-    	if (lets == null) lets = new List<Letter>();
-    	string wordLevel = words[Random.Range(0, words.Length)];			// Выбираем слово для уровня из массива
-    	wordLevelText.text = wordLevel;							// Отображаем это слово в канвасе - временно для отладки
-    	char[] chars = wordLevel.ToCharArray();						// Преобразуем выбранное слово в массив символов (букв)
-    	for (int i = 1; i < chars.Length-1; i++) await MakeLetter(chars[i], token);	// Рисуем каждую букву
-        GameBase.G.StartGame();
-    }
-    
-    private void CreateTeleport()
-    {
-        GameObject teleport = Instantiate(prefabTeleport, blockAnchor);
-        teleport.transform.position = Spawn();
+    	GameBase.G.phase = GamePhase.pause;		// Ставим игру на паузу, запрещая двигать персонажа
+	CreateBlocks();							// Создаем блоки препятствий
+	CreateWord();							// Создаем слово уровня
+	GameBase.G.player.GetComponent<Player>().SetPos(Spawn());	// Устанавливаем позицию игрока
+	GameBase.G.enemy.transform.position = Spawn();			// Устанавливаем позицию бота
+        GameBase.G.StartGame();				// Запускаем игру
     }
 
-    private void CreateBlocks()
+    private void CreateBlocks()// Метод создания блоков препятствий
     {
-    	int numBlocks = Random.Range(1, 4);
+    	int numBlocks = Random.Range(1, 10);// Выбираем случайное количество блоков
 	for (int i = 0; i < numBlocks; i++)
 	{
-	    GameObject block = Instantiate(prefabBlock, Spawn(), Quaternion.identity, blockAnchor);
-	    block.GetComponent<SpriteRenderer>().sprite = blocks[Random.Range(0, blocks.Length)];
-	    block.transform.localScale = new Vector2(Random.Range(1, 3), Random.Range(1, 3));
+	    GameObject block = Instantiate(prefabBlock, Spawn(), Quaternion.identity, blockAnchor);	// Создаем блок в доступном месте
+	    block.GetComponent<SpriteRenderer>().sprite = blocks[Random.Range(0, blocks.Length)];	// Устанавливаем случайный спрайт блока
+	}
+		// Со второго уровня создаем блок-телепорт
+	if (GameBase.level > 2) GameObject teleport = Instantiate(prefabTeleport, Spawn(), Quaternion.identity, blockAnchor);
+    }
+    
+    private Vector2 Spawn()
+    {
+    	float x, y;// Выбираем случайные значения в пределах стола, основываясь на костях его коллайдера
+	x = Random.Range(table.transform.position.x - Random.Range(0, table.bounds.extents.x), table.transform.position.x + Random.Range(0, table.bounds.extents.x));
+	y = Random.Range(table.transform.position.y - Random.Range(0, table.bounds.extents.y), table.transform.position.y + Random.Range(0, table.bounds.extents.y));
+	Vector2 spawnPoint = new Vector2(x, y);					// Создаем точку спавна
+	if (Point(spawnPoint)) return spawnPoint;				// Если точка доступна, возвращаем её из метода,
+	else return Spawn();							// иначе ищем снова доступную точку
+	bool Point(Vector2 spawn)						// Внутренний метод проверки доступности точки
+	{
+	    Vector2 size = new Vector2(2f, 2f);					// Дистанция коллайдеров между объектами
+	    cols = Physics2D.OverlapBoxAll(spawn, size, 0f, obtacleMask);	// Определяем массив коллайдеров на столе,пересекающий точку спавна в данный момент
+	    if (cols.Length > 0) return false;					// Если такие коллайдеры есть, точка спавна не доступна,
+	    else return true;							// иначе доступна
 	}
     }
     
-    private async Task MakeLetter(char l, CancellationToken token = default)	        // Рисуем каждую букву
+    private async void CreateWord()							// Метод создания букв на столе
+    {
+    	if (lets == null) lets = new List<Letter>();					// Создаем список букв
+    	string wordLevel = wordsFromTextAsset[Random.Range(0, words.Length)];		// Выбираем слово для уровня из массива
+    	wordLevelText.text = wordLevel;							// Отображаем это слово в канвасе - временно для отладки
+    	char[] chars = wordLevel.ToCharArray();						// Преобразуем выбранное слово в массив символов (букв)
+    	for (int i = 1; i < chars.Length-1; i++) await MakeLetter(chars[i], token);	// Рисуем каждую букву
+    }
+    
+    private async Task MakeLetter(char l, CancellationToken token = default)	        // Метод создания каждой буквы
     {                                              
         if (token.IsCancellationRequested) return;	// Проверяем наличие сигнала отмены задачи и выходим из метода и тем самым завершаем задачу
         await Task.Delay(500);                          // Ожидаем полсекунды
 	
-        GameObject letGO = Instantiate(prefabLetter);			    		// Инициализируем объект буквы
-	letGO.transform.SetParent(wordAnchor);				        	// Прячем её в иерархии
-        letGO.transform.position = Spawn();				            	// Определяем позицию буквы на сцене
+        GameObject letGO = Instantiate(prefabLetter, Spawn(), Quaternion.identity, wordAnchor);		// Инициализируем объект буквы
 	letGO.GetComponent<SpriteRenderer>().sprite = SetLetterSprite(l);               // Устанавливаем спрайт буквы
-	Letter let = letGO.GetComponent<Letter>();
-        let.SetLetterPos(let.transform.position);
-        let.SetChar(l);
-	lets.Add(let);
+	Letter let = letGO.GetComponent<Letter>();					// Получаем компонент Letter созданной буквы
+        let.SetLetterPos(let.transform.position);					// Запоминаем начальную позицию буквы
+        let.SetChar(l);									// Устанавливаем символ для дальнейшей проверки этого свойства
+	lets.Add(let);									//Добавляем букву в список
     }
-    
-    public Vector2 Spawn()
-    {
-    	float x, y;
-	    x = Random.Range(pos.x - Random.Range(0, table.bounds.extents.x), pos.x + Random.Range(0, table.bounds.extents.x));
-	    y = Random.Range(pos.y - Random.Range(0, table.bounds.extents.y), pos.y + Random.Range(0, table.bounds.extents.y));
-	    Vector2 spawnLet = new Vector2(x, y);
-
-	    if (Point(spawnLet)) return spawnLet;
-	    else return Spawn();
-	    bool Point(Vector2 spawn)
-	    {
-	        Vector2 size = new Vector2(2f, 2f);
-	        cols = Physics2D.OverlapBoxAll(spawn, size, 0f, obtacleMask);
-            	if (cols.Length > 0) return false;
-	        else return true;
-	    }
-    }
-    
+        
     private Sprite SetLetterSprite(char l)
     {
     	Sprite spLet = null;
