@@ -360,12 +360,7 @@ MonoBehaviour:
   levelText: {fileID: 547791055}
   player: {fileID: 7985207288063439870}
   enemy: {fileID: 1088542679}
-  init: {fileID: 0}
-  cellPrefab: {fileID: 1258827677991170566, guid: af69b0ca06cff3a47b2dada72a6cfdc1, type: 3}
-  cells:
-  - {fileID: 21300000, guid: d0c541cfad4ad68408dcba5d3a3cc709, type: 3}
-  - {fileID: 21300000, guid: 333b84cc4c6a584458c1501d9c2829b3, type: 3}
-  - {fileID: 21300000, guid: 969d535f977f9a4468fa92d8e148259b, type: 3}
+  init: {fileID: 519420035}
 --- !u!114 &519420035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -381,16 +376,6 @@ MonoBehaviour:
   textAsset: {fileID: 4900000, guid: 99ef1392a4fadc34a8d2f7d8f7980497, type: 3}
   wordLevelText: {fileID: 565621471}
   prefabLetter: {fileID: 4570235006794951168, guid: bc4f577ebb6a97d4381e59718f96e239, type: 3}
-  obtacleMask:
-    serializedVersion: 2
-    m_Bits: 64
-  prefabBlock: {fileID: 993319965464414929, guid: 1650ad597b3486640b640c613e83c84d, type: 3}
-  blocks:
-  - {fileID: 21300000, guid: 0639f946df6bdc24f90fe2833105dfd3, type: 3}
-  - {fileID: 21300000, guid: dbd855141870e414a88426568660e0fa, type: 3}
-  - {fileID: 21300000, guid: 51d2207009fd9ef4790c24be87f5e0dd, type: 3}
-  - {fileID: 21300000, guid: 37533ed6cad1cdc46808836dcbf1f7f4, type: 3}
-  prefabTeleport: {fileID: 2593579927443946496, guid: a4411325e7216184488cb01d351eb8e7, type: 3}
   letters:
   - {fileID: 21300000, guid: b69385d1ec70d1840a2b943b644bb71a, type: 3}
   - {fileID: 21300000, guid: 8a76fb36d750b664aa8f26f879c878c4, type: 3}
@@ -426,7 +411,22 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 795686d7888d7264882b23eed49a719e, type: 3}
   - {fileID: 21300000, guid: 6aa108bf75b8d3c43bf601d9fb2701ba, type: 3}
   lets: []
-  table: {fileID: 0}
+  obtacleMask:
+    serializedVersion: 2
+    m_Bits: 64
+  prefabBlock: {fileID: 993319965464414929, guid: 1650ad597b3486640b640c613e83c84d, type: 3}
+  blocks:
+  - {fileID: 21300000, guid: 0639f946df6bdc24f90fe2833105dfd3, type: 3}
+  - {fileID: 21300000, guid: dbd855141870e414a88426568660e0fa, type: 3}
+  - {fileID: 21300000, guid: 51d2207009fd9ef4790c24be87f5e0dd, type: 3}
+  - {fileID: 21300000, guid: 37533ed6cad1cdc46808836dcbf1f7f4, type: 3}
+  prefabTeleport: {fileID: 2593579927443946496, guid: a4411325e7216184488cb01d351eb8e7, type: 3}
+  prefabCell: {fileID: 1258827677991170566, guid: af69b0ca06cff3a47b2dada72a6cfdc1, type: 3}
+  cells:
+  - {fileID: 21300000, guid: d0c541cfad4ad68408dcba5d3a3cc709, type: 3}
+  - {fileID: 21300000, guid: 333b84cc4c6a584458c1501d9c2829b3, type: 3}
+  - {fileID: 21300000, guid: 969d535f977f9a4468fa92d8e148259b, type: 3}
+  letPositions: []
 --- !u!1 &547791053
 GameObject:
   m_ObjectHideFlags: 0

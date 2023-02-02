@@ -13,7 +13,7 @@ public class Init : MonoBehaviour
     
     public TextAsset textAsset;
     private string[] wordsFromTextAsset;
-    private TMP_Text wordLevelText;
+    public TMP_Text wordLevelText;
     
     private Transform wordAnchor;
     public GameObject prefabLetter;
@@ -85,13 +85,13 @@ public class Init : MonoBehaviour
 	InitLevel();						// Инициализируем новый уровень
     }
     
-    private void InitLevel()					// Метод инициализации уровня
+    private async void InitLevel()					// Метод инициализации уровня
     {
-    	GameBase.G.phase = GamePhase.pause;			// Ставим игру на паузу, запрещая двигать персонажа
+    	GameBase.G.phase = GamePhase.init;			// Переводим игру в фазу инициализации уровня, запрещая двигать персонажа
 	CreateBlocks();							// Создаем блоки препятствий
-	CreateLetters();						// Создаем буквы уровня
-	CreateCells();							// Создаем конечные места букв
-	GameBase.G.player.GetComponent<Player>().SetPos(Spawn());	// Устанавливаем позицию игрока
+	await CreateLetters();						// Создаем буквы уровня
+	CreateCells();                                          // Создаем конечные места букв
+    GameBase.G.player.GetComponent<Player>().SetPos(Spawn());	// Устанавливаем позицию игрока
 	GameBase.G.enemy.transform.position = Spawn();			// Устанавливаем позицию бота
         GameBase.G.StartGame();					// Запускаем игру
     }
@@ -105,7 +105,10 @@ public class Init : MonoBehaviour
 	    block.GetComponent<SpriteRenderer>().sprite = blocks[Random.Range(0, blocks.Length)];	// Устанавливаем случайный спрайт блока
 	}
 		// Со второго уровня создаем блок-телепорт
-	if (GameBase.level > 2) GameObject teleport = Instantiate(prefabTeleport, Spawn(), Quaternion.identity, blockAnchor);
+	if (GameBase.level > 2)
+    {
+        GameObject teleport = Instantiate(prefabTeleport, Spawn(), Quaternion.identity, blockAnchor);
+    } 
     }
     
     private Vector2 Spawn()
@@ -134,21 +137,21 @@ public class Init : MonoBehaviour
         for (int i = 0; i < lets.Count; i++) 
         {	// Взависимости от количества букв сгенерированного слова уровня определяем позицию каждого места
             cellPos = new Vector2(.5f - lets.Count/2 + i, -4.5f);
-            c = Instantiate(cellPrefab, cellPos, Quaternion.identity, cellAnchor);	// Создаем конечное место буквы
+            c = Instantiate(prefabCell, cellPos, Quaternion.identity, cellAnchor);	// Создаем конечное место буквы
             c.GetComponent<SpriteRenderer>().sprite = cells[0];				// Определяем спрайт этого места
             letPositions.Add(cellPos);							// Добавляем это место в список позиций
         }
 		// Далее создаем крайние блоки для оформления интерактивной зоны
-        c = Instantiate(cellPrefab, new Vector2(letPositions[0].x - 2f, letPositions[0].y), Quaternion.identity, cellAnchor);
+        c = Instantiate(prefabCell, new Vector2(letPositions[0].x - 2f, letPositions[0].y), Quaternion.identity, cellAnchor);
         c.GetComponent<SpriteRenderer>().sprite = cells[1];
-        c = Instantiate(cellPrefab, new Vector2(letPositions[letPositions.Count - 1].x + 2f, letPositions[letPositions.Count - 1].y), Quaternion.identity, cellAnchor);
+        c = Instantiate(prefabCell, new Vector2(letPositions[letPositions.Count - 1].x + 2f, letPositions[letPositions.Count - 1].y), Quaternion.identity, cellAnchor);
         c.GetComponent<SpriteRenderer>().sprite = cells[2];
     }
     
-    private async void CreateLetters()							// Метод создания букв на столе
+    private async Task CreateLetters()							// Метод создания букв на столе
     {
     	if (lets == null) lets = new List<Letter>();					// Создаем список букв
-    	string wordLevel = wordsFromTextAsset[Random.Range(0, words.Length)];		// Выбираем слово для уровня из массива
+    	string wordLevel = wordsFromTextAsset[Random.Range(0, wordsFromTextAsset.Length)];		// Выбираем слово для уровня из массива
     	wordLevelText.text = wordLevel;							// Отображаем это слово в канвасе - временно для отладки
     	char[] chars = wordLevel.ToCharArray();						// Преобразуем выбранное слово в массив символов (букв)
     	for (int i = 1; i < chars.Length-1; i++) await MakeLetter(chars[i], token);	// Рисуем каждую букву

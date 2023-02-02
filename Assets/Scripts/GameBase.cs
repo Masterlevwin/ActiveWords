@@ -33,8 +33,6 @@ public class GameBase : MonoBehaviour
     {
         if (G == null) G = this;
         else if (G == this) Destroy(gameObject);
-        
-        init = GetComponent<Init>();
     }
 
     public void StartGame()
@@ -49,7 +47,7 @@ public class GameBase : MonoBehaviour
     
     private void CompleteGame()
     {
-        phase = GamePhase.pause;
+        phase = GamePhase.complete;
         int numValues = 0;
         
         for (int i = 0; i < init.letPositions.Count; i++)
@@ -85,7 +83,7 @@ public class GameBase : MonoBehaviour
     {
         for (int i = 0; i < init.letPositions.Count; i++)
         { 
-            if (!letDict.ContainsValue(l) && !letDict.ContainsKey(letPositions[i]))
+            if (!letDict.ContainsValue(l) && !letDict.ContainsKey(init.letPositions[i]))
             {
                 letDict.Add(init.letPositions[i], l);
                 StartCoroutine(Move(l, init.letPositions[i], false));
@@ -106,18 +104,17 @@ public class GameBase : MonoBehaviour
     }
     
     void Update()
-    {
-        if (phase != GamePhase.pause && letDict != null && letDict.Count == init.lets.Count) CompleteGame();
-        
-        if (phase != GamePhase.game)
+    { 
+        if (phase == GamePhase.game)
         {
-            player.canMove = false;
-            enemy.canMove = false;
+            if (init.lets.Count != 0 && letDict.Count == init.lets.Count ) CompleteGame();
+            player.canMove = true;
+            enemy.canMove = true;
         } 
         else
         {
-            player.canMove = true;
-            enemy.canMove = true;
+            player.canMove = false;
+            enemy.canMove = false;
         }
     }
 }
