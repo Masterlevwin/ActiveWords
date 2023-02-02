@@ -25,7 +25,12 @@ public class Init : MonoBehaviour
     public GameObject prefabBlock;
     public Sprite[] blocks;
     public GameObject prefabTeleport;
-
+    
+    private Transform cellAnchor;
+    public GameObject prefabCell;
+    public Sprite[] cells;
+    public List<Vector2> letPositions;
+    
     private BoxCollider2D table;
     private Collider2D[] cols;
 
@@ -42,6 +47,11 @@ public class Init : MonoBehaviour
 	    GameObject wordGO = new GameObject("Letters");
 	    wordAnchor = wordGO.transform;
 	}
+	if (GameObject.Find("Cells") == null)			// Создаем пустой объект в иерархии, чтобы спрятать туда конечные места для букв
+        {
+            GameObject cellGO = new GameObject("Cells");
+            cellAnchor = cellGO.transform;
+        }
 	if (GameObject.Find("Blocks") == null)			// Создаем пустой объект в иерархии, чтобы спрятать туда сгенерированные блоки
 	{
 	    GameObject blockGO = new GameObject("Blocs");
@@ -67,20 +77,23 @@ public class Init : MonoBehaviour
         GameBase.G.player.SetPath(null);			// Останавливаем поиск пути у игрока
         GameBase.G.enemy.SetPath(null);				// Останавливаем поиск пути у бота
 	wordLevelText.text = $"";				// Очищаем отображение слова
-    	if (lets != null && lets.Count > 0) lets.Clear();	// Очищаем список букв
-	foreach (Transform child in wordAnchor) Destroy(child.gameObject);	// Удаляем объекты букв
-	foreach (Transform child in blockAnchor) Destroy(child.gameObject);	// Удаляем объекты блоков
-	InitLevel();					// Инициализируем новый уровень
+    	if (lets != null && lets.Count > 0) lets.Clear();	// Очищаем список букв        
+        if (letPositions != null && letPositions.Count > 0) letPositions.Clear();	// Очищаем список конечных мест
+	foreach (Transform child in cellAnchor) Destroy(child.gameObject);		// Удаляем объекты конечных мест
+	foreach (Transform child in wordAnchor) Destroy(child.gameObject);		// Удаляем объекты букв
+	foreach (Transform child in blockAnchor) Destroy(child.gameObject);		// Удаляем объекты блоков
+	InitLevel();						// Инициализируем новый уровень
     }
     
-    private void InitLevel()				// Метод инициализации уровня
+    private void InitLevel()					// Метод инициализации уровня
     {
-    	GameBase.G.phase = GamePhase.pause;		// Ставим игру на паузу, запрещая двигать персонажа
+    	GameBase.G.phase = GamePhase.pause;			// Ставим игру на паузу, запрещая двигать персонажа
 	CreateBlocks();							// Создаем блоки препятствий
-	CreateWord();							// Создаем слово уровня
+	CreateLetters();						// Создаем буквы уровня
+	CreateCells();							// Создаем конечные места букв
 	GameBase.G.player.GetComponent<Player>().SetPos(Spawn());	// Устанавливаем позицию игрока
 	GameBase.G.enemy.transform.position = Spawn();			// Устанавливаем позицию бота
-        GameBase.G.StartGame();				// Запускаем игру
+        GameBase.G.StartGame();					// Запускаем игру
     }
 
     private void CreateBlocks()// Метод создания блоков препятствий
@@ -103,6 +116,7 @@ public class Init : MonoBehaviour
 	Vector2 spawnPoint = new Vector2(x, y);					// Создаем точку спавна
 	if (Point(spawnPoint)) return spawnPoint;				// Если точка доступна, возвращаем её из метода,
 	else return Spawn();							// иначе ищем снова доступную точку
+	
 	bool Point(Vector2 spawn)						// Внутренний метод проверки доступности точки
 	{
 	    Vector2 size = new Vector2(2f, 2f);					// Дистанция коллайдеров между объектами
@@ -112,7 +126,26 @@ public class Init : MonoBehaviour
 	}
     }
     
-    private async void CreateWord()							// Метод создания букв на столе
+    private void CreateCells()
+    {
+    	if (letPositions == null) letPositions = new List<Vector2>();		// Создаем список конечных мест букв
+    	GameObject c;									// Объявляем переменную GameObject
+        Vector2 cellPos;								// Объявляем переменную Vector2
+        for (int i = 0; i < lets.Count; i++) 
+        {	// Взависимости от количества букв сгенерированного слова уровня определяем позицию каждого места
+            cellPos = new Vector2(.5f - lets.Count/2 + i, -4.5f);
+            c = Instantiate(cellPrefab, cellPos, Quaternion.identity, cellAnchor);	// Создаем конечное место буквы
+            c.GetComponent<SpriteRenderer>().sprite = cells[0];				// Определяем спрайт этого места
+            letPositions.Add(cellPos);							// Добавляем это место в список позиций
+        }
+		// Далее создаем крайние блоки для оформления интерактивной зоны
+        c = Instantiate(cellPrefab, new Vector2(letPositions[0].x - 2f, letPositions[0].y), Quaternion.identity, cellAnchor);
+        c.GetComponent<SpriteRenderer>().sprite = cells[1];
+        c = Instantiate(cellPrefab, new Vector2(letPositions[letPositions.Count - 1].x + 2f, letPositions[letPositions.Count - 1].y), Quaternion.identity, cellAnchor);
+        c.GetComponent<SpriteRenderer>().sprite = cells[2];
+    }
+    
+    private async void CreateLetters()							// Метод создания букв на столе
     {
     	if (lets == null) lets = new List<Letter>();					// Создаем список букв
     	string wordLevel = wordsFromTextAsset[Random.Range(0, words.Length)];		// Выбираем слово для уровня из массива
@@ -131,10 +164,10 @@ public class Init : MonoBehaviour
 	Letter let = letGO.GetComponent<Letter>();					// Получаем компонент Letter созданной буквы
         let.SetLetterPos(let.transform.position);					// Запоминаем начальную позицию буквы
         let.SetChar(l);									// Устанавливаем символ для дальнейшей проверки этого свойства
-	lets.Add(let);									//Добавляем букву в список
+	lets.Add(let);									// Добавляем букву в список
     }
         
-    private Sprite SetLetterSprite(char l)
+    private Sprite SetLetterSprite(char l)		// Метод установки спрайта на объект буквы
     {
     	Sprite spLet = null;
 	if (l == 'а') spLet = letters[0];
