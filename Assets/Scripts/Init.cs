@@ -87,33 +87,33 @@ public class Init : MonoBehaviour
     
     private async void InitLevel()					// Метод инициализации уровня
     {
-    	GameBase.G.phase = GamePhase.init;			// Переводим игру в фазу инициализации уровня, запрещая двигать персонажа
+    	GameBase.G.phase = GamePhase.init;				// Переводим игру в фазу инициализации уровня, запрещая двигать персонажа
 	CreateBlocks();							// Создаем блоки препятствий
 	await CreateLetters();						// Создаем буквы уровня
-	CreateCells();                                          // Создаем конечные места букв
-    GameBase.G.player.GetComponent<Player>().SetPos(Spawn());	// Устанавливаем позицию игрока
+	CreateCells();                                          	// Создаем конечные места букв
+    	GameBase.G.player.GetComponent<Player>().SetPos(Spawn());	// Устанавливаем позицию игрока
 	GameBase.G.enemy.transform.position = Spawn();			// Устанавливаем позицию бота
-        GameBase.G.StartGame();					// Запускаем игру
+        GameBase.G.StartGame();						// Запускаем игру
     }
 
-    private void CreateBlocks()// Метод создания блоков препятствий
+    private void CreateBlocks()										// Метод создания блоков препятствий
     {
-    	int numBlocks = Random.Range(1, 10);// Выбираем случайное количество блоков
+    	int numBlocks = Random.Range(1, 10);								// Выбираем случайное количество блоков
 	for (int i = 0; i < numBlocks; i++)
 	{
 	    GameObject block = Instantiate(prefabBlock, Spawn(), Quaternion.identity, blockAnchor);	// Создаем блок в доступном месте
 	    block.GetComponent<SpriteRenderer>().sprite = blocks[Random.Range(0, blocks.Length)];	// Устанавливаем случайный спрайт блока
 	}
-		// Со второго уровня создаем блок-телепорт
-	if (GameBase.level > 2)
-    {
-        GameObject teleport = Instantiate(prefabTeleport, Spawn(), Quaternion.identity, blockAnchor);
-    } 
+		
+	if (GameBase.level > 2)										// Со второго уровня создаем блок-телепорт
+    	{
+            GameObject teleport = Instantiate(prefabTeleport, Spawn(), Quaternion.identity, blockAnchor);
+    	} 
     }
     
-    private Vector2 Spawn()
+    private Vector2 Spawn()							// Метод генерации случайной точки спавна
     {
-    	float x, y;// Выбираем случайные значения в пределах стола, основываясь на костях его коллайдера
+    	float x, y;								// Выбираем случайные значения в пределах стола, основываясь на костях его коллайдера
 	x = Random.Range(table.transform.position.x - Random.Range(0, table.bounds.extents.x), table.transform.position.x + Random.Range(0, table.bounds.extents.x));
 	y = Random.Range(table.transform.position.y - Random.Range(0, table.bounds.extents.y), table.transform.position.y + Random.Range(0, table.bounds.extents.y));
 	Vector2 spawnPoint = new Vector2(x, y);					// Создаем точку спавна
@@ -129,9 +129,9 @@ public class Init : MonoBehaviour
 	}
     }
     
-    private void CreateCells()
+    private void CreateCells()								// Метод создания конечных мест букв
     {
-    	if (letPositions == null) letPositions = new List<Vector2>();		// Создаем список конечных мест букв
+    	if (letPositions == null) letPositions = new List<Vector2>();			// Создаем список конечных мест букв
     	GameObject c;									// Объявляем переменную GameObject
         Vector2 cellPos;								// Объявляем переменную Vector2
         for (int i = 0; i < lets.Count; i++) 
