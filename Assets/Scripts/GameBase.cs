@@ -46,7 +46,7 @@ public class GameBase : MonoBehaviour
         phase = GamePhase.game;
     }
     
-    private void CompleteGame()
+    public void CompleteGame()
     {
         phase = GamePhase.complete;
         player.gameObject.SetActive(false);

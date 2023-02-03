@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" && hitPlayer <= 0)
         {
-            gameObject.SetActive(false);
+            GameBase.G.CompleteGame();
         }
         else if (collision.gameObject.tag == "Player")
         {
