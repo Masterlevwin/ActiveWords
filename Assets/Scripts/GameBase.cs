@@ -41,6 +41,7 @@ public class GameBase : MonoBehaviour
         if (letDict == null) letDict = new Dictionary<Vector2, Letter>();
         else letDict.Clear();
         if (!player.gameObject.activeSelf) player.gameObject.SetActive(true);
+        if (!enemy.gameObject.activeSelf) enemy.gameObject.SetActive(true);
         player.GetComponent<Player>().hitPlayer = 3; 
         phase = GamePhase.game;
     }
@@ -48,8 +49,10 @@ public class GameBase : MonoBehaviour
     private void CompleteGame()
     {
         phase = GamePhase.complete;
-        int numValues = 0;
+        player.gameObject.SetActive(false);
+        enemy.gameObject.SetActive(false);
         
+        int numValues = 0;
         for (int i = 0; i < init.letPositions.Count; i++)
             if (letDict.TryGetValue(init.letPositions[i], out Letter l) && l.charLet == init.lets[i].charLet)
                 numValues++;
