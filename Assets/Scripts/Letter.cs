@@ -25,7 +25,7 @@ public class Letter : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        GameBase.G.RemoveAtWord(this);
+        if (GameBase.G.phase == GamePhase.game) GameBase.G.RemoveAtWord(this);
     }
     
     void OnTriggerEnter2D(Collider2D collision)
