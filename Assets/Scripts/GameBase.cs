@@ -33,6 +33,9 @@ public class GameBase : MonoBehaviour
     {
         if (G == null) G = this;
         else if (G == this) Destroy(gameObject);
+
+        player.gameObject.SetActive(false);
+        enemy.gameObject.SetActive(false);
     }
 
     public void StartGame()
@@ -42,7 +45,7 @@ public class GameBase : MonoBehaviour
         else letDict.Clear();
         if (!player.gameObject.activeSelf) player.gameObject.SetActive(true);
         if (!enemy.gameObject.activeSelf) enemy.gameObject.SetActive(true);
-        player.GetComponent<Player>().hitPlayer = 3; 
+        player.GetComponent<Player>().SetHit(player.GetComponent<Player>().maxHit);
         phase = GamePhase.game;
     }
     

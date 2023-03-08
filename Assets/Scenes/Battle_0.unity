@@ -965,6 +965,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 1258084832210441997, guid: b1643bfdea963d644b378feb3eff2137, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1643bfdea963d644b378feb3eff2137, type: 3}
 --- !u!4 &1088542676 stripped

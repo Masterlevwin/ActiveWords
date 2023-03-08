@@ -1,42 +1,58 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 using Pathfinding;
 
 public class Player : MonoBehaviour
 {
+    public float hitPlayer { private set; get; }
+    public float maxHit;
+    private TMP_Text txtHp;
+    private Image bar;
+
     private Vector2 startPos;
-    public int hitPlayer = 3;
     private Color colorPlayer;
 
     void Start()
     {
         colorPlayer = GetComponentInChildren<SpriteRenderer>().color;
-        startPos = GetPos();
+        txtHp = GetComponentInChildren<TMP_Text>();
+        bar = GetComponentsInChildren<Image>()[1];
+        startPos = transform.position;
+        hitPlayer = maxHit;
     }
 
+    public void SetHit(float hit)
+    {
+        hitPlayer = hit;
+        txtHp.text = $"{hitPlayer}";
+        bar.fillAmount = hitPlayer / maxHit;
+        if (hitPlayer <= 0)
+        {
+            GameBase.G.CompleteGame();
+        } 
+    }
+
+    public void Damage(float dmg)
+    {
+        hitPlayer -= dmg;
+        SetHit(hitPlayer);
+    }
+    
     public void SetPos(Vector2 pos)
     {
         if (pos == startPos && !gameObject.activeSelf) gameObject.SetActive(true);
         transform.position = pos;
-        startPos = GetPos();
-    }
-    
-    public Vector2 GetPos()
-    {
-        return transform.position;
     }
     
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player" && hitPlayer <= 0)
+        if (collision.gameObject.tag == "Player")
         {
-            GameBase.G.CompleteGame();
-        }
-        else if (collision.gameObject.tag == "Player")
-        {
-            hitPlayer--;
             GetComponentInChildren<SpriteRenderer>().color = new Color(colorPlayer.r, colorPlayer.g - .5f, colorPlayer.b - .5f, colorPlayer.a);
+            Damage(1);
         } 
         
         if (collision.gameObject.tag == "Teleport")
