@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
         hitPlayer = maxHit;
     }
 
-    public void SetHit(float hit)
+    public virtual void SetHit(float hit)
     {
         hitPlayer = hit;
         txtHp.text = $"{hitPlayer}";
