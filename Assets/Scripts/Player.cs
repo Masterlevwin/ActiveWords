@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
         hitPlayer = maxHit;
     }
 
-    public virtual void SetHit(float hit)
+    public void SetHit(float hit)
     {
         hitPlayer = hit;
         txtHp.text = $"{hitPlayer}";
@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Enemy")
         {
             GetComponentInChildren<SpriteRenderer>().color = new Color(colorPlayer.r, colorPlayer.g - .5f, colorPlayer.b - .5f, colorPlayer.a);
             Damage(1);
@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Enemy")
         {
             GetComponentInChildren<SpriteRenderer>().color = colorPlayer;
         } 
