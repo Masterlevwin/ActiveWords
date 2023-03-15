@@ -120,7 +120,7 @@ MonoBehaviour:
   endReachedDistance: 0.5
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
-  whenCloseToDestination: 1
+  whenCloseToDestination: 0
   constrainInsideGraph: 0
 --- !u!61 &451887132131533842
 BoxCollider2D:
@@ -161,6 +161,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHit: 3
+  start_speed: 3
+  start_damage: 1
+  is_player: 1
 --- !u!1 &451887132560335206
 GameObject:
   m_ObjectHideFlags: 0

@@ -477,7 +477,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23305b4058a7bc44cae934ab62cd891b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHit: 2
+  maxHit: 4
+  start_speed: 1
+  start_damage: 1
+  is_player: 0
 --- !u!1 &2833622987249709766
 GameObject:
   m_ObjectHideFlags: 0

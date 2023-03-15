@@ -360,6 +360,7 @@ MonoBehaviour:
   levelText: {fileID: 547791055}
   player: {fileID: 7985207288063439870}
   enemy: {fileID: 1695845699}
+  bulletPrefab: {fileID: 8318589681344882108, guid: 03e8321cf020fea4bba4aff04139fb9a, type: 3}
   init: {fileID: 519420035}
 --- !u!114 &519420035
 MonoBehaviour:
@@ -460,11 +461,11 @@ RectTransform:
   m_Father: {fileID: 1623165277}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 100, y: 0}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 1, y: 1}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &547791055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1328,10 +1329,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 565480133}
     m_Modifications:
-    - target: {fileID: 1695845704, guid: b1643bfdea963d644b378feb3eff2137, type: 3}
-      propertyPath: maxHit
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 1258084832210441993, guid: b1643bfdea963d644b378feb3eff2137, type: 3}
       propertyPath: target
       value: 
@@ -1536,10 +1533,6 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 672481699}
-    - target: {fileID: 451887132131533841, guid: e6113e9d8a47d6647bd10ee84202bf08, type: 3}
-      propertyPath: whenCloseToDestination
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 451887132131533844, guid: e6113e9d8a47d6647bd10ee84202bf08, type: 3}
       propertyPath: m_RootOrder
       value: 4

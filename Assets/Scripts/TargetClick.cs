@@ -19,7 +19,7 @@ namespace Pathfinding {
 		}
 
 		public void OnGUI () {
-			if (oneClick && cam != null && Event.current.type == EventType.MouseDown && Event.current.clickCount == 1) {
+			if (oneClick && cam != null && Event.current.button == 1 && Event.current.clickCount == 1) {
 				UpdateTargetPosition();
 			}
 		}

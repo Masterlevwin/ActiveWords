@@ -111,7 +111,7 @@ public class GameBase : MonoBehaviour
         l.GetComponent<BoxCollider2D>().isTrigger = b;
     }
     
-    private IEnumerator Shot( Player target )
+    public IEnumerator Shot( Player target )
     {
         float speed = player.GetComponent<Player>().attack_speed * Time.deltaTime;
         float damage = player.GetComponent<Player>().attack_damage;
