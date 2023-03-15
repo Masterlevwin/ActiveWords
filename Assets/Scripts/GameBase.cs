@@ -98,7 +98,7 @@ public class GameBase : MonoBehaviour
         }
     }
 
-    private IEnumerator Move(Letter l, Vector2 target, bool b)
+    private IEnumerator Move( Letter l, Vector2 target, bool b )
     {
         float step = 4f * Time.deltaTime;
         while (Vector2.Distance(l.transform.position, target) > float.Epsilon)
@@ -107,6 +107,22 @@ public class GameBase : MonoBehaviour
             yield return null;
         }
         l.GetComponent<BoxCollider2D>().isTrigger = b;
+    }
+    
+    private IEnumerator Shot( Player enemy )
+    {
+        float speed = player.GetComponent<Player>().attack_speed;
+        float damage = player.GetComponent<Player>().attack_damage;
+        
+        GameObject bullet = Instantiate( bulletPrefab, player.transform.position, Quaternion.identity, player.transform );
+        while( Vector2.Distance( player.transform.position, enemy.transform.position ) > float.Epsilon )
+        {
+            bullet.transform.position = Vector2.MoveTowards( bullet.transform.position, enemy.transform.position, speed );
+            yield return null;
+        }
+        
+        enemy.Damage( damage );
+        Destroy(bullet);
     }
     
     void Update()
