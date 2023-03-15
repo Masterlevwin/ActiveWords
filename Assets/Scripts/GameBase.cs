@@ -25,6 +25,7 @@ public class GameBase : MonoBehaviour
     
     public AIPath player;
     public AIPath enemy;
+    public GameObject bulletPrefab;
     
     public Init init;
     private Dictionary<Vector2, Letter> letDict; 
@@ -109,19 +110,19 @@ public class GameBase : MonoBehaviour
         l.GetComponent<BoxCollider2D>().isTrigger = b;
     }
     
-    private IEnumerator Shot( Player enemy )
+    private IEnumerator Shot( Player target )
     {
         float speed = player.GetComponent<Player>().attack_speed;
         float damage = player.GetComponent<Player>().attack_damage;
         
         GameObject bullet = Instantiate( bulletPrefab, player.transform.position, Quaternion.identity, player.transform );
-        while( Vector2.Distance( player.transform.position, enemy.transform.position ) > float.Epsilon )
+        while( Vector2.Distance( bullet.transform.position, target.transform.position ) > float.Epsilon )
         {
-            bullet.transform.position = Vector2.MoveTowards( bullet.transform.position, enemy.transform.position, speed );
+            bullet.transform.position = Vector2.MoveTowards( bullet.transform.position, target.transform.position, speed );
             yield return null;
         }
         
-        enemy.Damage( damage );
+        target.Damage( damage );
         Destroy(bullet);
     }
     
