@@ -41,7 +41,14 @@ public class Player : MonoBehaviour, IPointerClickHandler
         if( hitPlayer <= 0 )
         {
             if( is_player ) GameBase.G.CompleteGame();
-            else 
+            else {
+                gameObject.SetActive(false);
+                Waiter.Wait(3f, () =>
+                {
+                    gameObject.SetActive(true);
+                    SetHit( ++maxHit );
+                });
+            }
         } 
     }
     
