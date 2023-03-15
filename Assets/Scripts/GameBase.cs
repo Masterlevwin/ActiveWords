@@ -47,6 +47,7 @@ public class GameBase : MonoBehaviour
         if (!player.gameObject.activeSelf) player.gameObject.SetActive(true);
         if (!enemy.gameObject.activeSelf) enemy.gameObject.SetActive(true);
         player.GetComponent<Player>().SetHit(player.GetComponent<Player>().maxHit);
+        enemy.GetComponent<Player>().SetHit(enemy.GetComponent<Player>().maxHit);
         phase = GamePhase.game;
     }
     
@@ -104,7 +105,7 @@ public class GameBase : MonoBehaviour
         float step = 4f * Time.deltaTime;
         while (Vector2.Distance(l.transform.position, target) > float.Epsilon)
         {
-            l.transform.position = Vector2.MoveTowards(l.transform.position, target, step);
+            l.transform.position = Vector2.MoveTowards( l.transform.position, target, step );
             yield return null;
         }
         l.GetComponent<BoxCollider2D>().isTrigger = b;
@@ -112,7 +113,7 @@ public class GameBase : MonoBehaviour
     
     private IEnumerator Shot( Player target )
     {
-        float speed = player.GetComponent<Player>().attack_speed;
+        float speed = player.GetComponent<Player>().attack_speed * Time.deltaTime;
         float damage = player.GetComponent<Player>().attack_damage;
         
         GameObject bullet = Instantiate( bulletPrefab, player.transform.position, Quaternion.identity, player.transform );
