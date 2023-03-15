@@ -5,13 +5,20 @@ using UnityEngine.UI;
 using TMPro;
 using Pathfinding;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IPointerClickHandler
 {
     public float hitPlayer { private set; get; }
     public float maxHit;
+    public float attack_speed { private set; get; }
+    public float start_speed;
+    public float attack_damage { private set; get; }
+    public float start_damage;
+
+    public bool is_player;
+    
     private TMP_Text txtHp;
     private Image bar;
-
+    
     private Vector2 startPos;
     private Color colorPlayer;
 
@@ -21,37 +28,50 @@ public class Player : MonoBehaviour
         txtHp = GetComponentInChildren<TMP_Text>();
         bar = GetComponentsInChildren<Image>()[1];
         startPos = transform.position;
-        hitPlayer = maxHit;
+        SetHit( maxHit );
+        SetSpeed( start_speed );
+        SetDamage( start_damage );
     }
 
-    public void SetHit(float hit)
+    public void SetHit( float hit )
     {
         hitPlayer = hit;
         txtHp.text = $"{hitPlayer}";
         bar.fillAmount = hitPlayer / maxHit;
-        if (hitPlayer <= 0)
+        if( hitPlayer <= 0 )
         {
-            GameBase.G.CompleteGame();
+            if( is_player ) GameBase.G.CompleteGame();
+            else 
         } 
     }
-
-    public void Damage(float dmg)
+    
+    public void SetSpeed( float speed )
     {
-        hitPlayer -= dmg;
-        SetHit(hitPlayer);
+        attack_speed = speed;
     }
     
-    public void SetPos(Vector2 pos)
+    public void SetDamage( float damage )
     {
-        if (pos == startPos && !gameObject.activeSelf) gameObject.SetActive(true);
+        attack_damage = damage;
+    }
+    
+    public void Damage( float dmg )
+    {
+        hitPlayer -= dmg;
+        SetHit( hitPlayer );
+    }
+    
+    public void SetPos( Vector2 pos )
+    {
+        if( pos == startPos && !gameObject.activeSelf ) gameObject.SetActive(true);
         transform.position = pos;
     }
     
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D( Collider2D collision )
     {
-        if (collision.gameObject.tag == "Enemy")
+        if( collision.gameObject.tag == "Enemy" )
         {
-            GetComponentInChildren<SpriteRenderer>().color = new Color(colorPlayer.r, colorPlayer.g - .5f, colorPlayer.b - .5f, colorPlayer.a);
+            GetComponentInChildren<SpriteRenderer>().color = new Color( colorPlayer.r, colorPlayer.g - .5f, colorPlayer.b - .5f, colorPlayer.a );
             Damage(1);
         } 
         
@@ -68,5 +88,10 @@ public class Player : MonoBehaviour
         {
             GetComponentInChildren<SpriteRenderer>().color = colorPlayer;
         } 
+    }
+    
+    public void OnPointerClick( PointerEventData eventData )
+    {
+        if( !is_player && GameBase.G.phase == GamePhase.game ) StartCoroutine( Shot(this) );
     }
 }
