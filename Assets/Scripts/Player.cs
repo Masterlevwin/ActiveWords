@@ -99,6 +99,6 @@ public class Player : MonoBehaviour, IPointerClickHandler
     
     public void OnPointerClick( PointerEventData eventData )
     {
-        if( !is_player && GameBase.G.phase == GamePhase.game ) StartCoroutine( Shot(this) );
+        if( !is_player && GameBase.G.phase == GamePhase.game ) StartCoroutine( GameBase.G.Shot(this) );
     }
 }
