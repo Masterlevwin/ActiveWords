@@ -72,13 +72,13 @@ public class Player : MonoBehaviour, IPointerClickHandler
         if( collision.gameObject.tag == "Enemy" )
         {
             GetComponentInChildren<SpriteRenderer>().color = new Color( colorPlayer.r, colorPlayer.g - .5f, colorPlayer.b - .5f, colorPlayer.a );
-            Damage(1);
+            Damage( collision.GetComponent<Player>().attack_damage );
         } 
         
-        if (collision.gameObject.tag == "Teleport")
+        if( collision.gameObject.tag == "Teleport" )
         {
             gameObject.SetActive(false);
-            SetPos(startPos);
+            SetPos( startPos );
         }
     }
 
