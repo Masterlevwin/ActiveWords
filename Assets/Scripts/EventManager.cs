@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
-  public static event Action LeaveCreated, CoinDied;
+  public static event Action LeaveCreated;
   
   public static void OnLeaveCreated() { LeaveCreated?.Invoke(); }
-  public static void OnCoinDied() { CoinDied?.Invoke(); }
 }
