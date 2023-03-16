@@ -54,7 +54,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
     
     private void Died()
     {
-        CoinCreate( this.gameObject, 30 );
+        GameBase.G.CoinCreate( this.gameObject, 30 );
         gameObject.SetActive(false);
         Waiter.Wait(3f, () =>
         {
