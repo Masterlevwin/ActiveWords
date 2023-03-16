@@ -154,6 +154,17 @@ public class GameBase : MonoBehaviour
         Destroy( coin );
     }
     
+    private IEnumerator ObjectMove( GameObject start, GameObject end, event notify, float speed = 1f )
+    {
+        float step = speed * Time.deltaTime;
+        while( Vector2.Distance( start.transform.position, end.transform.position ) > float.Epsilon )
+        {
+            start.transform.position = Vector2.MoveTowards( start.transform.position, end.transform.position, step );
+            yield return null;
+        }
+        notify?.Invoke();
+    }
+    
     void Update()
     {
         coinText.text = $"{coins_count}";
