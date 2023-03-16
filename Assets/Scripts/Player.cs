@@ -14,20 +14,26 @@ public class Player : MonoBehaviour, IPointerClickHandler
     public float start_speed;
     public float attack_damage { private set; get; }
     public float start_damage;
-
-    public bool is_player;
     
-    private TMP_Text txtHp;
-    private Image bar;
+    public bool is_player;
+    public byte leaves_count;
+    
+    private TMP_Text txtLeaves, txtHp;
+    private Image leaveImg, hpImg;
     
     private Vector2 startPos;
     private Color colorPlayer;
 
     void Start()
     {
+        EventManager.LeaveCreated += SetLeavesCount;
+        
         colorPlayer = GetComponentInChildren<SpriteRenderer>().color;
-        txtHp = GetComponentInChildren<TMP_Text>();
-        bar = GetComponentsInChildren<Image>()[1];
+        txtLeaves = GetComponentsInChildren<TMP_Text>()[0];
+        txtHp = GetComponentsInChildren<TMP_Text>()[1];
+        leaveImg = GetComponentsInChildren<Image>()[0];
+        hpImg = GetComponentsInChildren<Image>()[1];
+        
         startPos = transform.position;
         SetHit( maxHit );
         SetSpeed( start_speed );
@@ -75,6 +81,13 @@ public class Player : MonoBehaviour, IPointerClickHandler
         transform.position = pos;
     }
     
+    private void SetLeavesCount()
+    {
+        leaves_count--;
+        txtLeaves.text = $"{leaves_count};
+        if( leaves_count <= 0 ) leaveImg.gameObject.SetActive(false);
+    }
+    
     void OnTriggerEnter2D( Collider2D collision )
     {
         if( collision.gameObject.tag == "Enemy" )
@@ -88,6 +101,12 @@ public class Player : MonoBehaviour, IPointerClickHandler
             gameObject.SetActive(false);
             SetPos( startPos );
         }
+        
+        if( is_player && collision.gameObject.tag == "Leaves" ) {
+            if( !leaveImg.gameObject.activeSelf ) leaveImg.gameObject.SetActive(true);
+            leaves_count += 10;
+            Destroy( collision.gameObject );
+        }
     }
 
     void OnTriggerExit2D(Collider2D collision)
@@ -100,6 +119,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
     
     public void OnPointerClick( PointerEventData eventData )
     {
-        if( !is_player && GameBase.G.phase == GamePhase.game ) StartCoroutine( GameBase.G.Shot(this) );
+        if( GameBase.G.phase != GamePhase.game ) return;
+        if( !is_player ) GameBase.G.LeaveShot( this );
     }
 }
