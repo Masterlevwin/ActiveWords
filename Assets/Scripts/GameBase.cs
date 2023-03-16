@@ -141,6 +141,7 @@ public class GameBase : MonoBehaviour
         GameObject coin = Instantiate( coinPrefab, go.transform.position, Quaternion.identity, transform.parent );
         coins_count += price;
         StartCoroutine( CoinMove( coin ) );
+        //StartCoroutine( ObjectMove( coin, coinText.gameObject, Destroy, 4f ) );
     }
     
     private IEnumerator CoinMove( GameObject coin )
@@ -154,7 +155,7 @@ public class GameBase : MonoBehaviour
         Destroy( coin );
     }
     
-    private IEnumerator ObjectMove( GameObject start, GameObject end, event notify, float speed = 1f )
+    private IEnumerator ObjectMove( GameObject start, GameObject end, Action<GameObject> action, float speed = 1f )
     {
         float step = speed * Time.deltaTime;
         while( Vector2.Distance( start.transform.position, end.transform.position ) > float.Epsilon )
@@ -162,7 +163,7 @@ public class GameBase : MonoBehaviour
             start.transform.position = Vector2.MoveTowards( start.transform.position, end.transform.position, step );
             yield return null;
         }
-        notify?.Invoke();
+        action( start );
     }
     
     void Update()
