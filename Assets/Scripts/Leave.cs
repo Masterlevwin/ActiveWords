@@ -8,4 +8,11 @@ public class Leave : MonoBehaviour
   {
     EventManager.OnLeaveCreated();
   }
+  
+  void OnTriggerEnter2D( Collider2D collision )
+  {
+    if( collision.gameObject.tag == "Enemy" ) {
+      Destroy( gameObject );
+    }
+  }
 }
