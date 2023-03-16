@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 using Pathfinding;
 using System.Linq;
-using TMPro;
 
 public enum GamePhase
 {
@@ -23,10 +23,12 @@ public class GameBase : MonoBehaviour
     public static int level = 0;
     public TMP_Text levelText;
     
-    public AIPath player;
-    public AIPath enemy;
-    public GameObject bulletPrefab;
+    public byte coins_count = 0;
+    public TMP_Text coinText;
     
+    public AIPath player, enemy;
+    public GameObject bulletPrefab, coinPrefab;
+
     public Init init;
     private Dictionary<Vector2, Letter> letDict; 
 
@@ -81,9 +83,11 @@ public class GameBase : MonoBehaviour
     {
         if (letDict.ContainsValue(l))
         {
+            SetPos( startPos );
             player.SetPath(null);
             letDict.Remove(l.transform.position);
             StartCoroutine(Move(l, l.posLet, true));
+            CoinCreate( l.gameObject, -10 );
         }
     } 
     
@@ -95,6 +99,7 @@ public class GameBase : MonoBehaviour
             {
                 letDict.Add(init.letPositions[i], l);
                 StartCoroutine(Move(l, init.letPositions[i], false));
+                CoinCreate( l.gameObject, 10 );
                 break;
             }
         }
@@ -113,7 +118,7 @@ public class GameBase : MonoBehaviour
     
     public void LeaveShot( Player target )
     {
-        if( player.GetComponent<Player>().leaves_count > 0 ) StartCoroutine( GameBase.G.Shot( target ) );
+        if( player.GetComponent<Player>().leaves_count > 0 ) StartCoroutine( Shot( target ) );
     }
     
     private IEnumerator Shot( Player target )
@@ -131,8 +136,28 @@ public class GameBase : MonoBehaviour
         target.Damage( damage );
     }
     
+    public void CoinCreate( GameObject go, byte price )
+    {
+        GameObject coin = Instantiate( coinPrefab, go.transform.position, Quaternion.identity, transform.parent );
+        coins_count += price;
+        StartCoroutine( CoinMove( coin ) );
+    }
+    
+    private IEnumerator CoinMove( GameObject coin )
+    {
+        float step = 4f * Time.deltaTime;
+        while( Vector2.Distance( coin.transform.position, coinText.gameObject.transform.position ) > float.Epsilon )
+        {
+            coin.transform.position = Vector2.MoveTowards( coin.transform.position, coinText.gameObject.transform.position, step );
+            yield return null;
+        }
+        Destroy( coin );
+    }
+    
     void Update()
-    { 
+    {
+        coinText.text = $"{coins_count}";
+        
         if (phase == GamePhase.game)
         {
             if (init.lets.Count != 0 && letDict.Count == init.lets.Count ) CompleteGame();
