@@ -48,15 +48,19 @@ public class Player : MonoBehaviour, IPointerClickHandler
         if( hitPlayer <= 0 )
         {
             if( is_player ) GameBase.G.CompleteGame();
-            else {
-                gameObject.SetActive(false);
-                Waiter.Wait(3f, () =>
-                {
-                    gameObject.SetActive(true);
-                    SetHit( ++maxHit );
-                });
-            }
+            else Died();
         } 
+    }
+    
+    private void Died()
+    {
+        CoinCreate( this.gameObject, 30 );
+        gameObject.SetActive(false);
+        Waiter.Wait(3f, () =>
+        {
+            gameObject.SetActive(true);
+            SetHit( ++maxHit );
+        });
     }
     
     public void SetSpeed( float speed )
