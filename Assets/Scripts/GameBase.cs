@@ -101,7 +101,7 @@ public class GameBase : MonoBehaviour
                 letDict.Add( init.letPositions[i], l );
                 CoinCreate( l.gameObject, 10 );
                 StartCoroutine( SMove( l, init.letPositions[i], false ) );
-                //StartCoroutine( Move( l.gameObject, init.letPositions[i], LetterEnd( l, false ), 5f ) );
+                //StartCoroutine( Move( l.gameObject, init.letPositions[i], () => { LetterEnd( l.gameObject, false ); }, 5f ) );
                 break;
             }
         }
@@ -109,7 +109,7 @@ public class GameBase : MonoBehaviour
 
     private IEnumerator SMove( Letter l, Vector2 target, bool b )
     {
-        float step = 5f * Time.deltaTime;
+        float step = 4f * Time.deltaTime;
         while( Vector2.Distance( l.transform.position, target ) > float.Epsilon )
         {
             l.transform.position = Vector2.MoveTowards( l.transform.position, target, step );
@@ -118,10 +118,10 @@ public class GameBase : MonoBehaviour
         l.GetComponent<BoxCollider2D>().isTrigger = b;
     }
     
-    private void LetterEnd( Letter l, bool b )
+    private void LetterEnd( GameObject go, bool b )
     {
-        if( b == true ) letDict.Remove( l.transform.position );
-        l.GetComponent<BoxCollider2D>().isTrigger = b;
+        if( b == true ) letDict.Remove( go.transform.position );
+        go.GetComponent<BoxCollider2D>().isTrigger = b;
     }
     
     public void LeaveStart( Player target )
@@ -133,7 +133,7 @@ public class GameBase : MonoBehaviour
             GameObject leave = Instantiate( leavePrefab, player.transform.position, Quaternion.identity, player.transform );
             pl.SetLeavesCount();
             StartCoroutine( Shot( target, leave, speed, damage ) );
-            //StartCoroutine( Move( leave, target.transform.position, LeaveEnd( target, damage ), speed ) );
+            //StartCoroutine( Move( leave, target.transform.position, () => { Debug.Log(name); LeaveEnd( target, damage ); }, speed ) );
         }
     }
     
@@ -152,14 +152,21 @@ public class GameBase : MonoBehaviour
         target.Damage( damage );
     }
     
+    GameObject coin;
+
     public void CoinCreate( GameObject go, int price )
     {
-        GameObject coin = Instantiate( coinPrefab, go.transform.position, Quaternion.identity, transform.parent );
+        coin = Instantiate( coinPrefab, go.transform.position, Quaternion.identity, transform.parent );
         coins_count += price;
         //StartCoroutine( CoinMove( coin ) );
-        StartCoroutine( Move( coin, coinText.gameObject.transform.position, Destroy( coin ), 3f ) );
+        StartCoroutine( Move( coin, coinText.gameObject.transform.position, () => { Destroy( coin ); }, 4f ) );
     }
     
+    private void CoinEnd( GameObject go )
+    {
+        Destroy( go );
+    }
+
     private IEnumerator CoinMove( GameObject coin )
     {
         float step = 3f * Time.deltaTime;
@@ -179,7 +186,7 @@ public class GameBase : MonoBehaviour
             go.transform.position = Vector2.MoveTowards( go.transform.position, endPosition, step );
             yield return null;
         }
-        action;
+        action?.Invoke();
     }
     
     void Update()

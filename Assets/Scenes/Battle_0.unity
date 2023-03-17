@@ -439,7 +439,7 @@ MonoBehaviour:
   coinText: {fileID: 2079957759}
   player: {fileID: 7985207288063439870}
   enemy: {fileID: 1695845699}
-  bulletPrefab: {fileID: 8318589681344882108, guid: 03e8321cf020fea4bba4aff04139fb9a, type: 3}
+  leavePrefab: {fileID: 8318589681344882108, guid: 03e8321cf020fea4bba4aff04139fb9a, type: 3}
   coinPrefab: {fileID: 6245005728011083082, guid: a75a8f35e9b07e34d96d543fa689a1c4, type: 3}
   init: {fileID: 519420035}
 --- !u!114 &519420035
@@ -1883,6 +1883,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 672481699}
+    - target: {fileID: 451887132131533843, guid: e6113e9d8a47d6647bd10ee84202bf08, type: 3}
+      propertyPath: start_speed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 451887132131533844, guid: e6113e9d8a47d6647bd10ee84202bf08, type: 3}
       propertyPath: m_RootOrder
       value: 4
