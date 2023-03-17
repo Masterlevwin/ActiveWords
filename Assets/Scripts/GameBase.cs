@@ -28,7 +28,7 @@ public class GameBase : MonoBehaviour
     public TMP_Text coinText;
     
     public AIPath player, enemy;
-    public GameObject bulletPrefab, coinPrefab;
+    public GameObject leavePrefab, coinPrefab;
 
     public Init init;
     private Dictionary<Vector2, Letter> letDict; 
@@ -124,14 +124,16 @@ public class GameBase : MonoBehaviour
         l.GetComponent<BoxCollider2D>().isTrigger = b;
     }
     
-    public void LeaveShot( Player target )
+    public void LeaveStart( Player target )
     {
-        if( player.GetComponent<Player>().leaves_count > 0 ) {
-            float speed = player.GetComponent<Player>().attack_speed * Time.deltaTime;
-            float damage = player.GetComponent<Player>().attack_damage;
-            GameObject bullet = Instantiate( bulletPrefab, player.transform.position, Quaternion.identity, player.transform );
-            StartCoroutine( Shot( target, bullet, speed, damage ) );
-            //StartCoroutine( Move( bullet, target.transform.position, LeaveEnd( target, damage ), speed ) );
+        Player pl = player.GetComponent<Player>();
+        if( pl.leaves_count > 0 ) {
+            float speed = pl.attack_speed * Time.deltaTime;
+            float damage = pl.attack_damage;
+            GameObject leave = Instantiate( leavePrefab, player.transform.position, Quaternion.identity, player.transform );
+            pl.SetLeavesCount();
+            StartCoroutine( Shot( target, leave, speed, damage ) );
+            //StartCoroutine( Move( leave, target.transform.position, LeaveEnd( target, damage ), speed ) );
         }
     }
     
