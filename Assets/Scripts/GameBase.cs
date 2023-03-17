@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,7 +24,7 @@ public class GameBase : MonoBehaviour
     public static int level = 0;
     public TMP_Text levelText;
     
-    public byte coins_count = 0;
+    public int coins_count = 0;
     public TMP_Text coinText;
     
     public AIPath player, enemy;
@@ -83,7 +84,6 @@ public class GameBase : MonoBehaviour
     {
         if (letDict.ContainsValue(l))
         {
-            SetPos( startPos );
             player.SetPath(null);
             letDict.Remove(l.transform.position);
             StartCoroutine(Move(l, l.posLet, true));
@@ -107,7 +107,7 @@ public class GameBase : MonoBehaviour
 
     private IEnumerator Move( Letter l, Vector2 target, bool b )
     {
-        float step = 4f * Time.deltaTime;
+        float step = 5f * Time.deltaTime;
         while( Vector2.Distance( l.transform.position, target ) > float.Epsilon )
         {
             l.transform.position = Vector2.MoveTowards( l.transform.position, target, step );
@@ -136,17 +136,17 @@ public class GameBase : MonoBehaviour
         target.Damage( damage );
     }
     
-    public void CoinCreate( GameObject go, byte price )
+    public void CoinCreate( GameObject go, int price )
     {
         GameObject coin = Instantiate( coinPrefab, go.transform.position, Quaternion.identity, transform.parent );
         coins_count += price;
-        StartCoroutine( CoinMove( coin ) );
-        //StartCoroutine( ObjectMove( coin, coinText.gameObject, Destroy, 4f ) );
+        //StartCoroutine( CoinMove( coin ) );
+        StartCoroutine( ObjectMove( coin, coinText.gameObject, Destroy, 4f ) );
     }
     
     private IEnumerator CoinMove( GameObject coin )
     {
-        float step = 4f * Time.deltaTime;
+        float step = 3f * Time.deltaTime;
         while( Vector2.Distance( coin.transform.position, coinText.gameObject.transform.position ) > float.Epsilon )
         {
             coin.transform.position = Vector2.MoveTowards( coin.transform.position, coinText.gameObject.transform.position, step );

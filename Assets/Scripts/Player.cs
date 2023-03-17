@@ -29,12 +29,15 @@ public class Player : MonoBehaviour, IPointerClickHandler
         EventManager.LeaveCreated += SetLeavesCount;
         
         colorPlayer = GetComponentInChildren<SpriteRenderer>().color;
-        txtLeaves = GetComponentsInChildren<TMP_Text>()[0];
-        txtHp = GetComponentsInChildren<TMP_Text>()[1];
-        leaveImg = GetComponentsInChildren<Image>()[0];
-        hpImg = GetComponentsInChildren<Image>()[1];
         
+        hpImg = GetComponentsInChildren<Image>()[1];
+        txtHp = GetComponentsInChildren<TMP_Text>()[0];
+        leaveImg = GetComponentsInChildren<Image>()[3];
+        txtLeaves = GetComponentsInChildren<TMP_Text>()[1];
+        
+        leaveImg.gameObject.SetActive(false);
         startPos = transform.position;
+        
         SetHit( maxHit );
         SetSpeed( start_speed );
         SetDamage( start_damage );
@@ -44,7 +47,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
     {
         hitPlayer = hit;
         txtHp.text = $"{hitPlayer}";
-        bar.fillAmount = hitPlayer / maxHit;
+        hpImg.fillAmount = hitPlayer / maxHit;
         if( hitPlayer <= 0 )
         {
             if( is_player ) GameBase.G.CompleteGame();
@@ -88,7 +91,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
     private void SetLeavesCount()
     {
         leaves_count--;
-        txtLeaves.text = $"{leaves_count};
+        txtLeaves.text = $"{leaves_count}";
         if( leaves_count <= 0 ) leaveImg.gameObject.SetActive(false);
     }
     
