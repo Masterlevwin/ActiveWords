@@ -128,6 +128,6 @@ public class Player : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick( PointerEventData eventData )
     {
         if( GameBase.G.phase != GamePhase.game ) return;
-        if( !is_player ) GameBase.G.LeaveShot( this );
+        if( !is_player ) GameBase.G.LeaveStart( this );
     }
 }
