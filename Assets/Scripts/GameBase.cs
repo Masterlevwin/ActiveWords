@@ -80,32 +80,34 @@ public class GameBase : MonoBehaviour
         levelText.text = $"{level}";
     }
     
-    public void RemoveAtWord(Letter l)
+    public void RemoveAtWord( Letter l )
     {
-        if (letDict.ContainsValue(l))
+        if( letDict.ContainsValue(l) )
         {
             player.SetPath(null);
-            letDict.Remove(l.transform.position);
-            StartCoroutine(Move(l, l.posLet, true));
             CoinCreate( l.gameObject, -10 );
+            letDict.Remove( l.transform.position );
+            StartCoroutine( SMove( l, l.posLet, true) );
+            //StartCoroutine( Move( l.gameObject, l.posLet, LetterEnd( l, true ), 5f ) );
         }
     } 
     
-    public void AddToWord(Letter l)
+    public void AddToWord( Letter l )
     {
-        for (int i = 0; i < init.letPositions.Count; i++)
+        for( int i = 0; i < init.letPositions.Count; i++ )
         { 
-            if (!letDict.ContainsValue(l) && !letDict.ContainsKey(init.letPositions[i]))
+            if( !letDict.ContainsValue(l) && !letDict.ContainsKey(init.letPositions[i]) )
             {
-                letDict.Add(init.letPositions[i], l);
-                StartCoroutine(Move(l, init.letPositions[i], false));
+                letDict.Add( init.letPositions[i], l );
                 CoinCreate( l.gameObject, 10 );
+                StartCoroutine( SMove( l, init.letPositions[i], false ) );
+                //StartCoroutine( Move( l.gameObject, init.letPositions[i], LetterEnd( l, false ), 5f ) );
                 break;
             }
         }
     }
 
-    private IEnumerator Move( Letter l, Vector2 target, bool b )
+    private IEnumerator SMove( Letter l, Vector2 target, bool b )
     {
         float step = 5f * Time.deltaTime;
         while( Vector2.Distance( l.transform.position, target ) > float.Epsilon )
@@ -116,23 +118,35 @@ public class GameBase : MonoBehaviour
         l.GetComponent<BoxCollider2D>().isTrigger = b;
     }
     
-    public void LeaveShot( Player target )
+    private void LetterEnd( Letter l, bool b )
     {
-        if( player.GetComponent<Player>().leaves_count > 0 ) StartCoroutine( Shot( target ) );
+        if( b == true ) letDict.Remove( l.transform.position );
+        l.GetComponent<BoxCollider2D>().isTrigger = b;
     }
     
-    private IEnumerator Shot( Player target )
+    public void LeaveShot( Player target )
     {
-        float speed = player.GetComponent<Player>().attack_speed * Time.deltaTime;
-        float damage = player.GetComponent<Player>().attack_damage;
-        
-        GameObject bullet = Instantiate( bulletPrefab, player.transform.position, Quaternion.identity, player.transform );
+        if( player.GetComponent<Player>().leaves_count > 0 ) {
+            float speed = player.GetComponent<Player>().attack_speed * Time.deltaTime;
+            float damage = player.GetComponent<Player>().attack_damage;
+            GameObject bullet = Instantiate( bulletPrefab, player.transform.position, Quaternion.identity, player.transform );
+            StartCoroutine( Shot( target, bullet, speed, damage ) );
+            //StartCoroutine( Move( bullet, target.transform.position, LeaveEnd( target, damage ), speed ) );
+        }
+    }
+    
+    private IEnumerator Shot( Player target, GameObject bullet, float speed, float damage )
+    { 
         while( bullet )
         {
             bullet.transform.position = Vector2.MoveTowards( bullet.transform.position, target.transform.position, speed );
             yield return null;
-        }
-        
+        }      
+        target.Damage( damage );
+    }
+    
+    private void LeaveEnd( Player target, float damage )
+    {
         target.Damage( damage );
     }
     
@@ -141,7 +155,7 @@ public class GameBase : MonoBehaviour
         GameObject coin = Instantiate( coinPrefab, go.transform.position, Quaternion.identity, transform.parent );
         coins_count += price;
         //StartCoroutine( CoinMove( coin ) );
-        StartCoroutine( ObjectMove( coin, coinText.gameObject, Destroy, 4f ) );
+        StartCoroutine( Move( coin, coinText.gameObject.transform.position, Destroy( coin ), 3f ) );
     }
     
     private IEnumerator CoinMove( GameObject coin )
@@ -155,15 +169,15 @@ public class GameBase : MonoBehaviour
         Destroy( coin );
     }
     
-    private IEnumerator ObjectMove( GameObject start, GameObject end, Action<GameObject> action, float speed = 1f )
+    private IEnumerator Move( GameObject go, Vector2 endPosition, Action action, float speed = 1f )
     {
         float step = speed * Time.deltaTime;
-        while( Vector2.Distance( start.transform.position, end.transform.position ) > float.Epsilon )
+        while( Vector2.Distance( go.transform.position, endPosition ) > float.Epsilon || go)
         {
-            start.transform.position = Vector2.MoveTowards( start.transform.position, end.transform.position, step );
+            go.transform.position = Vector2.MoveTowards( go.transform.position, endPosition, step );
             yield return null;
         }
-        action( start );
+        action;
     }
     
     void Update()
