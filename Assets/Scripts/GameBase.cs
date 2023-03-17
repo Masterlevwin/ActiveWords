@@ -172,7 +172,7 @@ public class GameBase : MonoBehaviour
     private IEnumerator Move( GameObject go, Vector2 endPosition, Action action, float speed = 1f )
     {
         float step = speed * Time.deltaTime;
-        while( Vector2.Distance( go.transform.position, endPosition ) > float.Epsilon || go)
+        while( go || Vector2.Distance( go.transform.position, endPosition ) > float.Epsilon )
         {
             go.transform.position = Vector2.MoveTowards( go.transform.position, endPosition, step );
             yield return null;
