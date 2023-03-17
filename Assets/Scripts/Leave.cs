@@ -6,7 +6,7 @@ public class Leave : MonoBehaviour
 {
   void Start()
   {
-    EventManager.OnLeaveCreated();
+    //EventManager.OnLeaveCreated();
   }
   
   void OnTriggerEnter2D( Collider2D collision )
