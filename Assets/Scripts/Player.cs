@@ -16,7 +16,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
     public float start_damage;
     
     public bool is_player;
-    public byte leaves_count;
+    public int leaves_count;
     
     private TMP_Text txtLeaves, txtHp;
     private Image leaveImg, hpImg;
@@ -26,7 +26,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
 
     void Start()
     {
-        EventManager.LeaveCreated += SetLeavesCount;
+        //EventManager.LeaveCreated += SetLeavesCount;
         
         colorPlayer = GetComponentInChildren<SpriteRenderer>().color;
         
@@ -57,7 +57,8 @@ public class Player : MonoBehaviour, IPointerClickHandler
     
     private void Died()
     {
-        GameBase.G.CoinCreate( this.gameObject, 30 );
+        GameBase.G.CoinCreate( this.gameObject, 15 );
+        Waiter.Wait(.5f, () => { GameBase.G.CoinCreate( this.gameObject, 15 ); });
         gameObject.SetActive(false);
         Waiter.Wait(3f, () =>
         {
@@ -88,7 +89,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
         transform.position = pos;
     }
     
-    private void SetLeavesCount()
+    public void SetLeavesCount()
     {
         leaves_count--;
         txtLeaves.text = $"{leaves_count}";
