@@ -26,8 +26,6 @@ public class Player : MonoBehaviour, IPointerClickHandler
 
     void Start()
     {
-        //EventManager.LeaveCreated += SetLeavesCount;
-        
         colorPlayer = GetComponentInChildren<SpriteRenderer>().color;
         
         hpImg = GetComponentsInChildren<Image>()[1];
@@ -102,8 +100,14 @@ public class Player : MonoBehaviour, IPointerClickHandler
         {
             GetComponentInChildren<SpriteRenderer>().color = new Color( colorPlayer.r, colorPlayer.g - .5f, colorPlayer.b - .5f, colorPlayer.a );
             Damage( collision.GetComponent<Player>().attack_damage );
-        } 
-        
+        }
+
+        if( collision.gameObject.tag == "Leave" )
+        {
+            Destroy( collision.gameObject );
+            
+        }
+
         if( collision.gameObject.tag == "Teleport" )
         {
             gameObject.SetActive(false);
