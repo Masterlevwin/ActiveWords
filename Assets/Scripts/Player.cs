@@ -102,10 +102,8 @@ public class Player : MonoBehaviour, IPointerClickHandler
             Damage( collision.GetComponent<Player>().attack_damage );
         }
 
-        if( collision.gameObject.tag == "Leave" )
-        {
-            Destroy( collision.gameObject );
-            
+        if( collision.gameObject.tag == "Leave" ) {
+            Destroy( collision.gameObject );            
         }
 
         if( collision.gameObject.tag == "Teleport" )
