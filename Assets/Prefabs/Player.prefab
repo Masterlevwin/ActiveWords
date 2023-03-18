@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHit: 3
-  start_speed: 5
+  start_speed: 3
   start_damage: 1
   is_player: 1
   leaves_count: 0
