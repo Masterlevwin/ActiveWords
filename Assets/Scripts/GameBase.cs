@@ -114,7 +114,7 @@ public class GameBase : MonoBehaviour
             StartCoroutine( LeaveMove( target, leave, speed, damage ) );
         }
     }
-    
+
     private IEnumerator LeaveMove( Player target, GameObject bullet, float speed, float damage )
     { 
         while( bullet )

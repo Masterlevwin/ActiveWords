@@ -13,8 +13,10 @@ GameObject:
   - component: {fileID: 451887132131533840}
   - component: {fileID: 451887132131533841}
   - component: {fileID: 451887132131533842}
+  - component: {fileID: 8051184069245216443}
   - component: {fileID: 451887132131533843}
-  m_Layer: 6
+  - component: {fileID: 1077952304558354026}
+  m_Layer: 0
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -148,6 +150,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!50 &8051184069245216443
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451887132131533835}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!114 &451887132131533843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,6 +188,18 @@ MonoBehaviour:
   start_damage: 1
   is_player: 1
   leaves_count: 0
+--- !u!114 &1077952304558354026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451887132131533835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d19022c4b9bde747b998a1a949a8870, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &451887132560335206
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,7 +210,7 @@ GameObject:
   m_Component:
   - component: {fileID: 451887132560335207}
   - component: {fileID: 451887132560335200}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Player_Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,7 +273,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 86ec7ff7e8590e3448a7203eb1a0b7b6, type: 3}
+  m_Sprite: {fileID: 419118525, guid: fd202796cef6fab40aa59a5849b1bb19, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -261,7 +296,7 @@ GameObject:
   - component: {fileID: 7543094208517414377}
   - component: {fileID: 2965259855624603980}
   - component: {fileID: 5958213447529078777}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: HPbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -289,7 +324,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.7}
+  m_AnchoredPosition: {x: 0, y: -1}
   m_SizeDelta: {x: 125, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7543094208517414377
@@ -364,7 +399,7 @@ GameObject:
   - component: {fileID: 539751501205149864}
   - component: {fileID: 1471291721003436918}
   - component: {fileID: 890954228354356061}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -440,7 +475,7 @@ GameObject:
   - component: {fileID: 4218315306699114138}
   - component: {fileID: 7701148392851076894}
   - component: {fileID: 5128874936234222333}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: HitPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -575,7 +610,7 @@ GameObject:
   - component: {fileID: 1335475549157776808}
   - component: {fileID: 151933999819606713}
   - component: {fileID: 3363157239246546000}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Leave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -652,7 +687,7 @@ GameObject:
   - component: {fileID: 7494285818951658747}
   - component: {fileID: 5996766205098901238}
   - component: {fileID: 4608344371457108091}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Heart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -729,7 +764,7 @@ GameObject:
   - component: {fileID: 4281756492353603969}
   - component: {fileID: 1344588229118726426}
   - component: {fileID: 3464302071150477923}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Leaves_Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -864,7 +899,7 @@ GameObject:
   - component: {fileID: 9108845604300703371}
   - component: {fileID: 2794459402700580205}
   - component: {fileID: 5989480216323055859}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class Leave : MonoBehaviour
 {
-  void OnTriggerEnter2D( Collider2D collision )
-  {
-    if( collision.gameObject.tag == "Enemy" ) {
-      Destroy( gameObject );
+    void OnTriggerEnter2D( Collider2D collision ) {
+        if( collision.gameObject.tag == "Enemy" ){
+            Destroy( gameObject );
+        }
     }
-  }
 }

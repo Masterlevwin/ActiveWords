@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1965061819977597164}
   - component: {fileID: 3872114938413601029}
   - component: {fileID: 6394758169289171127}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: TextHP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 5725361826286758899}
   - component: {fileID: 9020375910910654380}
   - component: {fileID: 4422378925363474072}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,7 +221,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1258084831160788703}
   - component: {fileID: 1258084831160788702}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Enemy_Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -310,7 +310,7 @@ GameObject:
   - component: {fileID: 1258084832210441992}
   - component: {fileID: 1258084832210441995}
   - component: {fileID: 1695845704}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -493,7 +493,7 @@ GameObject:
   - component: {fileID: 4102297483885228600}
   - component: {fileID: 2193719919379225070}
   - component: {fileID: 1812261815909541739}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Heart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -570,7 +570,7 @@ GameObject:
   - component: {fileID: 5134989719542094167}
   - component: {fileID: 2781878448020603160}
   - component: {fileID: 4622825816991180452}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -646,7 +646,7 @@ GameObject:
   - component: {fileID: 3201791062161152329}
   - component: {fileID: 5337984436581969769}
   - component: {fileID: 8886483382233749311}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Leave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -723,7 +723,7 @@ GameObject:
   - component: {fileID: 5804061284921463421}
   - component: {fileID: 8892855333633979158}
   - component: {fileID: 8168098325499906762}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Leaves_Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -859,7 +859,7 @@ GameObject:
   - component: {fileID: 6624030574486964277}
   - component: {fileID: 1000585018208006286}
   - component: {fileID: 6972974081836435510}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: HPbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -887,7 +887,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.7}
+  m_AnchoredPosition: {x: 0, y: -1}
   m_SizeDelta: {x: 125, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &6624030574486964277
