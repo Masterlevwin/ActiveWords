@@ -109,7 +109,7 @@ public class GameBase : MonoBehaviour
         if( pl.leaves_count > 0 ) {
             float speed = pl.attack_speed * Time.deltaTime;
             float damage = pl.attack_damage;
-            GameObject leave = Instantiate( leavePrefab, player.transform.position, Quaternion.identity, player.transform );
+            GameObject leave = Instantiate( leavePrefab, player.transform.position, Quaternion.identity );
             pl.SetLeavesCount();
             StartCoroutine( LeaveMove( target, leave, speed, damage ) );
         }
@@ -117,7 +117,7 @@ public class GameBase : MonoBehaviour
 
     private IEnumerator LeaveMove( Player target, GameObject bullet, float speed, float damage )
     { 
-        while( bullet )
+        while( bullet && target.gameObject.activeSelf)
         {
             bullet.transform.position = Vector2.MoveTowards( bullet.transform.position, target.transform.position, speed );
             yield return null;

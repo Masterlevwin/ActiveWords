@@ -24,6 +24,12 @@ public class Player : MonoBehaviour, IPointerClickHandler
     private Vector2 startPos;
     private Color colorPlayer;
 
+    public Player( float hp, float dmg )
+    {
+        maxHit = hp;
+        start_damage = dmg;
+    }
+
     void Start()
     {
         colorPlayer = GetComponentInChildren<SpriteRenderer>().color;
