@@ -66,4 +66,12 @@ public class Enemy: MonoBehaviour
     {
         rebirth = _rebirth;
     }
+    
+    void OnTriggerEnter2D( Collider2D collision )
+    {
+        if( collision.gameObject.tag == "Leave" ) {
+            Damage( collision.GetComponent<Leave>().damage );
+            collision.gameObject.SetActive( false );
+        }
+    }
 }
