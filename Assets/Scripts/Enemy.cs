@@ -55,7 +55,7 @@ public class Enemy: MonoBehaviour
         gameObject.SetActive(false);
         Waiter.Wait( rebirth, () =>
         {
-            gameObject.SetActive(true);
+            if( GameBase.G.phase == GamePhase.game ) gameObject.SetActive(true);
             actions[ Random.Range( 0, actions.Length ) ]();
         });
     }
