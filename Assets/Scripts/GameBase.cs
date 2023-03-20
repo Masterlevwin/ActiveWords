@@ -50,7 +50,7 @@ public class GameBase : MonoBehaviour
         if (!player.gameObject.activeSelf) player.gameObject.SetActive(true);
         if (!enemy.gameObject.activeSelf) enemy.gameObject.SetActive(true);
         player.GetComponent<Player>().SetHit(player.GetComponent<Player>().maxHit);
-        enemy.GetComponent<Player>().SetHit(enemy.GetComponent<Player>().maxHit);
+        enemy.GetComponent<Enemy>().SetHit(enemy.GetComponent<Enemy>().max_health);
         phase = GamePhase.game;
     }
     
@@ -106,7 +106,7 @@ public class GameBase : MonoBehaviour
     public void LeaveStart( Vector2 target )
     {
         Player pl = player.GetComponent<Player>();
-        GameObject leave = Instantiate( leavePrefab, player.transform.position, Quaternion.identity );
+        GameObject leave = Instantiate( leavePrefab, pl.transform.position, Quaternion.identity );
         leave.damage = pl.attack_damage;
         pl.SetLeavesCount();
         StartCoroutine( Move( pl.gameObject, target, pl.attack_speed, () => { Destroy( leave ); } ) );
