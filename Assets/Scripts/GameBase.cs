@@ -84,12 +84,8 @@ public class GameBase : MonoBehaviour
     {
         if( letDict.ContainsValue(l) )
         {
-            phase = GamePhase.pause;
             letDict.Remove( l.transform.position );
-            StartCoroutine( Move( l.gameObject, l.posLet, 4f, () => {
-                                                              l.GetComponent<BoxCollider2D>().isTrigger = true;
-                                                              CoinCreate( l.gameObject, -10 );
-                                                              phase = GamePhase.game;} ) );
+            StartCoroutine( Move( l.gameObject, l.posLet, 4f, () => { l.GetComponent<BoxCollider2D>().isTrigger = true; CoinCreate( l.gameObject, -10 ); } ) );
         }
     } 
     
@@ -111,18 +107,18 @@ public class GameBase : MonoBehaviour
     {
         Player pl = player.GetComponent<Player>();
         GameObject leave = Instantiate( leavePrefab, pl.transform.position, Quaternion.identity );
-        leave.damage = pl.attack_damage;
+        leave.GetComponent<Leave>().damage = pl.attack_damage;
         pl.SetLeavesCount();
-        StartCoroutine( Move( pl.gameObject, target, pl.attack_speed, () => { Destroy( leave ); } ) );
+        StartCoroutine( Move( leave, target, pl.attack_speed, () => { Destroy( leave ); } ) );
     }
 
     public void CoinCreate( GameObject go, int price )
     {
         GameObject coin = Instantiate( coinPrefab, go.transform.position, Quaternion.identity, transform.parent );
-        StartCoroutine( Move( coin, coinText.gameObject.transform.position, 3f, () => { coins_count += price; Destroy( coin ); } ) );
+        StartCoroutine( Move( coin, coinText.gameObject.transform.position, 4f, () => { coins_count += price; Destroy( coin ); } ) );
     }
     
-    private IEnumerator Move( GameObject go, Vector2 endPosition, float speed = 1f, Action action = null )
+    public IEnumerator Move( GameObject go, Vector2 endPosition, float speed = 1f, Action action = null )
     {
         float step = speed * Time.deltaTime;
         while( Vector2.Distance( go.transform.position, endPosition ) > float.Epsilon )
@@ -132,7 +128,7 @@ public class GameBase : MonoBehaviour
         }
         action?.Invoke();
     }
-    
+
     void Update()
     {
         coinText.text = $"{coins_count}";

@@ -6,8 +6,9 @@ public class Leave : MonoBehaviour
 {
     public float damage = 1f;
     
-    void OnTriggerEnter2D( Collider2D collision ) {
-        if( collision.gameObject.tag == "Enemy" ){
+    void OnTriggerEnter2D( Collider2D collision )
+    {
+        if( collision.gameObject.tag == "Enemy" ) {
             Destroy( gameObject );
         }
     }

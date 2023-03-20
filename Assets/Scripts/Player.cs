@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     public float attack_damage { private set; get; }
     public float start_damage;
 
-    public int leaves_count;
+    public float leaves_count;
     
     private TMP_Text txtLeaves, txtHp;
     private Image leaveImg, hpImg;
@@ -72,7 +72,7 @@ public class Player : MonoBehaviour
     
     public void SetLeavesCount()
     {
-        leaves_count--;
+        leaves_count -= .5f;
         txtLeaves.text = $"{leaves_count}";
         if( leaves_count <= 0 ) leaveImg.gameObject.SetActive(false);
     }
@@ -104,5 +104,12 @@ public class Player : MonoBehaviour
         {
             GetComponentInChildren<SpriteRenderer>().color = colorPlayer;
         } 
+    }
+  
+    public void OnGUI()
+    {
+        if ( Event.current.button == 0 && Event.current.clickCount == 2 && leaves_count > 0 ) {
+			GameBase.G.LeaveStart( Camera.main.ScreenToWorldPoint(Input.mousePosition) );
+		}
     }
 }

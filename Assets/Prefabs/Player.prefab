@@ -163,7 +163,6 @@ MonoBehaviour:
   maxHit: 3
   start_speed: 3
   start_damage: 1
-  is_player: 1
   leaves_count: 0
 --- !u!1 &451887132560335206
 GameObject:
@@ -400,7 +399,7 @@ GameObject:
   - component: {fileID: 7540915981140521850}
   - component: {fileID: 6111641056318477694}
   m_Layer: 0
-  m_Name: Leave
+  m_Name: Leaves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

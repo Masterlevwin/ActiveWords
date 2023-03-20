@@ -22,13 +22,6 @@ namespace Pathfinding {
 			if (oneClick && cam != null && Event.current.button == 1 && Event.current.clickCount == 1) {
 				UpdateTargetPosition();
 			}
-			
-			if (oneClick && cam != null && Event.current.button == 0 && Event.current.clickCount == 2) {
-				Vector3 shot = Vector3.zero;
-				shot = cam.ScreenToWorldPoint(Input.mousePosition);
-				shot.z = 0;
-				GameBase.G.LeaveStart( shot );
-			}
 		}
 
 		void Update () {
