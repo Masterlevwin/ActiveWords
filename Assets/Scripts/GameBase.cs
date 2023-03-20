@@ -103,32 +103,18 @@ public class GameBase : MonoBehaviour
         }
     }
     
-    public void LeaveStart( Player target )
+    public void LeaveStart( Vector2 target )
     {
         Player pl = player.GetComponent<Player>();
-        if( pl.leaves_count > 0 ) {
-            float speed = pl.attack_speed * Time.deltaTime;
-            float damage = pl.attack_damage;
-            GameObject leave = Instantiate( leavePrefab, player.transform.position, Quaternion.identity );
-            pl.SetLeavesCount();
-            StartCoroutine( LeaveMove( target, leave, speed, damage ) );
-        }
-    }
-
-    private IEnumerator LeaveMove( Player target, GameObject bullet, float speed, float damage )
-    { 
-        while( bullet && target.gameObject.activeSelf)
-        {
-            bullet.transform.position = Vector2.MoveTowards( bullet.transform.position, target.transform.position, speed );
-            yield return null;
-        }      
-        target.Damage( damage );
+        GameObject leave = Instantiate( leavePrefab, player.transform.position, Quaternion.identity );
+        pl.SetLeavesCount();
+        StartCoroutine( Move( pl.gameObject, target, pl.attack_speed, () => { Destroy( leave ); } ) );
     }
 
     public void CoinCreate( GameObject go, int price )
     {
         GameObject coin = Instantiate( coinPrefab, go.transform.position, Quaternion.identity, transform.parent );
-        StartCoroutine( Move( coin, coinText.gameObject.transform.position, 2f, () => { coins_count += price; Destroy( coin ); } ) );
+        StartCoroutine( Move( coin, coinText.gameObject.transform.position, 3f, () => { coins_count += price; Destroy( coin ); } ) );
     }
     
     private IEnumerator Move( GameObject go, Vector2 endPosition, float speed = 1f, Action action = null )
