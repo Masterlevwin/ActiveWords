@@ -64,3 +64,10 @@ https://jwinters.ru/unity3d/new-input-system-unity/
 
 https://jwinters.ru/unity3d/tweening-anim-leantween/
 https://github.com/niksok13/EZ
+
+
+Enemy.cs - заменить на Player.cs у врага;
+Удалить объекты у врага, связанные с Leaves;
+Проверить двойной клик у TargetClick.cs;
+Проверить работу метода LeaveStart();
+Нацепить на врага скрипт с поворотом спрайта, или дописать необходимые строчки;
