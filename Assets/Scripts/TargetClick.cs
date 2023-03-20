@@ -22,6 +22,10 @@ namespace Pathfinding {
 			if (oneClick && cam != null && Event.current.button == 1 && Event.current.clickCount == 1) {
 				UpdateTargetPosition();
 			}
+			
+			if (oneClick && cam != null && Event.current.button == 0 && Event.current.clickCount == 2) {
+				GameBase.G.LeaveStart();
+			}
 		}
 
 		void Update () {
