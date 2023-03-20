@@ -19,6 +19,7 @@ public class Enemy: MonoBehaviour
     private TMP_Text txtHp;
     
     private Vector2 startPos;
+    private System.Action[] actions;
     
     void Start()
     {
@@ -29,6 +30,8 @@ public class Enemy: MonoBehaviour
         SetHit( max_health );
         SetAttack( start_attack );
         SetRebirth( time_rebirth );
+        
+        actions = new System.Action[] { SetHit, SetAttack, SetBirth };
     }
     
     public void Damage( float _damage )
@@ -37,7 +40,7 @@ public class Enemy: MonoBehaviour
         SetHit( health );
     }
     
-    public void SetHit( float _hp )
+    public void SetHit( float _hp = 5f )
     {
         health = _hp;
         txtHp.text = $"{health}";
@@ -53,18 +56,20 @@ public class Enemy: MonoBehaviour
         Waiter.Wait( rebirth, () =>
         {
             gameObject.SetActive(true);
-            SetHit( ++max_health );
+            actions[ Random.Range( 0, actions.Length ) ]();
         });
     }
     
-    public void SetAttack( float _attack )
+    public void SetAttack( float _attack = 2f )
     {
-        attack = _attack;
+        if( _attack > 0 ) attack = _attack;
+        else return;
     }
     
-    public void SetRebirth( float _rebirth )
+    public void SetRebirth( float _rebirth = 5f )
     {
-        rebirth = _rebirth;
+        if( _rebirth > 0 ) rebirth = _rebirth;
+        else return;
     }
     
     void OnTriggerEnter2D( Collider2D collision )
