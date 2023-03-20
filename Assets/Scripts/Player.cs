@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using Pathfinding;
 
-public class Player : MonoBehaviour, IPointerClickHandler
+public class Player : MonoBehaviour
 {
     public float hitPlayer { private set; get; }
     public float maxHit;
@@ -14,8 +14,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
     public float start_speed;
     public float attack_damage { private set; get; }
     public float start_damage;
-    
-    public bool is_player;
+
     public int leaves_count;
     
     private TMP_Text txtLeaves, txtHp;
@@ -23,12 +22,6 @@ public class Player : MonoBehaviour, IPointerClickHandler
     
     private Vector2 startPos;
     private Color colorPlayer;
-
-    public Player( float hp, float dmg )
-    {
-        maxHit = hp;
-        start_damage = dmg;
-    }
 
     void Start()
     {
@@ -52,23 +45,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
         hitPlayer = hit;
         txtHp.text = $"{hitPlayer}";
         hpImg.fillAmount = hitPlayer / maxHit;
-        if( hitPlayer <= 0 )
-        {
-            if( is_player ) GameBase.G.CompleteGame();
-            else Died();
-        } 
-    }
-    
-    private void Died()
-    {
-        GameBase.G.CoinCreate( this.gameObject, 15 );
-        Waiter.Wait(.5f, () => { GameBase.G.CoinCreate( this.gameObject, 15 ); });
-        gameObject.SetActive(false);
-        Waiter.Wait(3f, () =>
-        {
-            gameObject.SetActive(true);
-            SetHit( ++maxHit );
-        });
+        if( hitPlayer <= 0 ) GameBase.G.CompleteGame(); 
     }
     
     public void SetSpeed( float speed )
@@ -105,7 +82,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
         if( collision.gameObject.tag == "Enemy" )
         {
             GetComponentInChildren<SpriteRenderer>().color = new Color( colorPlayer.r, colorPlayer.g - .5f, colorPlayer.b - .5f, colorPlayer.a );
-            Damage( collision.GetComponent<Player>().attack_damage );
+            Damage( collision.GetComponent<Enemy>().attack );
         }
 
         if( collision.gameObject.tag == "Teleport" )
@@ -114,7 +91,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
             SetPos( startPos );
         }
         
-        if( is_player && collision.gameObject.tag == "Leaves" ) {
+        if( collision.gameObject.tag == "Leaves" ) {
             if( !leaveImg.gameObject.activeSelf ) leaveImg.gameObject.SetActive(true);
             leaves_count += 10;
             Destroy( collision.gameObject );
@@ -127,11 +104,5 @@ public class Player : MonoBehaviour, IPointerClickHandler
         {
             GetComponentInChildren<SpriteRenderer>().color = colorPlayer;
         } 
-    }
-    
-    public void OnPointerClick( PointerEventData eventData )
-    {
-        if( GameBase.G.phase != GamePhase.game ) return;
-        if( !is_player ) GameBase.G.LeaveStart( this );
     }
 }
