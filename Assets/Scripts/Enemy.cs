@@ -75,7 +75,7 @@ public class Enemy: MonoBehaviour
     void OnTriggerEnter2D( Collider2D collision )
     {
         if( collision.gameObject.tag == "Leave" ) {
-            Damage( collision.GetComponent<Leave>().damage );
+            Damage( GameBase.G.player.GetComponent<Player>().attack_damage );
             collision.gameObject.SetActive( false );
         }
     }
