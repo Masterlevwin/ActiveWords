@@ -14,8 +14,7 @@ public class Player : MonoBehaviour
     public float start_speed;
     public float attack_damage { private set; get; }
     public float start_damage;
-
-    public float leaves_count;
+    public float leaves_count { private set; get; }
     
     private TMP_Text txtLeaves, txtHp;
     private Image leaveImg, hpImg;
@@ -70,9 +69,9 @@ public class Player : MonoBehaviour
         transform.position = pos;
     }
     
-    public void SetLeavesCount()
+    public void SetLeavesCount( float lv )
     {
-        leaves_count -= .5f;
+        leaves_count -= lv;
         txtLeaves.text = $"{leaves_count}";
         if( leaves_count <= 0 ) leaveImg.gameObject.SetActive(false);
     }
@@ -93,7 +92,7 @@ public class Player : MonoBehaviour
         
         if( collision.gameObject.tag == "Leaves" ) {
             if( !leaveImg.gameObject.activeSelf ) leaveImg.gameObject.SetActive(true);
-            leaves_count += 10;
+            SetLeavesCount( -10f );
             Destroy( collision.gameObject );
         }
     }
@@ -108,7 +107,7 @@ public class Player : MonoBehaviour
   
     public void OnGUI()
     {
-        if ( Event.current.button == 0 && Event.current.clickCount == 2 && leaves_count > 0 ) {
+        if ( Event.current.button == 0 && Event.current.clickCount == 2 && leaves_count > 0 && !GameBase.G._leaveActive ) {
 			GameBase.G.LeaveStart( Camera.main.ScreenToWorldPoint(Input.mousePosition) );
 		}
     }
