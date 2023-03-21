@@ -34,15 +34,9 @@ public class Enemy: MonoBehaviour
         actions = new System.Action<float>[] { SetHit, SetAttack, SetRebirth } ;
     }
     
-    public void Damage( float _damage )
-    {
-        health -= _damage;
-        SetHit( health );
-    }
-    
     public void SetHit( float _hp )
     {
-        health = _hp;
+        health += _hp;
         txtHp.text = $"{health}";
         hpImg.fillAmount = health / max_health;
         if( health <= 0 ) Died(); 
@@ -56,27 +50,28 @@ public class Enemy: MonoBehaviour
         Waiter.Wait( rebirth, () =>
         {
             if( GameBase.G.phase == GamePhase.game ) gameObject.SetActive(true);
-            actions[ Random.Range( 0, actions.Length ) ]( ++rebirth );
+            actions[ Random.Range( 0, actions.Length ) ]( 1f );
         });
     }
     
     public void SetAttack( float _attack )
     {
-        if( _attack > 0 ) attack = _attack;
-        else return;
+        attack += _attack;
+        if( attack <= 0 ) attack = 1f;
     }
     
     public void SetRebirth( float _rebirth )
     {
-        if( _rebirth > 0 ) rebirth = _rebirth;
-        else return;
+        rebirth -= _rebirth;
+        if( rebirth <= 0 ) rebirth = 1f;
     }
     
     void OnTriggerEnter2D( Collider2D collision )
     {
         if( collision.gameObject.tag == "Leave" ) {
-            Damage( GameBase.G.player.GetComponent<Player>().attack_damage );
+            SetHit( -GameBase.G.pl.attack_damage );
             collision.gameObject.SetActive( false );
+            GameBase.G._leaveActive = false;
         }
     }
 }
