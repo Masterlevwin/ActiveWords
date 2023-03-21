@@ -50,14 +50,21 @@ public class Enemy: MonoBehaviour
     private void Died()
     {
         GameBase.G.CoinCreate( this.gameObject, 15 );
-        Waiter.Wait( .5f, () => { GameBase.G.CoinCreate( this.gameObject, 15 ); } );
-        gameObject.SetActive(false);
+        Waiter.Wait( .2f, () =>
+        {
+            GameBase.G.CoinCreate( this.gameObject, 15 );
+            gameObject.SetActive(false);
+        });
+        
+        SetHit( max_health );
+        
         Waiter.Wait( rebirth, () =>
         {
-            if( GameBase.G.phase == GamePhase.game ) gameObject.SetActive(true);
-            SetHit( max_health );
-            actions[ Random.Range( 0, actions.Length ) ]( 1f );
-            max_health = health;
+            if( GameBase.G.phase != GamePhase.complete ) {
+                gameObject.SetActive(true);
+                actions[ Random.Range( 0, actions.Length ) ]( 1f );
+                max_health = health;
+            }
         });
     }
     
