@@ -107,7 +107,6 @@ public class GameBase : MonoBehaviour
     {
         Player pl = player.GetComponent<Player>();
         GameObject leave = Instantiate( leavePrefab, pl.transform.position, Quaternion.identity );
-        leave.GetComponent<Leave>().damage = pl.attack_damage;
         pl.SetLeavesCount();
         StartCoroutine( Move( leave, target, pl.attack_speed, () => { Destroy( leave ); } ) );
     }
