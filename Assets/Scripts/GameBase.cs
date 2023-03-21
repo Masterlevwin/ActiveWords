@@ -29,10 +29,10 @@ public class GameBase : MonoBehaviour
     
     public AIPath player, enemy;
     public GameObject leavePrefab, coinPrefab;
-
+    public Player pl;
     public Init init;
-    private Dictionary<Vector2, Letter> letDict; 
-
+    private Dictionary<Vector2, Letter> letDict;
+    
     void Start()
     {
         if (G == null) G = this;
@@ -40,6 +40,8 @@ public class GameBase : MonoBehaviour
 
         player.gameObject.SetActive(false);
         enemy.gameObject.SetActive(false);
+        
+        pl = player.GetComponent<Player>();
     }
 
     public void StartGame()
@@ -105,7 +107,6 @@ public class GameBase : MonoBehaviour
     
     public void LeaveStart( Vector2 target )
     {
-        Player pl = player.GetComponent<Player>();
         GameObject leave = Instantiate( leavePrefab, pl.transform.position, Quaternion.identity );
         pl.SetLeavesCount();
         StartCoroutine( Move( leave, target, pl.attack_speed, () => { Destroy( leave ); } ) );
@@ -117,7 +118,7 @@ public class GameBase : MonoBehaviour
         StartCoroutine( Move( coin, coinText.gameObject.transform.position, 4f, () => { coins_count += price; Destroy( coin ); } ) );
     }
     
-    public IEnumerator Move( GameObject go, Vector2 endPosition, float speed = 1f, Action action = null )
+    private IEnumerator Move( GameObject go, Vector2 endPosition, float speed = 1f, Action action = null )
     {
         float step = speed * Time.deltaTime;
         while( Vector2.Distance( go.transform.position, endPosition ) > float.Epsilon )
