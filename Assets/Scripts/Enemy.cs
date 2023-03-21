@@ -29,7 +29,7 @@ public class Enemy: MonoBehaviour
         startPos = transform.position;
         SetHit( max_health );
         SetAttack( start_attack );
-        SetRebirth( time_rebirth );
+        SetRebirth( -time_rebirth );
         
         actions = new System.Action<float>[] { SetHit, SetAttack, SetRebirth } ;
     }
