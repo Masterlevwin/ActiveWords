@@ -161,9 +161,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHit: 3
-  start_speed: 3
+  start_speed: 5
   start_damage: 1
-  leaves_count: 0
 --- !u!1 &451887132560335206
 GameObject:
   m_ObjectHideFlags: 0

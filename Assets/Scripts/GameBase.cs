@@ -53,8 +53,8 @@ public class GameBase : MonoBehaviour
         else letDict.Clear();
         if (!player.gameObject.activeSelf) player.gameObject.SetActive(true);
         if (!enemy.gameObject.activeSelf) enemy.gameObject.SetActive(true);
-        pl.SetHit(pl.maxHit);
-        en.SetHit(en.max_health);
+        pl.SetHit( pl.maxHit );
+        en.ResetProperties();
         phase = GamePhase.game;
     }
     
@@ -112,7 +112,7 @@ public class GameBase : MonoBehaviour
     public void LeaveStart( Vector2 target )
     {
         GameObject leave = Instantiate( leavePrefab, pl.transform.position, Quaternion.identity );
-        pl.SetLeavesCount( .5f );                       // Из общего количества вычитаем половинку листика ввиду двойного клика мышью
+        pl.SetLeavesCount( 1f );
         _leaveActive = true;
         StartCoroutine( Move( leave, target, pl.attack_speed, () => { Destroy( leave ); if( _leaveActive ) _leaveActive = false; } ) );
     }

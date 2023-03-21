@@ -477,9 +477,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bea325a41fcaf524a889e913fddaddf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_health: 4
+  start_health: 4
+  max_health: 0
   start_attack: 1
-  time_rebirth: 5
+  start_rebirth: 4
 --- !u!1 &2833622987249709766
 GameObject:
   m_ObjectHideFlags: 0

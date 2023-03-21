@@ -8,12 +8,13 @@ using Pathfinding;
 
 public class Enemy: MonoBehaviour
 {
-    public float health { private set; get; }
+    public float health { private set; get; } = 0;
+    public float start_health;
     public float max_health;
-    public float attack { private set; get; }
+    public float attack { private set; get; } = 0;
     public float start_attack;
-    public float rebirth { private set; get; }
-    public float time_rebirth;
+    public float rebirth { private set; get; } = 0;
+    public float start_rebirth;
     
     private Image hpImg;
     private TMP_Text txtHp;
@@ -25,21 +26,25 @@ public class Enemy: MonoBehaviour
     {
         hpImg = GetComponentsInChildren<Image>()[1];
         txtHp = GetComponentsInChildren<TMP_Text>()[0];
-        
-        startPos = transform.position;
-        SetHit( max_health );
-        SetAttack( start_attack );
-        SetRebirth( -time_rebirth );
-        
+
+        max_health = start_health;
         actions = new System.Action<float>[] { SetHit, SetAttack, SetRebirth } ;
     }
     
+    public void ResetProperties()
+    {
+        startPos = transform.position;
+        SetHit( start_health );
+        SetAttack( start_attack );
+        SetRebirth( -start_rebirth );
+    }
+
     public void SetHit( float _hp )
     {
         health += _hp;
         txtHp.text = $"{health}";
         hpImg.fillAmount = health / max_health;
-        if( health <= 0 ) Died(); 
+        if( health <= 0 ) Died();
     }
     
     private void Died()
@@ -50,7 +55,9 @@ public class Enemy: MonoBehaviour
         Waiter.Wait( rebirth, () =>
         {
             if( GameBase.G.phase == GamePhase.game ) gameObject.SetActive(true);
+            SetHit( max_health );
             actions[ Random.Range( 0, actions.Length ) ]( 1f );
+            max_health = health;
         });
     }
     

@@ -98,7 +98,7 @@ public class Init : MonoBehaviour
     	} 
     }
     
-    private void CreateLeaves()					// Метод создания бонуса листиков
+    private void CreateLeaves()					    // Метод создания бонуса листиков
     {
     	GameObject leavesPool = Instantiate( prefabLeaves, Spawn(), Quaternion.identity, blockAnchor );
     }
@@ -202,7 +202,7 @@ public class Init : MonoBehaviour
         }                                         
         CreateCells();                                      // Создаем конечные места букв
         GameBase.G.pl.SetPos(Spawn());	// Устанавливаем позицию игрока
-	    GameBase.G.entransform.position = Spawn();		// Устанавливаем позицию бота
+	    GameBase.G.en.transform.position = Spawn();		// Устанавливаем позицию бота
         GameBase.G.StartGame();					            // Запускаем игру
     }
 }
