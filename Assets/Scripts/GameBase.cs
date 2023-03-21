@@ -105,10 +105,13 @@ public class GameBase : MonoBehaviour
         }
     }
     
+    public bool _leaveActive = false;
+    
     public void LeaveStart( Vector2 target )
     {
         GameObject leave = Instantiate( leavePrefab, pl.transform.position, Quaternion.identity );
         pl.SetLeavesCount();
+        _leaveActive = true;
         StartCoroutine( Move( leave, target, pl.attack_speed, () => { Destroy( leave ); } ) );
     }
 
