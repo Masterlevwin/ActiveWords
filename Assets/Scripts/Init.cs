@@ -25,7 +25,7 @@ public class Init : MonoBehaviour
     public GameObject prefabBlock;
     public Sprite[] blocks;
     public GameObject prefabTeleport;
-    
+    public GameObject prefabLeaves;
     private Transform cellAnchor;
     public GameObject prefabCell;
     public Sprite[] cells;
@@ -78,6 +78,7 @@ public class Init : MonoBehaviour
     private void InitLevel()					// Метод инициализации уровня
     {
     	GameBase.G.phase = GamePhase.init;		// Переводим игру в фазу инициализации уровня, запрещая двигать персонажа
+	    CreateLeaves();						// Создаем бонус листиков в случайном доступном месте
 	    //CreateBlocks();						// Создаем блоки препятствий
 	    CreateLetters();						// Создаем буквы уровня
     }
@@ -95,6 +96,11 @@ public class Init : MonoBehaviour
     	{
             GameObject teleport = Instantiate(prefabTeleport, Spawn(), Quaternion.identity, blockAnchor);
     	} 
+    }
+    
+    private void CreateLeaves()					// Метод создания бонуса листиков
+    {
+    	GameObject leavesPool = Instantiate( prefabLeaves, Spawn(), Quaternion.identity, blockAnchor );
     }
     
     public Vector2 Spawn()						    // Метод генерации случайной точки спавна
