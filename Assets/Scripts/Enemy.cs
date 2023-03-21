@@ -26,14 +26,14 @@ public class Enemy: MonoBehaviour
     {
         hpImg = GetComponentsInChildren<Image>()[1];
         txtHp = GetComponentsInChildren<TMP_Text>()[0];
-
-        max_health = start_health;
+        
         actions = new System.Action<float>[] { SetHit, SetAttack, SetRebirth } ;
     }
     
     public void ResetProperties()
     {
         startPos = transform.position;
+        max_health = start_health;
         SetHit( start_health );
         SetAttack( start_attack );
         SetRebirth( -start_rebirth );
