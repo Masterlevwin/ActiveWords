@@ -114,7 +114,7 @@ public class GameBase : MonoBehaviour
         GameObject leave = Instantiate( leavePrefab, pl.transform.position, Quaternion.identity );
         pl.SetLeavesCount();
         _leaveActive = true;
-        StartCoroutine( Move( leave, target, pl.attack_speed, () => { Destroy( leave ); if( !_leaveActive ) _leaveActive = true; } ) );
+        StartCoroutine( Move( leave, target, pl.attack_speed, () => { Destroy( leave ); if( _leaveActive ) _leaveActive = false; } ) );
     }
 
     public void CoinCreate( GameObject go, int price )
