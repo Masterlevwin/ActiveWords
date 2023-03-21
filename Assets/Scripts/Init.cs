@@ -195,8 +195,8 @@ public class Init : MonoBehaviour
             yield return new WaitForSeconds(.5f);           // Делаем паузу полсекунды
         }                                         
         CreateCells();                                      // Создаем конечные места букв
-        GameBase.G.player.GetComponent<Player>().SetPos(Spawn());	// Устанавливаем позицию игрока
-	    GameBase.G.enemy.transform.position = Spawn();		// Устанавливаем позицию бота
+        GameBase.G.pl.SetPos(Spawn());	// Устанавливаем позицию игрока
+	    GameBase.G.entransform.position = Spawn();		// Устанавливаем позицию бота
         GameBase.G.StartGame();					            // Запускаем игру
     }
 }
