@@ -30,6 +30,7 @@ public class GameBase : MonoBehaviour
     public AIPath player, enemy;
     public GameObject leavePrefab, coinPrefab;
     public Player pl;
+    public Enemy en;
     public Init init;
     private Dictionary<Vector2, Letter> letDict;
     
@@ -42,6 +43,7 @@ public class GameBase : MonoBehaviour
         enemy.gameObject.SetActive(false);
         
         pl = player.GetComponent<Player>();
+        en = enemy.GetComponent<Enemy>();
     }
 
     public void StartGame()
@@ -51,8 +53,8 @@ public class GameBase : MonoBehaviour
         else letDict.Clear();
         if (!player.gameObject.activeSelf) player.gameObject.SetActive(true);
         if (!enemy.gameObject.activeSelf) enemy.gameObject.SetActive(true);
-        player.GetComponent<Player>().SetHit(player.GetComponent<Player>().maxHit);
-        enemy.GetComponent<Enemy>().SetHit(enemy.GetComponent<Enemy>().max_health);
+        pl.SetHit(pl.maxHit);
+        en.SetHit(en.max_health);
         phase = GamePhase.game;
     }
     
