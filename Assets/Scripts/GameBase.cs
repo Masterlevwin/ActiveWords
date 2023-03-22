@@ -31,7 +31,7 @@ public class GameBase : MonoBehaviour
     public GameObject leavePrefab, coinPrefab;
     public Player pl;
     public Enemy en;
-    public Timer _timer;
+    public TimerEnemyRebirth _timer;
     public Init init;
     private Dictionary<Vector2, Letter> letDict;
     
