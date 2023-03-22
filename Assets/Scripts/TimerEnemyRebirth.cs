@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Timer : MonoBehaviour
+public class TimerEnemyRebirth : MonoBehaviour
 {
     [SerializeField] private float time;
     [SerializeField] private TMP_Text timerText;
