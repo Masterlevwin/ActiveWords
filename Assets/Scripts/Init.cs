@@ -78,7 +78,6 @@ public class Init : MonoBehaviour
     private void InitLevel()					// Метод инициализации уровня
     {
     	GameBase.G.phase = GamePhase.init;		// Переводим игру в фазу инициализации уровня, запрещая двигать персонажа
-	    CreateLeaves();						// Создаем бонус листиков в случайном доступном месте
 	    //CreateBlocks();						// Создаем блоки препятствий
 	    CreateLetters();						// Создаем буквы уровня
     }
@@ -203,6 +202,7 @@ public class Init : MonoBehaviour
         CreateCells();                                      // Создаем конечные места букв
         GameBase.G.pl.SetPos(Spawn());	// Устанавливаем позицию игрока
 	    GameBase.G.en.transform.position = Spawn();		// Устанавливаем позицию бота
+	    CreateLeaves();						// Создаем бонус листиков в случайном доступном месте
         GameBase.G.StartGame();					            // Запускаем игру
     }
 }
