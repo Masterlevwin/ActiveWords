@@ -32,6 +32,9 @@ public class Enemy: MonoBehaviour
     
     public void ResetProperties()
     {
+        health = 0;
+        attack = 0;
+        rebirth = 0;
         startPos = transform.position;
         max_health = start_health;
         SetHit( start_health );
@@ -49,16 +52,11 @@ public class Enemy: MonoBehaviour
     
     private void Died()
     {
-        GameBase.G.CoinCreate( this.gameObject, 15 );
-        Waiter.Wait( .2f, () =>
-        {
-            GameBase.G.CoinCreate( this.gameObject, 15 );
-            GameBase.G._timer.BeginTimer( transform.position, rebirth );
-            gameObject.SetActive(false);
-        });
-        
+        GameBase.G.CoinCreate( this.gameObject, 30 );
+        GameBase.G._timer.BeginTimer( transform.position, rebirth );
+        gameObject.SetActive(false);
         SetHit( max_health );
-        
+
         Waiter.Wait( rebirth, () =>
         {
             if( GameBase.G.phase != GamePhase.complete ) {
