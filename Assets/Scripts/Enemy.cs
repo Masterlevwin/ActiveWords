@@ -53,6 +53,7 @@ public class Enemy: MonoBehaviour
         Waiter.Wait( .2f, () =>
         {
             GameBase.G.CoinCreate( this.gameObject, 15 );
+            GameBase.G._timer.BeginTimer( transform.position, rebirth );
             gameObject.SetActive(false);
         });
         
