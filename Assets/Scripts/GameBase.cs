@@ -31,6 +31,7 @@ public class GameBase : MonoBehaviour
     public GameObject leavePrefab, coinPrefab;
     public Player pl;
     public Enemy en;
+    public Timer _timer;
     public Init init;
     private Dictionary<Vector2, Letter> letDict;
     
@@ -63,6 +64,8 @@ public class GameBase : MonoBehaviour
         phase = GamePhase.complete;
         player.gameObject.SetActive(false);
         enemy.gameObject.SetActive(false);
+        
+        if( _timer.gameObject.activeSelf ) _timer.StopTimer();
         
         int numValues = 0;
         for (int i = 0; i < init.letPositions.Count; i++)
