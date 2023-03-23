@@ -52,8 +52,8 @@ public class GameBase : MonoBehaviour
         levelText.text = $"{level}";
         if (letDict == null) letDict = new Dictionary<Vector2, Letter>();
         else letDict.Clear();
-        if (!player.gameObject.activeSelf) player.gameObject.SetActive(true);
-        if (!enemy.gameObject.activeSelf) enemy.gameObject.SetActive(true);
+        if (!player.gameObject.activeSelf) Waiter.Wait( .5f, () => { player.gameObject.SetActive(true); } );
+        if (!enemy.gameObject.activeSelf) Waiter.Wait( .5f, () => { enemy.gameObject.SetActive(true); } );
         pl.SetHit( pl.maxHit );
         en.ResetProperties();
         phase = GamePhase.game;
@@ -62,7 +62,7 @@ public class GameBase : MonoBehaviour
     public void CompleteGame()
     {
         phase = GamePhase.complete;
-        StopAllCoroutines();
+        //StopAllCoroutines();
         if( _timer.gameObject.activeSelf ) _timer.StopTimer();
         player.gameObject.SetActive(false);
         enemy.gameObject.SetActive(false);

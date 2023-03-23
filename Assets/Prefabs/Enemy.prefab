@@ -285,7 +285,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 82911cf53d8dd0549a6a54b91d5f3408, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
@@ -468,7 +468,7 @@ MonoBehaviour:
   start_health: 4
   max_health: 0
   start_attack: 1
-  start_rebirth: 4
+  start_rebirth: 5
 --- !u!61 &6523019013731485941
 BoxCollider2D:
   m_ObjectHideFlags: 0

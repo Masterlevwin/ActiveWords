@@ -195,12 +195,12 @@ public class Init : MonoBehaviour
             let.SetLetterPos(let.transform.position);		// Запоминаем начальную позицию буквы
             let.SetChar(chars[i]);							// Устанавливаем символ для дальнейшей проверки этого свойства
 	        lets.Add(let);									// Добавляем букву в список
-            yield return new WaitForSeconds(.3f);           // Делаем паузу полсекунды
+            yield return new WaitForSeconds(.4f);           // Делаем паузу
         }                                         
         CreateCells();                                      // Создаем конечные места букв
-        Waiter.Wait( .3f, () => { GameBase.G.pl.SetPos( Spawn() ); } );	// Устанавливаем позицию игрока
-	Waiter.Wait( .3f, () => { GameBase.G.en.transform.position = Spawn(); } ); // Устанавливаем позицию бота
-	Waiter.Wait( .3f, () => { CreateLeaves(); } );			// Создаем бонус листиков в случайном доступном месте
-        GameBase.G.StartGame();					            // Запускаем игру
+        GameBase.G.pl.SetPos( Spawn() );                    // Устанавливаем позицию игрока
+	    GameBase.G.en.transform.position = Spawn();         // Устанавливаем позицию бота
+	    CreateLeaves();                                     // Создаем бонус листиков в случайном доступном месте
+        GameBase.G.StartGame();                             // Запускаем игру
     }
 }
