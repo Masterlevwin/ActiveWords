@@ -62,11 +62,11 @@ public class GameBase : MonoBehaviour
     public void CompleteGame()
     {
         phase = GamePhase.complete;
+        StopAllCoroutines();
+        if( _timer.gameObject.activeSelf ) _timer.StopTimer();
         player.gameObject.SetActive(false);
         enemy.gameObject.SetActive(false);
-        
-        if( _timer.gameObject.activeSelf ) _timer.StopTimer();
-        
+
         int numValues = 0;
         for (int i = 0; i < init.letPositions.Count; i++)
             if (letDict.TryGetValue(init.letPositions[i], out Letter l) && l.charLet == init.lets[i].charLet)
@@ -92,7 +92,7 @@ public class GameBase : MonoBehaviour
         if( letDict.ContainsValue(l) )
         {
             letDict.Remove( l.transform.position );
-            StartCoroutine( Move( l.gameObject, l.posLet, 4f, () => { l.GetComponent<BoxCollider2D>().isTrigger = true; CoinCreate( l.gameObject, -10 ); } ) );
+            _moveRoutine = StartCoroutine( Move( l.gameObject, l.posLet, 4f, () => { l.GetComponent<BoxCollider2D>().isTrigger = true; CoinCreate( l.gameObject, -10 ); } ) );
         }
     } 
     
@@ -104,7 +104,7 @@ public class GameBase : MonoBehaviour
             {
                 letDict.Add( init.letPositions[i], l );
                 CoinCreate( l.gameObject, 10 );
-                StartCoroutine( Move( l.gameObject, init.letPositions[i], 4f, () => { l.GetComponent<BoxCollider2D>().isTrigger = false; } ) );
+                _moveRoutine = StartCoroutine( Move( l.gameObject, init.letPositions[i], 4f, () => { l.GetComponent<BoxCollider2D>().isTrigger = false; } ) );
                 break;
             }
         }
@@ -117,15 +117,16 @@ public class GameBase : MonoBehaviour
         GameObject leave = Instantiate( leavePrefab, pl.transform.position, Quaternion.identity );
         pl.SetLeavesCount( 1f );
         _leaveActive = true;
-        StartCoroutine( Move( leave, target, pl.attack_speed, () => { Destroy( leave ); if( _leaveActive ) _leaveActive = false; } ) );
+        _moveRoutine = StartCoroutine( Move( leave, target, pl.attack_speed, () => { Destroy( leave ); if( _leaveActive ) _leaveActive = false; } ) );
     }
 
     public void CoinCreate( GameObject go, int price )
     {
         GameObject coin = Instantiate( coinPrefab, go.transform.position, Quaternion.identity, transform.parent );
-        StartCoroutine( Move( coin, coinText.gameObject.transform.position, 4f, () => { coins_count += price; Destroy( coin ); } ) );
+        _moveRoutine = StartCoroutine( Move( coin, coinText.gameObject.transform.position, 4f, () => { coins_count += price; Destroy( coin ); } ) );
     }
     
+    Coroutine _moveRoutine;
     private IEnumerator Move( GameObject go, Vector2 endPosition, float speed = 1f, Action action = null )
     {
         float step = speed * Time.deltaTime;
@@ -135,8 +136,17 @@ public class GameBase : MonoBehaviour
             yield return null;
         }
         action?.Invoke();
+        _moveRoutine = null;
     }
 
+    public void StopMove()
+    {
+        if( _moveRoutine != null ) {
+            StopCoroutine( _moveRoutine );
+            _moveRoutine = null;
+        }
+    }
+    
     void Update()
     {
         coinText.text = $"{coins_count}";
