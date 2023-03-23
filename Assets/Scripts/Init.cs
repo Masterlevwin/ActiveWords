@@ -61,6 +61,7 @@ public class Init : MonoBehaviour
     
     public void Reset()				        // Метод обновления уровня, временно вызывается кнопкой
     {
+    	StopAllCoroutines();
         GameBase.G.player.SetPath(null);	// Останавливаем поиск пути у игрока
         GameBase.G.enemy.SetPath(null);		// Останавливаем поиск пути у бота
 	    wordLevelText.text = $"";			// Очищаем отображение слова
