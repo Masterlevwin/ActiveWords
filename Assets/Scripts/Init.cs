@@ -8,9 +8,6 @@ using System.Threading;
 
 public class Init : MonoBehaviour
 {
-    static public CancellationTokenSource cancelTokenSource;
-    static public CancellationToken token;
-    
     public TextAsset textAsset;
     private string[] wordsFromTextAsset;
     public TMP_Text wordLevelText;
