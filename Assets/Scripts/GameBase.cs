@@ -23,7 +23,8 @@ public class GameBase : MonoBehaviour
     
     public static int level = 0;
     public TMP_Text levelText;
-    
+    public Image levelUP;
+    public Image gameOver;
     public int coins_count = 0;
     public TMP_Text coinText;
     
@@ -62,8 +63,7 @@ public class GameBase : MonoBehaviour
     public void CompleteGame()
     {
         phase = GamePhase.complete;
-        //StopAllCoroutines();
-        if( _timer.gameObject.activeSelf ) _timer.StopTimer();
+        if ( _timer.gameObject.activeSelf ) _timer.StopTimer();
         player.gameObject.SetActive(false);
         enemy.gameObject.SetActive(false);
 
@@ -79,12 +79,14 @@ public class GameBase : MonoBehaviour
     {
         level++;
         levelText.text = $"{level}";
+        levelUP.gameObject.SetActive(true);
     }    
     
     private void Lose()
     {
         level--;
         levelText.text = $"{level}";
+        gameOver.gameObject.SetActive(true);
     }
     
     public void RemoveAtWord( Letter l )

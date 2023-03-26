@@ -61,7 +61,9 @@ public class Init : MonoBehaviour
     
     public void Reset()				        // Метод обновления уровня, временно вызывается кнопкой
     {
-    	StopAllCoroutines();
+        GameBase.G.levelUP.gameObject.SetActive(false);
+        GameBase.G.gameOver.gameObject.SetActive(false);
+        StopAllCoroutines();
         GameBase.G.player.SetPath(null);	// Останавливаем поиск пути у игрока
         GameBase.G.enemy.SetPath(null);		// Останавливаем поиск пути у бота
 	    wordLevelText.text = $"";			// Очищаем отображение слова
@@ -75,9 +77,9 @@ public class Init : MonoBehaviour
     
     private void InitLevel()					// Метод инициализации уровня
     {
-    	GameBase.G.phase = GamePhase.init;		// Переводим игру в фазу инициализации уровня, запрещая двигать персонажа
-	    //CreateBlocks();						// Создаем блоки препятствий
-	    CreateLetters();						// Создаем буквы уровня
+    	GameBase.G.phase = GamePhase.init;      // Переводим игру в фазу инициализации уровня, запрещая двигать персонажа
+        //CreateBlocks();						// Создаем блоки препятствий
+        CreateLetters();						// Создаем буквы уровня
     }
 
     private void CreateBlocks()					// Метод создания блоков препятствий
