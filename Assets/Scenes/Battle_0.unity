@@ -931,10 +931,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 72
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 16
@@ -1655,6 +1655,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 1258084832210441999, guid: b1643bfdea963d644b378feb3eff2137, type: 3}
+      propertyPath: maxSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1258084832210441999, guid: b1643bfdea963d644b378feb3eff2137, type: 3}
+      propertyPath: enableRotation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1258084832210441999, guid: b1643bfdea963d644b378feb3eff2137, type: 3}
+      propertyPath: autoRepath.mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1258084832210441999, guid: b1643bfdea963d644b378feb3eff2137, type: 3}
+      propertyPath: whenCloseToDestination
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1258084832210441999, guid: b1643bfdea963d644b378feb3eff2137, type: 3}
+      propertyPath: autoRepath.maximumInterval
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1258084832210441999, guid: b1643bfdea963d644b378feb3eff2137, type: 3}
+      propertyPath: autoRepath.visualizeSensitivity
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2089,6 +2113,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 672481699}
+    - target: {fileID: 451887132131533841, guid: e6113e9d8a47d6647bd10ee84202bf08, type: 3}
+      propertyPath: whenCloseToDestination
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 451887132131533844, guid: e6113e9d8a47d6647bd10ee84202bf08, type: 3}
       propertyPath: m_RootOrder
       value: 4
