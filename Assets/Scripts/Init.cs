@@ -125,15 +125,15 @@ public class Init : MonoBehaviour
         Vector2 cellPos;							// Объявляем переменную Vector2
         for (int i = 0; i < lets.Count; i++) 
         {	    // Взависимости от количества букв сгенерированного слова уровня определяем позицию каждого места
-            cellPos = new Vector2(.5f - lets.Count/2 + i, -4.5f);
+            cellPos = new Vector2(.4f - lets.Count/2 + i - .2f * i, -4.5f);
             c = Instantiate(prefabCell, cellPos, Quaternion.identity, cellAnchor);	// Создаем конечное место буквы
             c.GetComponent<SpriteRenderer>().sprite = cells[0];				        // Определяем спрайт этого места
             letPositions.Add(cellPos);							                    // Добавляем это место в список позиций
         }
 		        // Далее создаем крайние блоки для оформления интерактивной зоны
-        c = Instantiate(prefabCell, new Vector2(letPositions[0].x - 2f, letPositions[0].y), Quaternion.identity, cellAnchor);
+        c = Instantiate(prefabCell, new Vector2(letPositions[0].x - .4f, letPositions[0].y), Quaternion.identity, cellAnchor);
         c.GetComponent<SpriteRenderer>().sprite = cells[1];
-        c = Instantiate(prefabCell, new Vector2(letPositions[letPositions.Count - 1].x + 2f, letPositions[letPositions.Count - 1].y), Quaternion.identity, cellAnchor);
+        c = Instantiate(prefabCell, new Vector2(letPositions[letPositions.Count - 1].x + .4f, letPositions[letPositions.Count - 1].y), Quaternion.identity, cellAnchor);
         c.GetComponent<SpriteRenderer>().sprite = cells[2];
     }
         
