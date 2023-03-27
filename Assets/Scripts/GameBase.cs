@@ -115,7 +115,7 @@ public class GameBase : MonoBehaviour
         if( letDict.ContainsValue(l) )
         {
             letDict.Remove( l.transform.position );
-            _moveRoutine = StartCoroutine( Move( l.gameObject, l.posLet, 4f, () => { l.GetComponent<BoxCollider2D>().isTrigger = true; CoinCreate( l.gameObject, -10 ); } ) );
+            _moveRoutine = StartCoroutine( Move( l.gameObject, l.posLet, 4f, () => { l.GetComponent<BoxCollider2D>().isTrigger = true; CoinCreate( l.gameObject, -1 ); } ) );
         }
     } 
     
@@ -126,7 +126,7 @@ public class GameBase : MonoBehaviour
             if( !letDict.ContainsValue(l) && !letDict.ContainsKey(init.letPositions[i]) )
             {
                 letDict.Add( init.letPositions[i], l );
-                CoinCreate( l.gameObject, 10 );
+                CoinCreate( l.gameObject, 1 );
                 _moveRoutine = StartCoroutine( Move( l.gameObject, init.letPositions[i], 4f, () => { l.GetComponent<BoxCollider2D>().isTrigger = false; } ) );
                 break;
             }
