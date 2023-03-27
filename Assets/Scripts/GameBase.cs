@@ -114,6 +114,7 @@ public class GameBase : MonoBehaviour
     {
         if( letDict.ContainsValue(l) )
         {
+            pl.SetPos( startPos );
             letDict.Remove( l.transform.position );
             _moveRoutine = StartCoroutine( Move( l.gameObject, l.posLet, 4f, () => { l.GetComponent<BoxCollider2D>().isTrigger = true; CoinCreate( l.gameObject, -1 ); } ) );
         }
