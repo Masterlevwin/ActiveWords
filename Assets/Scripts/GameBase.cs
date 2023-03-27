@@ -89,6 +89,27 @@ public class GameBase : MonoBehaviour
         gameOver.gameObject.SetActive(true);
     }
     
+    public void UpgradeAbility( int ability )
+    {
+        if( ability == 1 && coins_count >= 25 ) {
+            pl.SetDamage( ++pl.attack_damage );
+            coins_count -= 25;
+        }
+        if( ability == 2 && coins_count >= 50 ) {
+            pl.maxHit++;
+            coins_count -= 50;
+        }
+        if( ability == 3 && coins_count >= 70 ) {
+            player.maxSpeed++;
+            coins_count -= 70;
+        }
+        if( ability == 4 && coins_count >= 150 ) {
+            pl.SetSpeed( ++pl.attack_speed );
+            coins_count -= 150;
+        }
+        init.Reset();
+    }
+    
     public void RemoveAtWord( Letter l )
     {
         if( letDict.ContainsValue(l) )
