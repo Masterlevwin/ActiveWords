@@ -26,7 +26,8 @@ public class Enemy: MonoBehaviour
     {
         hpImg = GetComponentsInChildren<Image>()[1];
         txtHp = GetComponentsInChildren<TMP_Text>()[0];
-        
+
+        ResetProperties();
         actions = new System.Action<float>[] { SetHit, SetAttack, SetRebirth } ;
     }
     
@@ -52,7 +53,7 @@ public class Enemy: MonoBehaviour
     
     private void Died()
     {
-        GameBase.G.CoinCreate( this.gameObject, 30 );
+        GameBase.G.CoinCreate( gameObject, 30 );
         GameBase.G._timer.BeginTimer( transform.position, rebirth );
         gameObject.SetActive(false);
         SetHit( max_health );

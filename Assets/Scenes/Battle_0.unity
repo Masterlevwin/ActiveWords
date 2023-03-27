@@ -1805,6 +1805,10 @@ PrefabInstance:
       value: Init, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Battle_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
@@ -2050,23 +2054,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 519420035}
+      objectReference: {fileID: 519420034}
     - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Reset
+      value: UpgradeAbility
       objectReference: {fileID: 0}
     - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Init, Assembly-CSharp
+      value: GameBase, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -3469,23 +3477,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 519420035}
+      objectReference: {fileID: 519420034}
     - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Reset
+      value: UpgradeAbility
       objectReference: {fileID: 0}
     - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Init, Assembly-CSharp
+      value: GameBase, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -3619,23 +3631,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 519420035}
+      objectReference: {fileID: 519420034}
     - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Reset
+      value: UpgradeAbility
       objectReference: {fileID: 0}
     - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Init, Assembly-CSharp
+      value: GameBase, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -4023,23 +4039,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 519420035}
+      objectReference: {fileID: 519420034}
     - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Reset
+      value: UpgradeAbility
       objectReference: {fileID: 0}
     - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Init, Assembly-CSharp
+      value: GameBase, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1761053815552281036, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName

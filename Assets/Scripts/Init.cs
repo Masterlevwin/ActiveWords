@@ -77,7 +77,7 @@ public class Init : MonoBehaviour
     
     private void InitLevel()					// Метод инициализации уровня
     {
-    	GameBase.G.phase = GamePhase.init;      // Переводим игру в фазу инициализации уровня, запрещая двигать персонажа
+        GameBase.G.phase = GamePhase.init;      // Переводим игру в фазу инициализации уровня, запрещая двигать персонажа
         //CreateBlocks();						// Создаем блоки препятствий
         CreateLetters();						// Создаем буквы уровня
     }

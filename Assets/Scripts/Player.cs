@@ -9,6 +9,7 @@ using Pathfinding;
 public class Player : MonoBehaviour
 {
     public float hitPlayer { private set; get; }
+    public float start_hit;
     public float maxHit;
     public float attack_speed { private set; get; }
     public float start_speed;
@@ -19,7 +20,7 @@ public class Player : MonoBehaviour
     private TMP_Text txtLeaves, txtHp;
     private Image leaveImg, hpImg;
     
-    private Vector2 startPos;
+    public Vector2 startPos;
     private Color colorPlayer;
 
     void Start()
@@ -32,9 +33,15 @@ public class Player : MonoBehaviour
         txtLeaves = GetComponentsInChildren<TMP_Text>()[1];
         
         leaveImg.gameObject.SetActive(false);
+        ResetProperties();
+    }
+    public void ResetProperties()
+    {
+        hitPlayer = 0;
+        attack_damage = 0;
+        attack_speed = 0;
         startPos = transform.position;
-        
-        SetHit( maxHit );
+        SetHit( start_hit );
         SetSpeed( start_speed );
         SetDamage( start_damage );
     }
@@ -49,12 +56,12 @@ public class Player : MonoBehaviour
     
     public void SetSpeed( float speed )
     {
-        attack_speed = speed;
+        attack_speed += speed;
     }
     
     public void SetDamage( float damage )
     {
-        attack_damage = damage;
+        attack_damage += damage;
     }
     
     public void Damage( float dmg )

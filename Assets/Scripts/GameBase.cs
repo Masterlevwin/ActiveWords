@@ -41,11 +41,10 @@ public class GameBase : MonoBehaviour
         if (G == null) G = this;
         else if (G == this) Destroy(gameObject);
 
-        player.gameObject.SetActive(false);
-        enemy.gameObject.SetActive(false);
-        
         pl = player.GetComponent<Player>();
         en = enemy.GetComponent<Enemy>();
+        player.gameObject.SetActive(false);
+        enemy.gameObject.SetActive(false);
     }
 
     public void StartGame()
@@ -55,8 +54,7 @@ public class GameBase : MonoBehaviour
         else letDict.Clear();
         if (!player.gameObject.activeSelf) Waiter.Wait( .5f, () => { player.gameObject.SetActive(true); } );
         if (!enemy.gameObject.activeSelf) Waiter.Wait( .5f, () => { enemy.gameObject.SetActive(true); } );
-        pl.SetHit( pl.maxHit );
-        en.ResetProperties();
+        pl.maxHit = pl.hitPlayer;
         phase = GamePhase.game;
     }
     
@@ -80,6 +78,7 @@ public class GameBase : MonoBehaviour
         level++;
         levelText.text = $"{level}";
         levelUP.gameObject.SetActive(true);
+        pl.SetHit( pl.maxHit );
     }    
     
     private void Lose()
@@ -87,16 +86,19 @@ public class GameBase : MonoBehaviour
         level--;
         levelText.text = $"{level}";
         gameOver.gameObject.SetActive(true);
+        pl.ResetProperties();
+        pl.SetLeavesCount(pl.leaves_count);
+        en.ResetProperties();
     }
     
     public void UpgradeAbility( int ability )
     {
         if( ability == 1 && coins_count >= 25 ) {
-            pl.SetDamage( ++pl.attack_damage );
+            pl.SetDamage( 1 );
             coins_count -= 25;
         }
         if( ability == 2 && coins_count >= 50 ) {
-            pl.maxHit++;
+            pl.SetHit( ++pl.maxHit );
             coins_count -= 50;
         }
         if( ability == 3 && coins_count >= 70 ) {
@@ -104,17 +106,22 @@ public class GameBase : MonoBehaviour
             coins_count -= 70;
         }
         if( ability == 4 && coins_count >= 150 ) {
-            pl.SetSpeed( ++pl.attack_speed );
+            pl.SetSpeed( 1 );
             coins_count -= 150;
         }
         init.Reset();
     }
-    
+
+    public void RestartScene( string scene )
+    {
+        SceneManager.LoadScene( scene );
+    }
+
     public void RemoveAtWord( Letter l )
     {
         if( letDict.ContainsValue(l) )
         {
-            pl.SetPos( startPos );
+            pl.SetPos( pl.startPos );
             letDict.Remove( l.transform.position );
             _moveRoutine = StartCoroutine( Move( l.gameObject, l.posLet, 4f, () => { l.GetComponent<BoxCollider2D>().isTrigger = true; CoinCreate( l.gameObject, -1 ); } ) );
         }
