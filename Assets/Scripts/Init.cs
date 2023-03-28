@@ -59,30 +59,35 @@ public class Init : MonoBehaviour
 	    return lines;
     }
     
-    public void Reset()				        // Метод обновления уровня, временно вызывается кнопкой
+    public void ClearLetters()			// Метод очищения уровня
     {
-        GameBase.G.levelUP.gameObject.SetActive(false);
-        GameBase.G.gameOver.gameObject.SetActive(false);
         StopAllCoroutines();
         GameBase.G.player.SetPath(null);	// Останавливаем поиск пути у игрока
         GameBase.G.enemy.SetPath(null);		// Останавливаем поиск пути у бота
-	    wordLevelText.text = $"";			// Очищаем отображение слова
-    	if (lets != null && lets.Count > 0) lets.Clear();	// Очищаем список букв        
+	wordLevelText.text = $"";		// Очищаем отображение слова
+    	if (lets != null && lets.Count > 0) lets.Clear();				// Очищаем список букв        
         if (letPositions != null && letPositions.Count > 0) letPositions.Clear();	// Очищаем список конечных мест
-	    foreach (Transform child in cellAnchor) Destroy(child.gameObject);		    // Удаляем объекты конечных мест
-	    foreach (Transform child in wordAnchor) Destroy(child.gameObject);		    // Удаляем объекты букв
-	    foreach (Transform child in blockAnchor) Destroy(child.gameObject);		    // Удаляем объекты блоков
-	    InitLevel();						// Инициализируем новый уровень
+	foreach (Transform child in cellAnchor) Destroy(child.gameObject);		// Удаляем объекты конечных мест
+	foreach (Transform child in wordAnchor) Destroy(child.gameObject);		// Удаляем объекты букв
+	foreach (Transform child in blockAnchor) Destroy(child.gameObject);		// Удаляем объекты блоков
     }
     
-    private void InitLevel()					// Метод инициализации уровня
+    public void Reset()				// Метод обновления уровня
+    {
+        GameBase.G.levelUP.gameObject.SetActive(false);
+        GameBase.G.gameOver.gameObject.SetActive(false);
+	ClearLetters();				// Очищаем завершенный уровень
+	InitLevel();				// Инициализируем новый уровень
+    }
+    
+    private void InitLevel()			// Метод инициализации уровня
     {
         GameBase.G.phase = GamePhase.init;      // Переводим игру в фазу инициализации уровня, запрещая двигать персонажа
-        //CreateBlocks();						// Создаем блоки препятствий
-        CreateLetters();						// Создаем буквы уровня
+        //CreateBlocks();			// Создаем блоки препятствий
+        CreateLetters();			// Создаем буквы уровня
     }
 
-    private void CreateBlocks()					// Метод создания блоков препятствий
+    private void CreateBlocks()			// Метод создания блоков препятствий
     {
     	int numBlocks = Random.Range(1, 10);	// Выбираем случайное количество блоков
 	    for (int i = 0; i < numBlocks; i++)
