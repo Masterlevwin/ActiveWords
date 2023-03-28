@@ -43,6 +43,7 @@ public class GameBase : MonoBehaviour
 
         pl = player.GetComponent<Player>();
         en = enemy.GetComponent<Enemy>();
+        en.DiedEnemy += CoinCreate;
         player.gameObject.SetActive(false);
         enemy.gameObject.SetActive(false);
     }
@@ -52,27 +53,27 @@ public class GameBase : MonoBehaviour
         levelText.text = $"{level}";
         if (letDict == null) letDict = new Dictionary<Vector2, Letter>();
         else letDict.Clear();
-        if (!player.gameObject.activeSelf) Waiter.Wait( .5f, () => { player.gameObject.SetActive(true); } );
-        if (!enemy.gameObject.activeSelf) Waiter.Wait( 3.5f, () => { enemy.gameObject.SetActive(true); enemy.canMove = true; } );
+        if (!player.gameObject.activeSelf) Waiter.Wait( 1f, () => { player.gameObject.SetActive(true); pl.SetPos( init.Spawn() ); } );
+        if (!enemy.gameObject.activeSelf) Waiter.Wait( 2f, () => { enemy.gameObject.SetActive(true); en.transform.position = init.Spawn(); } );
         pl.maxHit = pl.hitPlayer;
-        en.Died += CoinCreate;
-        phase = GamePhase.game;
+        Waiter.Wait( 3f, () => { phase = GamePhase.game; } );
     }
     
     public void CompleteGame()
     {
+        StopMove();
         phase = GamePhase.complete;
         if ( _timer.gameObject.activeSelf ) _timer.StopTimer();
         player.gameObject.SetActive(false);
         enemy.gameObject.SetActive(false);
-        init.ClearLetters();
-        
+
         int numValues = 0;
         for (int i = 0; i < init.letPositions.Count; i++)
             if (letDict.TryGetValue(init.letPositions[i], out Letter l) && l.charLet == init.lets[i].charLet)
                 numValues++;
         if (numValues == init.lets.Count) Win();
         else Lose();
+        init.ClearLetters();
     }
 
     private void Win()
@@ -156,7 +157,7 @@ public class GameBase : MonoBehaviour
 
     public void CoinCreate( GameObject go, int price, float rebirth = 1f )
     {
-        _timer.BeginTimer( go.transform.position, rebirth );
+        if( go == en.gameObject ) _timer.BeginTimer( go.transform.position, rebirth );
         GameObject coin = Instantiate( coinPrefab, go.transform.position, Quaternion.identity, transform.parent );
         _moveRoutine = StartCoroutine( Move( coin, coinText.gameObject.transform.position, 4f, () => { coins_count += price; Destroy( coin ); } ) );
     }

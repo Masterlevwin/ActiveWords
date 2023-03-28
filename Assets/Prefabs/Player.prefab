@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 451887132131533841}
   - component: {fileID: 451887132131533842}
   - component: {fileID: 451887132131533843}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -196,7 +196,7 @@ GameObject:
   - component: {fileID: 451887132560335200}
   - component: {fileID: 3795180964594940444}
   - component: {fileID: 8411080140544011005}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player_Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,7 +321,7 @@ GameObject:
   - component: {fileID: 3373897175462339241}
   - component: {fileID: 4029402383333426709}
   - component: {fileID: 5634033182270168337}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HPbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -425,7 +425,7 @@ GameObject:
   - component: {fileID: 7463160109781655564}
   - component: {fileID: 7540915981140521850}
   - component: {fileID: 6111641056318477694}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Leaves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -502,7 +502,7 @@ GameObject:
   - component: {fileID: 5898611889128578722}
   - component: {fileID: 1819146794941015509}
   - component: {fileID: 1977250404765898118}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Leaves_Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -637,7 +637,7 @@ GameObject:
   - component: {fileID: 3114419048561242778}
   - component: {fileID: 4804717458890873693}
   - component: {fileID: 7567371670668913896}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Heart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -714,7 +714,7 @@ GameObject:
   - component: {fileID: 9057919355090090395}
   - component: {fileID: 2775627850975572321}
   - component: {fileID: 5400153999017754839}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -790,7 +790,7 @@ GameObject:
   - component: {fileID: 1424814790033625687}
   - component: {fileID: 8475576085259505003}
   - component: {fileID: 8711608235378213673}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -866,7 +866,7 @@ GameObject:
   - component: {fileID: 5211968340983029785}
   - component: {fileID: 3010432700484361833}
   - component: {fileID: 4152975770354670256}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TextHP
   m_TagString: Untagged
   m_Icon: {fileID: 0}

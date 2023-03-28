@@ -23,7 +23,7 @@ public class Enemy: MonoBehaviour
     private Vector2 startPos;
     private Action<float>[] actions;
     
-    public event Action<GameObject, int, float> Died;
+    public event Action<GameObject, int, float> DiedEnemy;
     
     void Start()
     {
@@ -56,19 +56,17 @@ public class Enemy: MonoBehaviour
     
     private void Died()
     {
-        Died?.Invoke( gameObject, 30, rebirth );
-        //GameBase.G.CoinCreate( gameObject, 30 );
-        //GameBase.G._timer.BeginTimer( transform.position, rebirth );
+        DiedEnemy?.Invoke( gameObject, 30, rebirth );
         gameObject.SetActive(false);
         SetHit( max_health );
 
         Waiter.Wait( rebirth, () =>
         {
             if( GameBase.G.phase == GamePhase.game ) {
-                gameObject.SetActive(true);
-                actions[ Random.Range( 0, actions.Length ) ]( 1f );
+                actions[ UnityEngine.Random.Range( 0, actions.Length ) ]( 1f );
                 max_health = health;
-                GetComponent<AIPath>.SearchPath();
+                gameObject.SetActive(true);
+                GameBase.G.enemy.SearchPath();
             }
         });
     }
