@@ -53,7 +53,7 @@ public class GameBase : MonoBehaviour
         if (letDict == null) letDict = new Dictionary<Vector2, Letter>();
         else letDict.Clear();
         if (!player.gameObject.activeSelf) Waiter.Wait( .5f, () => { player.gameObject.SetActive(true); } );
-        if (!enemy.gameObject.activeSelf) Waiter.Wait( .5f, () => { enemy.gameObject.SetActive(true); } );
+        if (!enemy.gameObject.activeSelf) Waiter.Wait( 3.5f, () => { enemy.gameObject.SetActive(true); enemy.canMove = true; } );
         pl.maxHit = pl.hitPlayer;
         en.Died += CoinCreate;
         phase = GamePhase.game;
