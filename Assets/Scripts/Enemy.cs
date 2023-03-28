@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,7 +21,9 @@ public class Enemy: MonoBehaviour
     private TMP_Text txtHp;
     
     private Vector2 startPos;
-    private System.Action<float>[] actions;
+    private Action<float>[] actions;
+    
+    public event Action<GameObject, int, float> Died;
     
     void Start()
     {
@@ -28,7 +31,7 @@ public class Enemy: MonoBehaviour
         txtHp = GetComponentsInChildren<TMP_Text>()[0];
 
         ResetProperties();
-        actions = new System.Action<float>[] { SetHit, SetAttack, SetRebirth } ;
+        actions = new Action<float>[] { SetHit, SetAttack, SetRebirth } ;
     }
     
     public void ResetProperties()
@@ -53,8 +56,9 @@ public class Enemy: MonoBehaviour
     
     private void Died()
     {
-        GameBase.G.CoinCreate( gameObject, 30 );
-        GameBase.G._timer.BeginTimer( transform.position, rebirth );
+        Died?.Invoke( gameObject, 30, rebirth );
+        //GameBase.G.CoinCreate( gameObject, 30 );
+        //GameBase.G._timer.BeginTimer( transform.position, rebirth );
         gameObject.SetActive(false);
         SetHit( max_health );
 
