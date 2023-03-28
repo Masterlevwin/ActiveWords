@@ -152,7 +152,7 @@ public class GameBase : MonoBehaviour
         _moveRoutine = StartCoroutine( Move( leave, target, pl.attack_speed, () => { Destroy( leave ); if( _leaveActive ) _leaveActive = false; } ) );
     }
 
-    public void CoinCreate( GameObject go, int price )
+    public void CoinCreate( GameObject go, int price, float rebirth = 1f )
     {
         GameObject coin = Instantiate( coinPrefab, go.transform.position, Quaternion.identity, transform.parent );
         _moveRoutine = StartCoroutine( Move( coin, coinText.gameObject.transform.position, 4f, () => { coins_count += price; Destroy( coin ); } ) );
