@@ -65,7 +65,8 @@ public class GameBase : MonoBehaviour
         if ( _timer.gameObject.activeSelf ) _timer.StopTimer();
         player.gameObject.SetActive(false);
         enemy.gameObject.SetActive(false);
-
+        init.ClearLetters();
+        
         int numValues = 0;
         for (int i = 0; i < init.letPositions.Count; i++)
             if (letDict.TryGetValue(init.letPositions[i], out Letter l) && l.charLet == init.lets[i].charLet)
