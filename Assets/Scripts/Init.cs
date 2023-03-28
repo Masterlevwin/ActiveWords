@@ -76,7 +76,6 @@ public class Init : MonoBehaviour
     {
         GameBase.G.levelUP.gameObject.SetActive(false);
         GameBase.G.gameOver.gameObject.SetActive(false);
-	ClearLetters();				// Очищаем завершенный уровень
 	InitLevel();				// Инициализируем новый уровень
     }
     
