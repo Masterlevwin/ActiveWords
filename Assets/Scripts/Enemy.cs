@@ -68,6 +68,7 @@ public class Enemy: MonoBehaviour
                 gameObject.SetActive(true);
                 actions[ Random.Range( 0, actions.Length ) ]( 1f );
                 max_health = health;
+                GetComponent<AIPath>.SearchPath();
             }
         });
     }
