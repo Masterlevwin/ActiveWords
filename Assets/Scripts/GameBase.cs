@@ -89,6 +89,7 @@ public class GameBase : MonoBehaviour
         pl.ResetProperties();
         pl.SetLeavesCount(pl.leaves_count);
         en.ResetProperties();
+        coins_count = 0;
     }
     
     public void UpgradeAbility( int ability )
