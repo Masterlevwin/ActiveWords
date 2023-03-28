@@ -64,7 +64,7 @@ public class Enemy: MonoBehaviour
 
         Waiter.Wait( rebirth, () =>
         {
-            if( GameBase.G.phase != GamePhase.complete ) {
+            if( GameBase.G.phase == GamePhase.game ) {
                 gameObject.SetActive(true);
                 actions[ Random.Range( 0, actions.Length ) ]( 1f );
                 max_health = health;
