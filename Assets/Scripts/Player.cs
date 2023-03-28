@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
         leaveImg.gameObject.SetActive(false);
         ResetProperties();
     }
+    
     public void ResetProperties()
     {
         hitPlayer = 0;
