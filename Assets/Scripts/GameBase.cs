@@ -55,6 +55,7 @@ public class GameBase : MonoBehaviour
         if (!player.gameObject.activeSelf) Waiter.Wait( .5f, () => { player.gameObject.SetActive(true); } );
         if (!enemy.gameObject.activeSelf) Waiter.Wait( .5f, () => { enemy.gameObject.SetActive(true); } );
         pl.maxHit = pl.hitPlayer;
+        en.Died += CoinCreate;
         phase = GamePhase.game;
     }
     
@@ -87,7 +88,7 @@ public class GameBase : MonoBehaviour
         levelText.text = $"{level}";
         gameOver.gameObject.SetActive(true);
         pl.ResetProperties();
-        pl.SetLeavesCount(pl.leaves_count);
+        pl.SetLeavesCount( pl.leaves_count );
         en.ResetProperties();
         coins_count = 0;
     }
@@ -154,6 +155,7 @@ public class GameBase : MonoBehaviour
 
     public void CoinCreate( GameObject go, int price, float rebirth = 1f )
     {
+        _timer.BeginTimer( go.transform.position, rebirth );
         GameObject coin = Instantiate( coinPrefab, go.transform.position, Quaternion.identity, transform.parent );
         _moveRoutine = StartCoroutine( Move( coin, coinText.gameObject.transform.position, 4f, () => { coins_count += price; Destroy( coin ); } ) );
     }
