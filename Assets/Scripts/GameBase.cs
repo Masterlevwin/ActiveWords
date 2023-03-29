@@ -51,7 +51,7 @@ public class GameBase : MonoBehaviour
     public void StartGame()
     {
         levelText.text = $"{level}";
-        ModeEnemy();
+        //ModeEnemy();
         if (letDict == null) letDict = new Dictionary<Vector2, Letter>();
         else letDict.Clear();
         if (!player.gameObject.activeSelf) Waiter.Wait( 1f, () => { player.gameObject.SetActive(true); pl.SetPos( init.Spawn() ); } );
@@ -62,9 +62,9 @@ public class GameBase : MonoBehaviour
     
     public void ModeEnemy()
     {
-        if( level < 10 ) enemy.mode = Mode.Never;
-        else if( level >= 10 && level < 15 ) enemy.mode = Mode.EveryNSeconds;
-        else enemy.mode = Mode.Dynamic;
+        if (level < 10) enemy.repathRate = 4f;
+        else if (level >= 10 && level < 15) enemy.repathRate = 2f;
+        else enemy.repathRate = .5f;
     }
     
     public void CompleteGame()

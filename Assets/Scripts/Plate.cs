@@ -7,7 +7,7 @@ public class Plate : MonoBehaviour
   
   void Start()
   {
-    facePlate = gameObject.transform.GetChild( 1 );
+    facePlate = transform.GetChild(0);
   }
   
   void OnTriggerEnter2D( Collider2D collision )
@@ -27,7 +27,7 @@ public class Plate : MonoBehaviour
   void Update()
   {
     if( isMove ) {
-      facePlate.transform.position = Vector2.MoveTowards( facePlate.transform.position, facePlate.transform.position + Vector2.right, Time.deltaTime );
+      facePlate.transform.position = Vector3.MoveTowards( facePlate.transform.position, facePlate.transform.position + Vector3.right, Time.deltaTime );
     }
   }
 }

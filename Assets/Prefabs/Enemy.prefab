@@ -474,7 +474,7 @@ MonoBehaviour:
   start_health: 4
   max_health: 0
   start_attack: 1
-  start_rebirth: 5
+  start_rebirth: 6
 --- !u!61 &6523019013731485941
 BoxCollider2D:
   m_ObjectHideFlags: 0
