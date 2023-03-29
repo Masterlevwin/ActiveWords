@@ -31,7 +31,7 @@ public class Enemy: MonoBehaviour
         txtHp = GetComponentsInChildren<TMP_Text>()[0];
 
         ResetProperties();
-        actions = new Action<float>[] { SetHit, SetAttack, SetRebirth } ;
+        actions = new Action<float>[] { SetHit, SetAttack, SetRebirth, SetSpeed } ;
     }
     
     public void ResetProperties()
@@ -63,7 +63,7 @@ public class Enemy: MonoBehaviour
         Waiter.Wait( rebirth, () =>
         {
             if( GameBase.G.phase == GamePhase.game ) {
-                actions[ UnityEngine.Random.Range( 0, actions.Length ) ]( 1f );
+                actions[ UnityEngine.Random.Range( 0, actions.Length ) ]( 2f );
                 max_health = health;
                 gameObject.SetActive(true);
                 GameBase.G.enemy.SearchPath();
@@ -81,6 +81,12 @@ public class Enemy: MonoBehaviour
     {
         rebirth -= _rebirth;
         if( rebirth <= 0 ) rebirth = 1f;
+    }
+    
+    public void SetSpeed( float _speed )
+    {
+        GameBase.G.enemy.maxSpeed += _speed;
+        if( GameBase.G.enemy.maxSpeed <= 0 ) GameBase.G.enemy.maxSpeed = 1f;
     }
     
     void OnTriggerEnter2D( Collider2D collision )
