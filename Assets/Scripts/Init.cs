@@ -184,13 +184,14 @@ public class Init : MonoBehaviour
     {
         for (int i = 1; i < chars.Length-1; i++)
         {
-		GameObject plateGO = Instantiate(prefabPlate, Spawn(), Quaternion.identity, wordAnchor); // Инициализируем объект платформы
             GameObject letGO = Instantiate(prefabLetter, Spawn(), Quaternion.identity, wordAnchor); // Инициализируем объект буквы
 	        letGO.GetComponent<SpriteRenderer>().sprite = SetLetterSprite(chars[i]);                // Устанавливаем спрайт буквы
 	        Letter let = letGO.GetComponent<Letter>();		// Получаем компонент Letter созданной буквы
             let.SetLetterPos(let.transform.position);		// Запоминаем начальную позицию буквы
             let.SetChar(chars[i]);							// Устанавливаем символ для дальнейшей проверки этого свойства
 	        lets.Add(let);									// Добавляем букву в список
+		
+		GameObject plateGO = Instantiate(prefabPlate, let.transform.position, Quaternion.identity, wordAnchor); // Инициализируем объект платформы
             yield return new WaitForSeconds(.4f);           // Делаем паузу
         }                                         
         CreateCells();                                      // Создаем конечные места букв
