@@ -12,22 +12,12 @@ public class Init : MonoBehaviour
     private string[] wordsFromTextAsset;
     public TMP_Text wordLevelText;
     
-    private Transform wordAnchor;
-    public GameObject prefabLetter;
-    public Sprite[] letters;
-    public List<Letter> lets; 
+    public GameObject prefabLetter, prefabCell, prefabLeaves, prefabPlate, prefabBlock, prefabTeleport;
+    private Transform wordAnchor, cellAnchor, blockAnchor;
+    public Sprite[] letters, cells, blocks;
     public LayerMask obtacleMask;
-    
-    private Transform blockAnchor;
-    public GameObject prefabBlock;
-    public Sprite[] blocks;
-    public GameObject prefabTeleport;
-    public GameObject prefabLeaves;
-    private Transform cellAnchor;
-    public GameObject prefabCell;
-    public Sprite[] cells;
-    public List<Vector2> letPositions;
-    
+    public List<Letter> lets;
+    public List<Vector2> letPositions; 
     private BoxCollider2D table;
     private Collider2D[] cols;
 
@@ -194,6 +184,7 @@ public class Init : MonoBehaviour
     {
         for (int i = 1; i < chars.Length-1; i++)
         {
+		GameObject plateGO = Instantiate(prefabPlate, Spawn(), Quaternion.identity, wordAnchor); // Инициализируем объект платформы
             GameObject letGO = Instantiate(prefabLetter, Spawn(), Quaternion.identity, wordAnchor); // Инициализируем объект буквы
 	        letGO.GetComponent<SpriteRenderer>().sprite = SetLetterSprite(chars[i]);                // Устанавливаем спрайт буквы
 	        Letter let = letGO.GetComponent<Letter>();		// Получаем компонент Letter созданной буквы
