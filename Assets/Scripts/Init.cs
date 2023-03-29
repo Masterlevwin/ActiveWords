@@ -62,8 +62,6 @@ public class Init : MonoBehaviour
     public void ClearLetters()			    // Метод очищения уровня
     {
         StopAllCoroutines();
-        //GameBase.G.player.SetPath(null);	// Останавливаем поиск пути у игрока
-        //GameBase.G.enemy.SetPath(null);		// Останавливаем поиск пути у бота
         wordLevelText.text = $"";		    // Очищаем отображение слова
     	if (lets != null && lets.Count > 0) lets.Clear();				            // Очищаем список букв        
         if (letPositions != null && letPositions.Count > 0) letPositions.Clear();	// Очищаем список конечных мест
@@ -205,9 +203,7 @@ public class Init : MonoBehaviour
             yield return new WaitForSeconds(.4f);           // Делаем паузу
         }                                         
         CreateCells();                                      // Создаем конечные места букв
-        //GameBase.G.pl.SetPos( Spawn() );                    // Устанавливаем позицию игрока
-	    //GameBase.G.en.transform.position = Spawn();         // Устанавливаем позицию бота
-	    CreateLeaves();                                     // Создаем бонус листиков в случайном доступном месте
+	CreateLeaves();                                     // Создаем бонус листиков в случайном доступном месте
         GameBase.G.StartGame();                             // Запускаем игру
     }
 }
