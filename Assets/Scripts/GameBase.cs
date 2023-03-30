@@ -170,6 +170,11 @@ public class GameBase : MonoBehaviour
         _moveRoutine = StartCoroutine( Move( coin, coinText.gameObject.transform.position, 4f, () => { coins_count += price; Destroy( coin ); } ) );
     }
     
+    public void PlateMove( GameObject go )
+    {
+        _moveRoutine = StartCoroutine( Move( go, go.transform.position + Vector2.up, , () => {  } ) );
+    }
+    
     Coroutine _moveRoutine;
     private IEnumerator Move( GameObject go, Vector2 endPosition, float speed = 1f, Action action = null )
     {
