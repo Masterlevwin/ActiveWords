@@ -14,6 +14,7 @@ public class Plate : MonoBehaviour
   {
     if( collision.gameObject.tag == "Player" ) {
       isMove = true;
+      GameBase.G.PlateMove( gameObject );
     }
   }
   
@@ -27,7 +28,7 @@ public class Plate : MonoBehaviour
   void Update()
   {
     if( isMove ) {
-      facePlate.transform.position = Vector3.MoveTowards( facePlate.transform.position, facePlate.transform.position + Vector3.right, Time.deltaTime );
+      facePlate.transform.position = Vector2.MoveTowards( facePlate.transform.position, facePlate.transform.position + Vector2.up, Time.deltaTime );
     }
   }
 }
