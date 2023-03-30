@@ -53,10 +53,10 @@ public class Init : MonoBehaviour
     {
         StopAllCoroutines();
         wordLevelText.text = $"";		    // Очищаем отображение слова
-    	if (lets != null && lets.Count > 0) lets.Clear();				            // Очищаем список букв        
-        if (letPositions != null && letPositions.Count > 0) letPositions.Clear();	// Очищаем список конечных мест
+    	if (lets != null && lets.Count > 0) lets.Clear();				    // Очищаем список букв        
+        if (letPositions != null && letPositions.Count > 0) letPositions.Clear();	    // Очищаем список конечных мест
 	    foreach (Transform child in cellAnchor) Destroy(child.gameObject);		    // Удаляем объекты конечных мест
-	    foreach (Transform child in wordAnchor) Destroy(child.gameObject);		    // Удаляем объекты букв
+	    foreach (Transform child in wordAnchor) Destroy(child.gameObject);		    // Удаляем объекты букв и платформ
 	    foreach (Transform child in blockAnchor) Destroy(child.gameObject);		    // Удаляем объекты блоков
     }
     
@@ -191,7 +191,9 @@ public class Init : MonoBehaviour
             let.SetChar(chars[i]);							// Устанавливаем символ для дальнейшей проверки этого свойства
 	        lets.Add(let);									// Добавляем букву в список
 		
-		GameObject plateGO = Instantiate(prefabPlate, let.transform.position, Quaternion.identity, wordAnchor); // Инициализируем объект платформы
+	    if( Random.Range(0,4) == 0 ) {
+	    	GameObject plateGO = Instantiate( prefabPlate, let.transform.position, Quaternion.identity, wordAnchor );	// Инициализируем объект платформы
+	    }
             yield return new WaitForSeconds(.4f);           // Делаем паузу
         }                                         
         CreateCells();                                      // Создаем конечные места букв
