@@ -105,7 +105,7 @@ public class Init : MonoBehaviour
 	
 	    bool Point(Vector2 spawn)					// Внутренний метод проверки доступности точки
 	    {
-	        Vector2 size = new Vector2(2f, 2f);		// Дистанция коллайдеров между объектами
+	        Vector2 size = new Vector2(3f, 3f);		// Дистанция коллайдеров между объектами
 	        cols = Physics2D.OverlapBoxAll(spawn, size, 0f, obtacleMask);	// Определяем массив коллайдеров на столе,пересекающий точку спавна в данный момент
 	        if (cols.Length > 0) return false;		// Если такие коллайдеры есть, точка спавна не доступна,
 	        else return true;						// иначе доступна
