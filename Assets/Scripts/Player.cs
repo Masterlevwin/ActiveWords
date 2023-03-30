@@ -90,6 +90,7 @@ public class Player : MonoBehaviour
         {
             GetComponentInChildren<SpriteRenderer>().color = new Color( colorPlayer.r, colorPlayer.g - .5f, colorPlayer.b - .5f, colorPlayer.a );
             Damage( collision.GetComponent<Enemy>().attack );
+	    collision.transform.position -= Vector2.right; 
         }
 
         if( collision.gameObject.tag == "Teleport" )
