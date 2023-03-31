@@ -172,8 +172,8 @@ public class GameBase : MonoBehaviour
     
     public void PlateMove( GameObject go )
     {
-        _moveRoutine = StartCoroutine( Move( go, go.transform.position + Vector2.up, ,
-            () => { if( pl.GetComponent<BoxCollider2D>() == Physics2D.OverlapPoint( go.transform.position ) pl.SetHit( 0 ); } ) );
+        _moveRoutine = StartCoroutine( Move( go, go.transform.position + Vector3.up, .1f,
+            () => { if( pl.GetComponent<BoxCollider2D>() == Physics2D.OverlapPoint( go.transform.position ) ) pl.SetHit( 0 ); } ) );
     }
     
     Coroutine _moveRoutine;
