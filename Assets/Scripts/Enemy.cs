@@ -88,10 +88,22 @@ public class Enemy: MonoBehaviour
         GameBase.G.enemy.maxSpeed += _speed;
         if( GameBase.G.enemy.maxSpeed <= 0 ) GameBase.G.enemy.maxSpeed = 1f;
     }
-    
+
+    public void SetPos(Vector2 pos)
+    {
+        if (pos == startPos && !gameObject.activeSelf) gameObject.SetActive(true);
+        transform.position = pos;
+    }
+
     void OnTriggerEnter2D( Collider2D collision )
     {
-        if( collision.gameObject.tag == "Leave" ) {
+        if (collision.gameObject.tag == "Player")
+        {
+            GameBase.G.pl.Damage( attack );
+            SetPos( startPos );
+        }
+
+        if ( collision.gameObject.tag == "Leave" ) {
             SetHit( -GameBase.G.pl.attack_damage );
             collision.gameObject.SetActive( false );
             GameBase.G._leaveActive = false;

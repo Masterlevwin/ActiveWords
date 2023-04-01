@@ -43,7 +43,9 @@ public class GameBase : MonoBehaviour
 
         pl = player.GetComponent<Player>();
         en = enemy.GetComponent<Enemy>();
+
         en.DiedEnemy += CoinCreate;
+
         player.gameObject.SetActive(false);
         enemy.gameObject.SetActive(false);
     }
@@ -69,7 +71,6 @@ public class GameBase : MonoBehaviour
     
     public void CompleteGame()
     {
-        StopMove();
         phase = GamePhase.complete;
         if ( _timer.gameObject.activeSelf ) _timer.StopTimer();
         player.gameObject.SetActive(false);
@@ -170,10 +171,10 @@ public class GameBase : MonoBehaviour
         _moveRoutine = StartCoroutine( Move( coin, coinText.gameObject.transform.position, 4f, () => { coins_count += price; Destroy( coin ); } ) );
     }
     
-    public void PlateMove( GameObject go )
+    public void PlateMove( GameObject go, bool b )
     {
-        _moveRoutine = StartCoroutine( Move( go, go.transform.position + Vector3.up, .1f,
-            () => { pl.SetHit( 0 ); } ) );
+        if ( b ) _moveRoutine = StartCoroutine( Move( go, go.transform.position + Vector3.up, .1f ) );
+        else _moveRoutine = StartCoroutine(Move(go, go.transform.position + Vector3.down, .3f));
     }
     
     Coroutine _moveRoutine;

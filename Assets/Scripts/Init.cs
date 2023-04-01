@@ -48,18 +48,17 @@ public class Init : MonoBehaviour
     	string[] lines = txt.Split("\n");
 	    return lines;
     }
-    
+
     public void ClearLetters()			    // Метод очищения уровня
     {
-        StopAllCoroutines();
-        wordLevelText.text = $"";		    // Очищаем отображение слова
-    	if (lets != null && lets.Count > 0) lets.Clear();				    // Очищаем список букв        
-        if (letPositions != null && letPositions.Count > 0) letPositions.Clear();	    // Очищаем список конечных мест
-	    foreach (Transform child in cellAnchor) Destroy(child.gameObject);		    // Удаляем объекты конечных мест
-	    foreach (Transform child in wordAnchor) Destroy(child.gameObject);		    // Удаляем объекты букв и платформ
-	    foreach (Transform child in blockAnchor) Destroy(child.gameObject);		    // Удаляем объекты блоков
+        wordLevelText.text = $"";           // Очищаем отображение слова
+        if (lets != null && lets.Count > 0) lets.Clear();				    // Очищаем список букв        
+        if (letPositions != null && letPositions.Count > 0) letPositions.Clear();	// Очищаем список конечных мест
+        foreach (Transform child in cellAnchor) Destroy(child.gameObject);          // Удаляем объекты конечных мест
+        foreach (Transform child in wordAnchor) Destroy(child.gameObject);          // Удаляем объекты букв и платформ
+        foreach (Transform child in blockAnchor) Destroy(child.gameObject);         // Удаляем объекты блоков}
     }
-    
+
     public void Reset()				// Метод обновления уровня
     {
         if ( GameBase.G.levelUP.gameObject.activeSelf ) GameBase.G.levelUP.gameObject.SetActive(false);
