@@ -71,11 +71,10 @@ public class GameBase : MonoBehaviour
     
     public void CompleteGame()
     {
-        StopAllCoroutines();
         phase = GamePhase.complete;
         if ( _timer.gameObject.activeSelf ) _timer.StopTimer();
-        player.gameObject.SetActive(false);
-        enemy.gameObject.SetActive(false);
+        if ( player.gameObject.activeSelf ) player.gameObject.SetActive(false);
+        if ( enemy.gameObject.activeSelf ) enemy.gameObject.SetActive(false);
 
         int numValues = 0;
         for (int i = 0; i < init.letPositions.Count; i++)
@@ -152,7 +151,7 @@ public class GameBase : MonoBehaviour
                 break;
             }
         }
-        if( init.lets.Count != 0 && letDict.Count == init.lets.Count ) Waiter.Wait(1f, () => { CompleteGame(); });  // Проверка окончания игры
+        if( init.lets.Count != 0 && letDict.Count == init.lets.Count ) Waiter.Wait(1f, () => { CompleteGame(); });  // ГЏГ°Г®ГўГҐГ°ГЄГ  Г®ГЄГ®Г­Г·Г Г­ГЁГї ГЁГЈГ°Г»
     }
 
     public bool _leaveActive = false;
