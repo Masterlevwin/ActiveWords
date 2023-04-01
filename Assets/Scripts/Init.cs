@@ -191,13 +191,13 @@ public class Init : MonoBehaviour
             let.SetChar(chars[i]);							// Устанавливаем символ для дальнейшей проверки этого свойства
 	        lets.Add(let);									// Добавляем букву в список
 		
-	    if( Random.Range(0,4) == 0 ) {
+	        if( Random.Range(0,4) == 0 ) {
 	    	GameObject plateGO = Instantiate( prefabPlate, let.transform.position, Quaternion.identity, wordAnchor );	// Инициализируем объект платформы
-	    }
+	        }
             yield return new WaitForSeconds(.4f);           // Делаем паузу
         }                                         
         CreateCells();                                      // Создаем конечные места букв
-	CreateLeaves();                                     // Создаем бонус листиков в случайном доступном месте
+	    CreateLeaves();                                     // Создаем бонус листиков в случайном доступном месте
         GameBase.G.StartGame();                             // Запускаем игру
     }
 }

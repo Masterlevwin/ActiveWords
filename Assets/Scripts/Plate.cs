@@ -12,7 +12,7 @@ public class Plate : MonoBehaviour
   void OnTriggerEnter2D( Collider2D collision )
   {
     if( collision.gameObject.tag == "Player" ) {
-      GameBase.G.PlateMove( gameObject );
+      //GameBase.G.PlateMove( gameObject );
     }
   }
   
