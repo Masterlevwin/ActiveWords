@@ -39,7 +39,7 @@ public class Init : MonoBehaviour
 	        GameObject blockGO = new GameObject("Blocs");
 	        blockAnchor = blockGO.transform;
 	    }
-	    table = GameObject.Find("BG").GetComponent<BoxCollider2D>();    // Сохраняем ссылку на коллайдер стола, к которому будем обращаться каждый раз, как потребуется спавнить объект
+	    table = GameObject.Find("Table").GetComponent<BoxCollider2D>();    // Сохраняем ссылку на коллайдер стола, к которому будем обращаться каждый раз, как потребуется спавнить объект
 	    InitLevel();				// Инициализируем уровень
     }
     
@@ -61,6 +61,7 @@ public class Init : MonoBehaviour
 
     public void Reset()				// Метод обновления уровня
     {
+        ClearLetters();
         if ( GameBase.G.levelUP.gameObject.activeSelf ) GameBase.G.levelUP.gameObject.SetActive(false);
         if ( GameBase.G.gameOver.gameObject.activeSelf ) GameBase.G.gameOver.gameObject.SetActive(false);
 	    InitLevel();				// Инициализируем новый уровень

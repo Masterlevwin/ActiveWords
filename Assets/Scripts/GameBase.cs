@@ -71,6 +71,7 @@ public class GameBase : MonoBehaviour
     
     public void CompleteGame()
     {
+        StopAllCoroutines();
         phase = GamePhase.complete;
         if ( _timer.gameObject.activeSelf ) _timer.StopTimer();
         player.gameObject.SetActive(false);
@@ -82,7 +83,6 @@ public class GameBase : MonoBehaviour
                 numValues++;
         if (numValues == init.lets.Count) Win();
         else Lose();
-        init.ClearLetters();
     }
 
     private void Win()
@@ -136,7 +136,7 @@ public class GameBase : MonoBehaviour
         {
             pl.SetPos( pl.startPos );
             letDict.Remove( l.transform.position );
-            _moveRoutine = StartCoroutine( Move( l.gameObject, l.posLet, 4f, () => { l.GetComponent<BoxCollider2D>().isTrigger = true; CoinCreate( l.gameObject, -1 ); } ) );
+            StartCoroutine( Move( l.gameObject, l.posLet, 4f, () => { l.GetComponent<BoxCollider2D>().isTrigger = true; CoinCreate( l.gameObject, -1 ); } ) );
         }
     } 
     
@@ -148,12 +148,13 @@ public class GameBase : MonoBehaviour
             {
                 letDict.Add( init.letPositions[i], l );
                 CoinCreate( l.gameObject, 1 );
-                _moveRoutine = StartCoroutine( Move( l.gameObject, init.letPositions[i], 4f, () => { l.GetComponent<BoxCollider2D>().isTrigger = false; } ) );
+                StartCoroutine( Move( l.gameObject, init.letPositions[i], 4f, () => { l.GetComponent<BoxCollider2D>().isTrigger = false; } ) );
                 break;
             }
         }
+        if( init.lets.Count != 0 && letDict.Count == init.lets.Count ) Waiter.Wait(1f, () => { CompleteGame(); });  // Проверка окончания игры
     }
-    
+
     public bool _leaveActive = false;
     
     public void LeaveStart( Vector2 target )
@@ -161,23 +162,22 @@ public class GameBase : MonoBehaviour
         GameObject leave = Instantiate( leavePrefab, pl.transform.position, Quaternion.identity );
         pl.SetLeavesCount( 1f );
         _leaveActive = true;
-        _moveRoutine = StartCoroutine( Move( leave, target, pl.attack_speed, () => { Destroy( leave ); if( _leaveActive ) _leaveActive = false; } ) );
+        StartCoroutine( Move( leave, target, pl.attack_speed, () => { Destroy( leave ); if( _leaveActive ) _leaveActive = false; } ) );
     }
 
     public void CoinCreate( GameObject go, int price, float rebirth = 1f )
     {
         if( go == en.gameObject ) _timer.BeginTimer( go.transform.position, rebirth );
         GameObject coin = Instantiate( coinPrefab, go.transform.position, Quaternion.identity, transform.parent );
-        _moveRoutine = StartCoroutine( Move( coin, coinText.gameObject.transform.position, 4f, () => { coins_count += price; Destroy( coin ); } ) );
+        StartCoroutine( Move( coin, coinText.gameObject.transform.position, 4f, () => { coins_count += price; Destroy( coin ); } ) );
     }
     
     public void PlateMove( GameObject go, bool b )
     {
-        if ( b ) _moveRoutine = StartCoroutine( Move( go, go.transform.position + Vector3.up, .1f ) );
-        else _moveRoutine = StartCoroutine(Move(go, go.transform.position + Vector3.down, .3f));
+        if ( b ) StartCoroutine( Move( go, go.transform.position + Vector3.up, .1f ) );
+        else StartCoroutine(Move(go, go.transform.position + Vector3.down, .3f));
     }
-    
-    Coroutine _moveRoutine;
+
     private IEnumerator Move( GameObject go, Vector2 endPosition, float speed = 1f, Action action = null )
     {
         float step = speed * Time.deltaTime;
@@ -187,15 +187,6 @@ public class GameBase : MonoBehaviour
             yield return null;
         }
         action?.Invoke();
-        _moveRoutine = null;
-    }
-
-    public void StopMove()
-    {
-        if( _moveRoutine != null ) {
-            StopCoroutine( _moveRoutine );
-            _moveRoutine = null;
-        }
     }
     
     void Update()
@@ -204,7 +195,6 @@ public class GameBase : MonoBehaviour
         
         if (phase == GamePhase.game)
         {
-            if (init.lets.Count != 0 && letDict.Count == init.lets.Count ) CompleteGame();
             player.canMove = true;
             enemy.canMove = true;
         } 
