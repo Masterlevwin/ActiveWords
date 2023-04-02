@@ -71,7 +71,6 @@ public class GameBase : MonoBehaviour
     
     public void CompleteGame()
     {
-        StopAllCoroutines();
         phase = GamePhase.complete;
         if ( _timer.gameObject.activeSelf ) _timer.StopTimer();
         player.gameObject.SetActive(false);
@@ -83,6 +82,7 @@ public class GameBase : MonoBehaviour
                 numValues++;
         if (numValues == init.lets.Count) Win();
         else Lose();
+        StopAllCoroutines();
     }
 
     private void Win()
