@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using Pathfinding;
-using System.Linq;
 
 public enum GamePhase
 {
@@ -131,9 +130,8 @@ public class GameBase : MonoBehaviour
 
     public void RemoveAtWord( Letter l )
     {
-        if( letDict.ContainsValue(l) )
+        if( letDict.ContainsValue(l) && Vector2.Distance(pl.transform.position, l.posLet) > 1f )
         {
-            pl.SetPos( pl.startPos );
             letDict.Remove( l.transform.position );
             StartCoroutine( Move( l.gameObject, l.posLet, 4f, () => { l.GetComponent<BoxCollider2D>().isTrigger = true; CoinCreate( l.gameObject, -1 ); } ) );
         }

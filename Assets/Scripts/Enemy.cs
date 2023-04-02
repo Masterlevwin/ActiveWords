@@ -19,7 +19,9 @@ public class Enemy: MonoBehaviour
     
     private Image hpImg;
     private TMP_Text txtHp;
-    
+
+    private BoxCollider2D col;
+
     private Vector2 startPos;
     private Action<float>[] actions;
     
@@ -27,6 +29,7 @@ public class Enemy: MonoBehaviour
     
     void Start()
     {
+        col = GetComponent<BoxCollider2D>();
         hpImg = GetComponentsInChildren<Image>()[1];
         txtHp = GetComponentsInChildren<TMP_Text>()[0];
 
@@ -97,10 +100,12 @@ public class Enemy: MonoBehaviour
 
     void OnTriggerEnter2D( Collider2D collision )
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" )
         {
-            GameBase.G.pl.Damage( attack );
-            SetPos( startPos );
+            GameBase.G.pl.Damage(attack);
+            col.enabled = false;
+            Waiter.Wait( 4f, () => { col.enabled = true; } ); 
+            //SetPos( startPos );
         }
 
         if ( collision.gameObject.tag == "Leave" ) {
@@ -108,5 +113,10 @@ public class Enemy: MonoBehaviour
             collision.gameObject.SetActive( false );
             GameBase.G._leaveActive = false;
         }
+    }
+
+    private void Update()
+    {
+        
     }
 }

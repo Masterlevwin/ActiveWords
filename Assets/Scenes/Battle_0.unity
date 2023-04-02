@@ -1134,7 +1134,7 @@ MonoBehaviour:
   prefabLetter: {fileID: 4570235006794951168, guid: bc4f577ebb6a97d4381e59718f96e239, type: 3}
   prefabCell: {fileID: 1258827677991170566, guid: af69b0ca06cff3a47b2dada72a6cfdc1, type: 3}
   prefabLeaves: {fileID: 5802254254012961828, guid: b387744bcec847a4991c0889e2c33303, type: 3}
-  prefabPlate: {fileID: 7270570137135281900, guid: e0876db60794c8244962807698d6d03c, type: 3}
+  prefabPlate: {fileID: 3688034349156436535, guid: e0876db60794c8244962807698d6d03c, type: 3}
   prefabBlock: {fileID: 993319965464414929, guid: 1650ad597b3486640b640c613e83c84d, type: 3}
   prefabTeleport: {fileID: 2593579927443946496, guid: a4411325e7216184488cb01d351eb8e7, type: 3}
   letters:
@@ -3157,6 +3157,10 @@ PrefabInstance:
     - target: {fileID: 1258084832210441997, guid: b1643bfdea963d644b378feb3eff2137, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1258084832210441999, guid: b1643bfdea963d644b378feb3eff2137, type: 3}
+      propertyPath: autoRepath.mode
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
