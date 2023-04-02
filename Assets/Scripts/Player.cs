@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
         hitPlayer = hit;
         txtHp.text = $"{hitPlayer}";
         hpImg.fillAmount = hitPlayer / maxHit;
-        if( hitPlayer <= 0 ) GameBase.G.CompleteGame(); 
+        if( hitPlayer <= 0 ) Waiter.Wait( .5f, () => { GameBase.G.CompleteGame(); } );
     }
     
     public void SetSpeed( float speed )

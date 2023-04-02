@@ -1860,7 +1860,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1761053815552281038, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_Name
-      value: Button
+      value: Lose_Button
       objectReference: {fileID: 0}
     - target: {fileID: 1761053815552281039, guid: 428a85cb8ce9bf74aba9861a1dfc2b05, type: 3}
       propertyPath: m_Pivot.x

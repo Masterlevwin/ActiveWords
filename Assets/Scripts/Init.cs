@@ -61,6 +61,7 @@ public class Init : MonoBehaviour
 
     public void Reset()				// Метод обновления уровня
     {
+        GameBase.G.StopAllCoroutines();
         ClearLetters();
         if ( GameBase.G.levelUP.gameObject.activeSelf ) GameBase.G.levelUP.gameObject.SetActive(false);
         if ( GameBase.G.gameOver.gameObject.activeSelf ) GameBase.G.gameOver.gameObject.SetActive(false);
@@ -93,7 +94,7 @@ public class Init : MonoBehaviour
     {
     	GameObject leavesPool = Instantiate( prefabLeaves, Spawn(), Quaternion.identity, blockAnchor );
     }
-    
+
     public Vector2 Spawn()						    // Метод генерации случайной точки спавна
     {
     	float x, y;								    // Выбираем случайные значения в пределах стола, основываясь на костях его коллайдера
@@ -192,8 +193,8 @@ public class Init : MonoBehaviour
 	        lets.Add(let);									// Добавляем букву в список
 		
 	        if( Random.Range(0,4) == 0 ) {
-	    	GameObject plateGO = Instantiate( prefabPlate, let.transform.position, Quaternion.identity, wordAnchor );	// Инициализируем объект платформы
-	        }
+                GameObject plateGO = Instantiate(prefabPlate, let.transform.position, Quaternion.identity, wordAnchor);  // Инициализируем объект платформы
+            }
             yield return new WaitForSeconds(.4f);           // Делаем паузу
         }                                         
         CreateCells();                                      // Создаем конечные места букв

@@ -82,7 +82,6 @@ public class GameBase : MonoBehaviour
                 numValues++;
         if (numValues == init.lets.Count) Win();
         else Lose();
-        StopAllCoroutines();
     }
 
     private void Win()
@@ -152,7 +151,7 @@ public class GameBase : MonoBehaviour
                 break;
             }
         }
-        if( init.lets.Count != 0 && letDict.Count == init.lets.Count ) Waiter.Wait(1f, () => { CompleteGame(); });  // Ïðîâåðêà îêîí÷àíèÿ èãðû
+        if( init.lets.Count != 0 && letDict.Count == init.lets.Count ) Waiter.Wait( .5f, () => { CompleteGame(); });
     }
 
     public bool _leaveActive = false;
