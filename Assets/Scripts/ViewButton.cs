@@ -13,7 +13,7 @@ public class ViewButton : MonoBehaviour
   
   private void OnEnable()
   {
-    btn = GetComponent<Button>();
+    btn = transform.parent.GetComponent<Button>();
     txt = GetComponentInChildren<TMP_Text>();
     price = start_price;
   }
@@ -23,10 +23,10 @@ public class ViewButton : MonoBehaviour
     price = start_price;
   }
   
-  private void Upgrade( byte ability )
+  public void Upgrade( int ability )
   {
     if( ability == 1 ) GameBase.G.pl.SetDamage( 1 );
-    if( ability == 2 ) GameBase.G.pl.SetHit( ++pl.maxHit );
+    if( ability == 2 ) GameBase.G.pl.SetHit( ++GameBase.G.pl.maxHit );
     if( ability == 3 ) GameBase.G.player.maxSpeed++;
     if( ability == 4 ) GameBase.G.pl.SetSpeed( 2 );
     GameBase.G.coins_count -= price;
@@ -36,6 +36,6 @@ public class ViewButton : MonoBehaviour
   private void Update()
   {
     btn.interactable = ( GameBase.G.coins_count >= price );
-    txt.text = ${ price };
+    txt.text = $"{ price }";
   }
 }

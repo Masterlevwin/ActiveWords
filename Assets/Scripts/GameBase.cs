@@ -119,15 +119,17 @@ public class GameBase : MonoBehaviour
     
     public void AddToWord( Letter l )
     {
+        Letter let = l;
         for( int i = 0; i < init.letPositions.Count; i++ )
-        { 
-            if( !letDict.ContainsValue(l) && !letDict.ContainsKey(init.letPositions[i]) )
+        {
+            Vector2 pos = init.letPositions[i];
+            if( !letDict.ContainsValue(let) && !letDict.ContainsKey(pos) )
             {
-                letDict.Add( init.letPositions[i], l );
-                CoinCreate( l.gameObject, 1 );
-                StartCoroutine( Move( l.gameObject, init.letPositions[i], 4f, () => { l.GetComponent<BoxCollider2D>().isTrigger = false; 
-                    if ( letDict.TryGetValue(init.letPositions[i], out Letter l) && l.charLet == init.lets[i].charLet )
-                    l.GetComponent<SpriteRenderer>().color = Color.cyan; } ) );
+                letDict.Add( pos, let );
+                CoinCreate( let.gameObject, 1 );
+                StartCoroutine( Move( let.gameObject, pos, 4f, () => { let.GetComponent<BoxCollider2D>().isTrigger = false; 
+                    if ( letDict.TryGetValue(pos, out Letter l) && l.charLet == init.lets[i].charLet )
+                    let.GetComponent<SpriteRenderer>().color = Color.cyan; } ) );
                 break;
             }
         }

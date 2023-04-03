@@ -106,7 +106,6 @@ public class Enemy: MonoBehaviour
         if (collision.gameObject.tag == "Player" )
         {
             GameBase.G.pl.Damage( attack );
-            PushAway( collision.transporm.position, 50f );
             col.enabled = false;
             Waiter.Wait( 4f, () => { col.enabled = true; } );
         }
@@ -116,18 +115,5 @@ public class Enemy: MonoBehaviour
             collision.gameObject.SetActive( false );
             GameBase.G._leaveActive = false;
         }
-    }
-    
-    private void PushAway( Vector2 _pushFrom, float _pushPower )
-    {
-        // Если нет прикреплённого Rigidbody2D, то выйдем из функции
-        if ( rb == null || _pushPower == 0 ) return;
-
-        // Определяем в каком направлении должен отлететь объект
-        // А также нормализуем этот вектор, чтобы можно было точно указать силу "отскока"
-        var _pushDirection = ( _pushFrom - transform.position ).Normalize();
-
-        // Толкаем объект в нужном направлении с силой pushPower
-        rb.AddForce( _pushDirection * _pushPower );
     }
 }

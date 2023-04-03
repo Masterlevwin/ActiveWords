@@ -104,6 +104,6 @@ Enemy.cs - заменить на Player.cs у врага;
 Проверить подсветку букв;
 Создать кнопку продолжения игры в levelUp, повесить на нее init.Reset() и проверить работу прокачки;
 Повесить на кнопки в levelUp скрипты ViewButton, проставить price;
-В кнопках заменить Reset() на ViewButton.Upgrade(byte); //или int
+В кнопках заменить Reset() на ViewButton.Upgrade(int);
 Посетить ресурс Kenny, собрать фон из тайлов;
 Поставить у enemy.Rigidbody2D значение Drag = 1+;
