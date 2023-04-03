@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Plate : MonoBehaviour
 {
-  private Vector2 startPos;
   bool _isMove = false;
   private SpriteRenderer _spritePlate;
+  private Vector2 startPos;
   private Vector2 _endPosition;
   private Vector2 _startPosition;
 
