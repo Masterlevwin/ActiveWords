@@ -32,7 +32,7 @@ public class Enemy: MonoBehaviour
         col = GetComponent<BoxCollider2D>();
         hpImg = GetComponentsInChildren<Image>()[1];
         txtHp = GetComponentsInChildren<TMP_Text>()[0];
-
+        startPos = transform.position;
         ResetProperties();
         actions = new Action<float>[] { SetHit, SetAttack, SetRebirth, SetSpeed } ;
     }
@@ -42,7 +42,6 @@ public class Enemy: MonoBehaviour
         health = 0;
         attack = 0;
         rebirth = 0;
-        startPos = transform.position;
         max_health = start_health;
         SetHit( start_health );
         SetAttack( start_attack );
@@ -88,7 +87,7 @@ public class Enemy: MonoBehaviour
     
     public void SetSpeed( float _speed )
     {
-        GameBase.G.enemy.maxSpeed += _speed;
+        GameBase.G.enemy.maxSpeed += (_speed - 1f);
         if( GameBase.G.enemy.maxSpeed <= 0 ) GameBase.G.enemy.maxSpeed = 1f;
     }
 
@@ -102,10 +101,9 @@ public class Enemy: MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" )
         {
-            GameBase.G.pl.Damage(attack);
+            GameBase.G.pl.Damage( attack );
             col.enabled = false;
-            Waiter.Wait( 4f, () => { col.enabled = true; } ); 
-            //SetPos( startPos );
+            Waiter.Wait( 4f, () => { col.enabled = true; } );
         }
 
         if ( collision.gameObject.tag == "Leave" ) {
@@ -113,10 +111,5 @@ public class Enemy: MonoBehaviour
             collision.gameObject.SetActive( false );
             GameBase.G._leaveActive = false;
         }
-    }
-
-    private void Update()
-    {
-        
     }
 }
