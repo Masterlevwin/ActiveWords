@@ -23,7 +23,8 @@ public class Letter : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (GameBase.G.phase == GamePhase.game) GameBase.G.RemoveAtWord(this);
+        if (GameBase.G.phase == GamePhase.game && Vector2.Distance( GameBase.G.pl.transform.position, posLet) > 1f ) GameBase.G.RemoveAtWord(this);
+        else return;  // Отрисовка ошибочного нажатия - мигание posLet со звуком ошибки типа место занято
     }
     
     void OnTriggerEnter2D(Collider2D collision)
