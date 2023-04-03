@@ -21,7 +21,8 @@ public class Enemy: MonoBehaviour
     private TMP_Text txtHp;
 
     private BoxCollider2D col;
-
+    private Rigidbody2D rb;
+    
     private Vector2 startPos;
     private Action<float>[] actions;
     
@@ -30,9 +31,12 @@ public class Enemy: MonoBehaviour
     void Start()
     {
         col = GetComponent<BoxCollider2D>();
+        rb = GetComponent<Rigidbody2D>();
+        
         hpImg = GetComponentsInChildren<Image>()[1];
         txtHp = GetComponentsInChildren<TMP_Text>()[0];
-
+        
+        startPos = transform.position;
         ResetProperties();
         actions = new Action<float>[] { SetHit, SetAttack, SetRebirth, SetSpeed } ;
     }
@@ -42,7 +46,6 @@ public class Enemy: MonoBehaviour
         health = 0;
         attack = 0;
         rebirth = 0;
-        startPos = transform.position;
         max_health = start_health;
         SetHit( start_health );
         SetAttack( start_attack );
@@ -88,7 +91,7 @@ public class Enemy: MonoBehaviour
     
     public void SetSpeed( float _speed )
     {
-        GameBase.G.enemy.maxSpeed += _speed;
+        GameBase.G.enemy.maxSpeed += (_speed - 1f);
         if( GameBase.G.enemy.maxSpeed <= 0 ) GameBase.G.enemy.maxSpeed = 1f;
     }
 
@@ -102,10 +105,10 @@ public class Enemy: MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" )
         {
-            GameBase.G.pl.Damage(attack);
+            GameBase.G.pl.Damage( attack );
+            PushAway( collision.transporm.position, 50f );
             col.enabled = false;
-            Waiter.Wait( 4f, () => { col.enabled = true; } ); 
-            //SetPos( startPos );
+            Waiter.Wait( 4f, () => { col.enabled = true; } );
         }
 
         if ( collision.gameObject.tag == "Leave" ) {
@@ -114,9 +117,17 @@ public class Enemy: MonoBehaviour
             GameBase.G._leaveActive = false;
         }
     }
-
-    private void Update()
+    
+    private void PushAway( Vector2 _pushFrom, float _pushPower )
     {
-        
+        // Если нет прикреплённого Rigidbody2D, то выйдем из функции
+        if ( rb == null || _pushPower == 0 ) return;
+
+        // Определяем в каком направлении должен отлететь объект
+        // А также нормализуем этот вектор, чтобы можно было точно указать силу "отскока"
+        var _pushDirection = ( _pushFrom - transform.position ).Normalize();
+
+        // Толкаем объект в нужном направлении с силой pushPower
+        rb.AddForce( _pushDirection * _pushPower );
     }
 }
