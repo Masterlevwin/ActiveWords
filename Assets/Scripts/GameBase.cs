@@ -101,27 +101,6 @@ public class GameBase : MonoBehaviour
         en.ResetProperties();
         coins_count = 0;
     }
-    
-    public void UpgradeAbility( int ability )
-    {
-        if( ability == 1 && coins_count >= 25 ) {
-            pl.SetDamage( 1 );
-            coins_count -= 25;
-        }
-        if( ability == 2 && coins_count >= 50 ) {
-            pl.SetHit( ++pl.maxHit );
-            coins_count -= 50;
-        }
-        if( ability == 3 && coins_count >= 70 ) {
-            player.maxSpeed++;
-            coins_count -= 70;
-        }
-        if( ability == 4 && coins_count >= 150 ) {
-            pl.SetSpeed( 1 );
-            coins_count -= 150;
-        }
-        init.Reset();
-    }
 
     public void RestartScene( string scene )
     {
@@ -130,10 +109,11 @@ public class GameBase : MonoBehaviour
 
     public void RemoveAtWord( Letter l )
     {
-        if( letDict.ContainsValue(l) && Vector2.Distance(pl.transform.position, l.posLet) > 1f )
+        if( letDict.ContainsValue(l) )
         {
             letDict.Remove( l.transform.position );
-            StartCoroutine( Move( l.gameObject, l.posLet, 4f, () => { l.GetComponent<BoxCollider2D>().isTrigger = true; CoinCreate( l.gameObject, -1 ); } ) );
+            StartCoroutine( Move( l.gameObject, l.posLet, 4f, () => { l.GetComponent<BoxCollider2D>().isTrigger = true;
+                l.GetComponent<SpriteRenderer>().color = Color.white; coins_count--; } ) );
         }
     } 
     
@@ -145,7 +125,9 @@ public class GameBase : MonoBehaviour
             {
                 letDict.Add( init.letPositions[i], l );
                 CoinCreate( l.gameObject, 1 );
-                StartCoroutine( Move( l.gameObject, init.letPositions[i], 4f, () => { l.GetComponent<BoxCollider2D>().isTrigger = false; } ) );
+                StartCoroutine( Move( l.gameObject, init.letPositions[i], 4f, () => { l.GetComponent<BoxCollider2D>().isTrigger = false; 
+                    if ( letDict.TryGetValue(init.letPositions[i], out Letter l) && l.charLet == init.lets[i].charLet )
+                    l.GetComponent<SpriteRenderer>().color = Color.cyan; } ) );
                 break;
             }
         }
