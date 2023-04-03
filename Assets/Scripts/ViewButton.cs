@@ -8,12 +8,19 @@ public class ViewButton : MonoBehaviour
   private TMP_Text txt;
   
   [SerializeField]
-  private int price; 
+  private int start_price;
+  private int price;
   
   private void OnEnable()
   {
     btn = GetComponent<Button>();
     txt = GetComponentInChildren<TMP_Text>();
+    price = start_price;
+  }
+  
+  private void OnDisable()
+  {
+    price = start_price;
   }
   
   private void Upgrade( byte ability )
