@@ -106,3 +106,4 @@ Enemy.cs - заменить на Player.cs у врага;
 Повесить на кнопки в levelUp скрипты ViewButton, проставить price;
 В кнопках заменить Reset() на ViewButton.Upgrade(byte); //или int
 Посетить ресурс Kenny, собрать фон из тайлов;
+Поставить у enemy.Rigidbody2D значение Drag = 1+;
