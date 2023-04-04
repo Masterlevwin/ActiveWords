@@ -106,8 +106,9 @@ public class Enemy: MonoBehaviour
         if (collision.gameObject.tag == "Player" )
         {
             GameBase.G.pl.Damage( attack );
-            col.enabled = false;
-            Waiter.Wait( 4f, () => { col.enabled = true; } );
+            transform.position = (collision.transform.position - transform.position).normalized;
+            //col.enabled = false;
+            //Waiter.Wait( 4f, () => { col.enabled = true; } );
         }
 
         if ( collision.gameObject.tag == "Leave" ) {
