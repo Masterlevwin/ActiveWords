@@ -52,20 +52,12 @@ public class GameBase : MonoBehaviour
     public void StartGame()
     {
         levelText.text = $"{level}";
-        //ModeEnemy();
         if (letDict == null) letDict = new Dictionary<Vector2, Letter>();
         else letDict.Clear();
         if (!player.gameObject.activeSelf) Waiter.Wait( 1f, () => { player.gameObject.SetActive(true); pl.SetPos( init.Spawn() ); } );
-        if (!enemy.gameObject.activeSelf) Waiter.Wait( 2f, () => { enemy.gameObject.SetActive(true); en.transform.position = init.Spawn(); } );
+        if (level > 20 && !enemy.gameObject.activeSelf) Waiter.Wait( 2f, () => { enemy.gameObject.SetActive(true); en.transform.position = init.Spawn(); } );
         pl.maxHit = pl.hitPlayer;
         Waiter.Wait( 3f, () => { phase = GamePhase.game; } );
-    }
-    
-    public void ModeEnemy()
-    {
-        if (level < 10) enemy.repathRate = 4f;
-        else if (level >= 10 && level < 15) enemy.repathRate = 2f;
-        else enemy.repathRate = .5f;
     }
     
     public void CompleteGame()
