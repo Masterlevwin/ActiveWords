@@ -17,7 +17,12 @@ public class BoardManager : MonoBehaviour
   
   private Transform boardHolder;  // Use to child all our GameObjects to keep the hierarchy clean
   private List<Vector3> gridPositions = new List<Vector3>();  // List of valid locations to place tiles upon
-  
+
+    private void Start()
+    {
+        SetupScene( 2 );
+    }
+
   void InitialiseList()
   {
     gridPositions.Clear();                  // clear tiles from last generation
