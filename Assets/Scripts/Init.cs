@@ -46,9 +46,14 @@ public class Init : MonoBehaviour
 	    return lines;
     }
 
-    public void ClearLetters()			    // Метод очищения уровня
+    private string InterpretationWord( string wordLevel )
     {
-        wordLevelText.text = $"";           // Очищаем отображение слова
+    	return wordLevel;
+    }
+    
+    public void ClearLetters()			// Метод очищения уровня
+    {
+        wordLevelText.text = $"";           	// Очищаем отображение слова
         if (lets != null && lets.Count > 0) lets.Clear();				    // Очищаем список букв        
         if (letPositions != null && letPositions.Count > 0) letPositions.Clear();	// Очищаем список конечных мест
         foreach (Transform child in cellAnchor) Destroy(child.gameObject);          // Удаляем объекты конечных мест
@@ -62,16 +67,26 @@ public class Init : MonoBehaviour
         ClearLetters();
         if ( GameBase.G.levelUP.gameObject.activeSelf ) GameBase.G.levelUP.gameObject.SetActive(false);
         if ( GameBase.G.gameOver.gameObject.activeSelf ) GameBase.G.gameOver.gameObject.SetActive(false);
-	    InitLevel();				// Инициализируем новый уровень
+	if ( GameBase.G.continueArea.gameObject.activeSelf ) GameBase.G.continueArea.gameObject.SetActive(false);
+	InitLevel();				// Инициализируем новый уровень
     }
     
-    private void InitLevel()		// Метод инициализации уровня
+    private void InitLevel()			// Метод инициализации уровня
     {
         GameBase.G.phase = GamePhase.init;      // Переводим игру в фазу инициализации уровня, запрещая двигать персонажа
-        //CreateBlocks();			// Создаем блоки препятствий
+	//CreateBlocks();			// Создаем блоки препятствий
         CreateLetters();			// Создаем буквы уровня
     }
 
+    public void SetupLevel( string wordLevel )
+    {
+        if (GameBase.level <= 5) wordLevelText.text = wordLevel;
+        else if (GameBase.level > 5 && GameBase.level <= 10) wordLevelText.text = InterpretationWord( wordLevel );
+        else if (GameBase.level > 10 && GameBase.level <= 15) wordLevelText.text = $"";
+        else if (GameBase.level > 15 && GameBase.level <= 20) wordLevelText.text = wordLevel;
+        else wordLevelText.text = InterpretationWord( wordLevel );
+    }
+    
     private void CreateBlocks()			// Метод создания блоков препятствий
     {
     	int numBlocks = Random.Range(1, 10);	// Выбираем случайное количество блоков
@@ -173,8 +188,8 @@ public class Init : MonoBehaviour
     {
     	if (lets == null) lets = new List<Letter>();		// Создаем список букв
     	string wordLevel = wordsFromTextAsset[Random.Range(0, wordsFromTextAsset.Length)];	// Выбираем слово для уровня из массива
-    	wordLevelText.text = wordLevel;						// Отображаем это слово в канвасе - временно для отладки
-    	char[] chars = wordLevel.ToCharArray();				// Преобразуем выбранное слово в массив символов (букв)
+    	SetupLevel( wordLevel );				// Определяем сложность уровня
+    	char[] chars = wordLevel.ToCharArray();			// Преобразуем выбранное слово в массив символов (букв)
     	StartCoroutine(MakeLetter(chars));	                // Рисуем каждую букву через каждые полсекунды
     }
 
