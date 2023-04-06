@@ -48,6 +48,7 @@ public class Init : MonoBehaviour
 
     private string InterpretationWord( string wordLevel )
     {
+        wordLevel = "Описание слова";
     	return wordLevel;
     }
     
@@ -80,10 +81,10 @@ public class Init : MonoBehaviour
 
     public void SetupLevel( string wordLevel )
     {
-        if (GameBase.level <= 5) wordLevelText.text = wordLevel;
-        else if (GameBase.level > 5 && GameBase.level <= 10) wordLevelText.text = InterpretationWord( wordLevel );
-        else if (GameBase.level > 10 && GameBase.level <= 15) wordLevelText.text = $"";
-        else if (GameBase.level > 15 && GameBase.level <= 20) wordLevelText.text = wordLevel;
+        if (GameBase.level <= 2) wordLevelText.text = wordLevel;
+        else if (GameBase.level > 2 && GameBase.level <= 3) wordLevelText.text = InterpretationWord( wordLevel );
+        else if (GameBase.level > 3 && GameBase.level <= 5) wordLevelText.text = $"";
+        else if (GameBase.level > 5 && GameBase.level <= 7) wordLevelText.text = wordLevel;
         else wordLevelText.text = InterpretationWord( wordLevel );
     }
     

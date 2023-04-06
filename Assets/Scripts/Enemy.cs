@@ -62,7 +62,7 @@ public class Enemy: MonoBehaviour
     
     private void Died()
     {
-        DiedEnemy?.Invoke( gameObject, 30, rebirth );
+        DiedEnemy?.Invoke( gameObject, 10, rebirth );
         gameObject.SetActive(false);
         SetHit( max_health );
 
@@ -107,8 +107,6 @@ public class Enemy: MonoBehaviour
         {
             GameBase.G.pl.Damage( attack );
             transform.position = (collision.transform.position - transform.position).normalized;
-            //col.enabled = false;
-            //Waiter.Wait( 4f, () => { col.enabled = true; } );
         }
 
         if ( collision.gameObject.tag == "Leave" ) {

@@ -56,7 +56,7 @@ public class GameBase : MonoBehaviour
         if (letDict == null) letDict = new Dictionary<Vector2, Letter>();
         else letDict.Clear();
         if (!player.gameObject.activeSelf) Waiter.Wait( 1f, () => { player.gameObject.SetActive(true); pl.SetPos( init.Spawn() ); } );
-        if (level > 15 && !enemy.gameObject.activeSelf) Waiter.Wait( 2f, () => { enemy.gameObject.SetActive(true); en.transform.position = init.Spawn(); } );
+        if (level > 5 && !enemy.gameObject.activeSelf) Waiter.Wait( 2f, () => { enemy.gameObject.SetActive(true); en.transform.position = init.Spawn(); } );
         pl.maxHit = pl.hitPlayer;
         Waiter.Wait( 3f, () => { phase = GamePhase.game; } );
     }
@@ -80,7 +80,7 @@ public class GameBase : MonoBehaviour
     {
         level++;
         levelText.text = $"{level}";
-        if( level > 20 ) levelUP.gameObject.SetActive(true);
+        if( level > 7 ) levelUP.gameObject.SetActive(true);
         else continueArea.gameObject.SetActive(true);
         pl.SetHit( pl.maxHit );
     }    
