@@ -43,12 +43,12 @@ public class Init : MonoBehaviour
     
     private List<string> ParseText(string txt)  // Метод преобразования текста в массив строк
     {
-    	string[] lines = txt.Split( new char[] { ':', '\n' } );
+    	string[] lines = txt.Split( new char[] { ' ', '-', '\n' } );
 	
 	if( dictWords == null ) dictWords = new Dictionary<string, string>();
 	for( int i = 0; i < lines.Length - 1; i + 2 )
 	{
-	    dictWords.Add( lines[i], lines[i + 1] );
+	    dictWords.Add( lines[i + 1], lines[i] );
 	}
 	List<string> words = new List<string>( dictWords.Keys );
 	return words;
@@ -90,9 +90,9 @@ public class Init : MonoBehaviour
     public void SetupLevel( string wordLevel )
     {
         if (GameBase.level <= 2) wordLevelText.text = wordLevel;
-        else if (GameBase.level > 2 && GameBase.level <= 3) wordLevelText.text = InterpretationWord( wordLevel );
-        else if (GameBase.level > 3 && GameBase.level <= 5) wordLevelText.text = $"";
-        else if (GameBase.level > 5 && GameBase.level <= 7) wordLevelText.text = wordLevel;
+        //else if (GameBase.level > 2 && GameBase.level <= 3) wordLevelText.text = InterpretationWord( wordLevel );
+        //else if (GameBase.level > 3 && GameBase.level <= 5) wordLevelText.text = $"";
+        //else if (GameBase.level > 5 && GameBase.level <= 7) wordLevelText.text = wordLevel;
         else wordLevelText.text = InterpretationWord( wordLevel );
     }
     
