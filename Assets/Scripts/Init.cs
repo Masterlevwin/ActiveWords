@@ -6,7 +6,8 @@ using TMPro;
 public class Init : MonoBehaviour
 {
     public TextAsset textAsset;
-    private string[] wordsFromTextAsset;
+    private List<string> wordsFromTextAsset;
+    private Dictionary<string, string> dictWords;
     public TMP_Text wordLevelText;
     
     public GameObject prefabLetter, prefabCell, prefabLeaves, prefabPlate, prefabBlock, prefabTeleport;
@@ -40,16 +41,23 @@ public class Init : MonoBehaviour
 	    InitLevel();				// Инициализируем уровень
     }
     
-    private string[] ParseText(string txt)  // Метод преобразования текста в массив строк
+    private List<string> ParseText(string txt)  // Метод преобразования текста в массив строк
     {
-    	string[] lines = txt.Split("\n");
-	    return lines;
+    	string[] lines = txt.Split( new char[] { ':', '\n' } );
+	
+	if( dictWords == null ) dictWords = new Dictionary<string, string>();
+	for( int i = 0; i < lines.Length - 1; i + 2 )
+	{
+	    dictWords.Add( lines[i], lines[i + 1] );
+	}
+	List<string> words = new List<string>( dictWords.Keys );
+	return words;
     }
 
     private string InterpretationWord( string wordLevel )
     {
-        wordLevel = "Описание слова";
-    	return wordLevel;
+    	if( dictWords.TryGetValue( wordLevel, out string str )
+    	return str;
     }
     
     public void ClearLetters()			// Метод очищения уровня
@@ -188,7 +196,7 @@ public class Init : MonoBehaviour
     private void CreateLetters()							// Метод создания букв на столе
     {
     	if (lets == null) lets = new List<Letter>();		// Создаем список букв
-    	string wordLevel = wordsFromTextAsset[Random.Range(0, wordsFromTextAsset.Length)];	// Выбираем слово для уровня из массива
+    	string wordLevel = wordsFromTextAsset[Random.Range(0, wordsFromTextAsset.Count)];	// Выбираем слово для уровня из списка
     	SetupLevel( wordLevel );				// Определяем сложность уровня
     	char[] chars = wordLevel.ToCharArray();			// Преобразуем выбранное слово в массив символов (букв)
     	StartCoroutine(MakeLetter(chars));	                // Рисуем каждую букву через каждые полсекунды
