@@ -43,27 +43,27 @@ public class Init : MonoBehaviour
     
     private List<string> ParseText(string txt)  // Метод преобразования текста в массив строк
     {
-    	string[] lines = txt.Split( new char[] { ' ', '-', '\n' } );
+    	string[] lines = txt.Split( new char[] { ':', '\n' } );
 	
-	if( dictWords == null ) dictWords = new Dictionary<string, string>();
-	for( int i = 0; i < lines.Length - 1; i + 2 )
-	{
-	    dictWords.Add( lines[i + 1], lines[i] );
-	}
-	List<string> words = new List<string>( dictWords.Keys );
-	return words;
+	    if( dictWords == null ) dictWords = new Dictionary<string, string>();
+	    for( int i = 0; i < lines.Length - 1; i += 2 )
+	    {
+	        dictWords.TryAdd( lines[i], lines[i + 1] );
+	    }
+	    List<string> words = new List<string>( dictWords.Keys );
+	    return words;
     }
 
     private string InterpretationWord( string wordLevel )
     {
-    	if( dictWords.TryGetValue( wordLevel, out string str )
-    	return str;
+    	if( !dictWords.TryGetValue( wordLevel, out string str ) ) return wordLevel;
+        return str;
     }
     
     public void ClearLetters()			// Метод очищения уровня
     {
-        wordLevelText.text = $"";           	// Очищаем отображение слова
-        if (lets != null && lets.Count > 0) lets.Clear();				    // Очищаем список букв        
+        wordLevelText.text = $"";           	                                    // Очищаем отображение слова
+        if (lets != null && lets.Count > 0) lets.Clear();				            // Очищаем список букв        
         if (letPositions != null && letPositions.Count > 0) letPositions.Clear();	// Очищаем список конечных мест
         foreach (Transform child in cellAnchor) Destroy(child.gameObject);          // Удаляем объекты конечных мест
         foreach (Transform child in wordAnchor) Destroy(child.gameObject);          // Удаляем объекты букв и платформ
@@ -76,23 +76,23 @@ public class Init : MonoBehaviour
         ClearLetters();
         if ( GameBase.G.levelUP.gameObject.activeSelf ) GameBase.G.levelUP.gameObject.SetActive(false);
         if ( GameBase.G.gameOver.gameObject.activeSelf ) GameBase.G.gameOver.gameObject.SetActive(false);
-	if ( GameBase.G.continueArea.gameObject.activeSelf ) GameBase.G.continueArea.gameObject.SetActive(false);
-	InitLevel();				// Инициализируем новый уровень
+	    if ( GameBase.G.continueArea.gameObject.activeSelf ) GameBase.G.continueArea.gameObject.SetActive(false);
+	    InitLevel();				// Инициализируем новый уровень
     }
     
     private void InitLevel()			// Метод инициализации уровня
     {
         GameBase.G.phase = GamePhase.init;      // Переводим игру в фазу инициализации уровня, запрещая двигать персонажа
-	//CreateBlocks();			// Создаем блоки препятствий
+	    CreateBlocks();			    // Создаем блоки препятствий
         CreateLetters();			// Создаем буквы уровня
     }
 
     public void SetupLevel( string wordLevel )
     {
-        if (GameBase.level <= 2) wordLevelText.text = wordLevel;
-        //else if (GameBase.level > 2 && GameBase.level <= 3) wordLevelText.text = InterpretationWord( wordLevel );
-        //else if (GameBase.level > 3 && GameBase.level <= 5) wordLevelText.text = $"";
-        //else if (GameBase.level > 5 && GameBase.level <= 7) wordLevelText.text = wordLevel;
+        if (GameBase.level <= 1) wordLevelText.text = wordLevel;
+        else if (GameBase.level > 1 && GameBase.level <= 2) wordLevelText.text = InterpretationWord( wordLevel );
+        else if (GameBase.level > 2 && GameBase.level <= 3) wordLevelText.text = $"";
+        else if (GameBase.level > 3 && GameBase.level <= 4) wordLevelText.text = wordLevel;
         else wordLevelText.text = InterpretationWord( wordLevel );
     }
     
@@ -105,15 +105,15 @@ public class Init : MonoBehaviour
 	        block.GetComponent<SpriteRenderer>().sprite = blocks[Random.Range(0, blocks.Length)];	// Устанавливаем случайный спрайт блока
 	    }
 		
-	    if (GameBase.level > 2)					// Со второго уровня создаем блок-телепорт
+	    if (GameBase.level > 4)					// Со второго уровня создаем блок-телепорт
     	{
-            GameObject teleport = Instantiate(prefabTeleport, Spawn(), Quaternion.identity, blockAnchor);
+            Instantiate(prefabTeleport, Spawn(), Quaternion.identity, blockAnchor);
     	} 
     }
     
     private void CreateLeaves()					    // Метод создания бонуса листиков
     {
-    	GameObject leavesPool = Instantiate( prefabLeaves, Spawn(), Quaternion.identity, blockAnchor );
+    	Instantiate( prefabLeaves, Spawn(), Quaternion.identity, blockAnchor );
     }
 
     public Vector2 Spawn()						    // Метод генерации случайной точки спавна
@@ -197,14 +197,14 @@ public class Init : MonoBehaviour
     {
     	if (lets == null) lets = new List<Letter>();		// Создаем список букв
     	string wordLevel = wordsFromTextAsset[Random.Range(0, wordsFromTextAsset.Count)];	// Выбираем слово для уровня из списка
-    	SetupLevel( wordLevel );				// Определяем сложность уровня
-    	char[] chars = wordLevel.ToCharArray();			// Преобразуем выбранное слово в массив символов (букв)
+    	SetupLevel( wordLevel );				            // Определяем сложность уровня
+    	char[] chars = wordLevel.ToCharArray();			    // Преобразуем выбранное слово в массив символов (букв)
     	StartCoroutine(MakeLetter(chars));	                // Рисуем каждую букву через каждые полсекунды
     }
 
     private IEnumerator MakeLetter(char[] chars)	        // Метод создания каждой буквы
     {
-        for (int i = 1; i < chars.Length-1; i++)
+        for ( int i = 0; i < chars.Length; i++ )
         {
             GameObject letGO = Instantiate(prefabLetter, Spawn(), Quaternion.identity, wordAnchor); // Инициализируем объект буквы
 	        letGO.GetComponent<SpriteRenderer>().sprite = SetLetterSprite(chars[i]);                // Устанавливаем спрайт буквы
@@ -214,12 +214,12 @@ public class Init : MonoBehaviour
 	        lets.Add(let);									// Добавляем букву в список
 		
 	        if( Random.Range(0,4) == 0 ) {
-                GameObject plateGO = Instantiate(prefabPlate, let.transform.position, Quaternion.identity, wordAnchor);  // Инициализируем объект платформы
+                Instantiate(prefabPlate, let.transform.position, Quaternion.identity, wordAnchor);  // Инициализируем объект платформы
             }
             yield return new WaitForSeconds(.4f);           // Делаем паузу
         }                                         
         CreateCells();                                      // Создаем конечные места букв
-	    CreateLeaves();                                     // Создаем бонус листиков в случайном доступном месте
+	    if( GameBase.level > 3 ) CreateLeaves();            // Создаем бонус листиков в случайном доступном месте
         GameBase.G.StartGame();                             // Запускаем игру
     }
 }

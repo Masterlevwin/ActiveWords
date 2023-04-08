@@ -17,12 +17,9 @@ public class Player : MonoBehaviour
     private Image leaveImg, hpImg;
     
     public Vector2 startPos;
-    private Color colorPlayer;
 
     void Start()
-    {
-        colorPlayer = GetComponentInChildren<SpriteRenderer>().color;
-        
+    {        
         hpImg = GetComponentsInChildren<Image>()[1];
         txtHp = GetComponentsInChildren<TMP_Text>()[0];
         leaveImg = GetComponentsInChildren<Image>()[3];
@@ -82,11 +79,6 @@ public class Player : MonoBehaviour
     
     void OnTriggerEnter2D( Collider2D collision )
     {
-        if( collision.gameObject.tag == "Enemy" )
-        {
-            GetComponentInChildren<SpriteRenderer>().color = new Color( colorPlayer.r, colorPlayer.g - .5f, colorPlayer.b - .5f, colorPlayer.a );
-        }
-
         if( collision.gameObject.tag == "Teleport" )
         {
             gameObject.SetActive(false);
@@ -98,14 +90,6 @@ public class Player : MonoBehaviour
             SetLeavesCount( -10f );
             Destroy( collision.gameObject );
         }
-    }
-
-    void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Enemy")
-        {
-            GetComponentInChildren<SpriteRenderer>().color = colorPlayer;
-        } 
     }
   
     public void OnGUI()

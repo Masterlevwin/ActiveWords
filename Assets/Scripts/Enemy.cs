@@ -1,28 +1,21 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
-using Pathfinding;
 
 public class Enemy: MonoBehaviour
 {
-    public float health { private set; get; } = 0;
+    public float health { private set; get; }
     public float start_health;
     public float max_health;
-    public float attack { private set; get; } = 0;
+    public float attack { private set; get; }
     public float start_attack;
-    public float rebirth { private set; get; } = 0;
+    public float rebirth { private set; get; }
     public float start_rebirth;
     
     private Image hpImg;
     private TMP_Text txtHp;
 
-    private BoxCollider2D col;
-    private Rigidbody2D rb;
-    
     private Vector2 startPos;
     private Action<float>[] actions;
     
@@ -30,9 +23,6 @@ public class Enemy: MonoBehaviour
     
     void Start()
     {
-        col = GetComponent<BoxCollider2D>();
-        rb = GetComponent<Rigidbody2D>();
-        
         hpImg = GetComponentsInChildren<Image>()[1];
         txtHp = GetComponentsInChildren<TMP_Text>()[0];
         
