@@ -58,6 +58,7 @@ public class GameBase : MonoBehaviour
         if (!player.gameObject.activeSelf) Waiter.Wait( 1f, () => { player.gameObject.SetActive(true); pl.SetPos( init.Spawn() ); } );
         if (level > 3 && !enemy.gameObject.activeSelf) Waiter.Wait( 2f, () => { enemy.gameObject.SetActive(true); en.transform.position = init.Spawn(); } );
         pl.maxHit = pl.hitPlayer;
+        _timer.BeginTimer( _timer.transform.position, 3f );
         Waiter.Wait( 3f, () => { phase = GamePhase.game; } );
     }
     

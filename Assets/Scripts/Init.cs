@@ -12,6 +12,7 @@ public class Init : MonoBehaviour
     
     public GameObject prefabLetter, prefabCell, prefabLeaves, prefabPlate, prefabBlock, prefabTeleport;
     private Transform wordAnchor, cellAnchor, blockAnchor;
+    public GameObject[] animBlocks;
     public Sprite[] letters, cells, blocks;
     public LayerMask obtacleMask;
     public List<Letter> lets;
@@ -34,7 +35,7 @@ public class Init : MonoBehaviour
         }
 	    if (GameObject.Find("Blocks") == null)			// Создаем пустой объект в иерархии, чтобы спрятать туда сгенерированные блоки
 	    {
-	        GameObject blockGO = new GameObject("Blocs");
+	        GameObject blockGO = new GameObject("Blocks");
 	        blockAnchor = blockGO.transform;
 	    }
 	    table = GameObject.Find("Table").GetComponent<BoxCollider2D>();    // Сохраняем ссылку на коллайдер стола, к которому будем обращаться каждый раз, как потребуется спавнить объект
@@ -101,9 +102,10 @@ public class Init : MonoBehaviour
     	int numBlocks = Random.Range(1, 10);	// Выбираем случайное количество блоков
 	    for (int i = 0; i < numBlocks; i++)
 	    {
-	        GameObject block = Instantiate(prefabBlock, Spawn(), Quaternion.identity, blockAnchor);	// Создаем блок в доступном месте
-	        block.GetComponent<SpriteRenderer>().sprite = blocks[Random.Range(0, blocks.Length)];	// Устанавливаем случайный спрайт блока
-	    }
+            Instantiate( animBlocks[Random.Range( 0, animBlocks.Length )], Spawn(), Quaternion.identity, blockAnchor );
+            //GameObject block = Instantiate(prefabBlock, Spawn(), Quaternion.identity, blockAnchor);	// Создаем блок в доступном месте
+            //block.GetComponent<SpriteRenderer>().sprite = blocks[Random.Range(0, blocks.Length)];	// Устанавливаем случайный спрайт блока
+        }
 		
 	    if (GameBase.level > 4)					// Со второго уровня создаем блок-телепорт
     	{
@@ -127,7 +129,7 @@ public class Init : MonoBehaviour
 	
 	    bool Point(Vector2 spawn)					// Внутренний метод проверки доступности точки
 	    {
-	        Vector2 size = new Vector2(3f, 3f);		// Дистанция коллайдеров между объектами
+	        Vector2 size = new Vector2(2f, 2f);		// Дистанция коллайдеров между объектами
 	        cols = Physics2D.OverlapBoxAll(spawn, size, 0f, obtacleMask);	// Определяем массив коллайдеров на столе,пересекающий точку спавна в данный момент
 	        if (cols.Length > 0) return false;		// Если такие коллайдеры есть, точка спавна не доступна,
 	        else return true;						// иначе доступна

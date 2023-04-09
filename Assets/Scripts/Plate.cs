@@ -3,7 +3,7 @@ using UnityEngine;
 public class Plate : MonoBehaviour
 {
   bool _isMove = false;
-  private SpriteRenderer _spritePlate;
+  private Transform _trunk;
   private Vector2 startPos;
   private Vector2 _endPosition;
   private Vector2 _startPosition;
@@ -11,8 +11,8 @@ public class Plate : MonoBehaviour
   void Start()
   {
     startPos = transform.position;
-    _spritePlate = GetComponentInChildren<SpriteRenderer>();
-    _startPosition = _spritePlate.transform.localPosition;
+    _trunk = transform.GetChild(0);
+    _startPosition = _trunk.localPosition;
     _endPosition = new Vector2(transform.localPosition.x, transform.localPosition.y + 3f);
   }
   
@@ -34,8 +34,8 @@ public class Plate : MonoBehaviour
     {
         if( _isMove )
         {
-            _spritePlate.transform.position = Vector2.MoveTowards( _spritePlate.transform.position, _endPosition, Time.deltaTime );
-            if (Vector2.Distance(_spritePlate.transform.localPosition, _startPosition) >= 3f)
+            _trunk.transform.position = Vector2.MoveTowards( _trunk.position, _endPosition, Time.deltaTime );
+            if (Vector2.Distance( _trunk.localPosition, _startPosition) >= 3f )
             {
                 GameBase.G.pl.SetHit(0);
                 _isMove = false;
@@ -43,7 +43,7 @@ public class Plate : MonoBehaviour
         }
         else 
         {
-            _spritePlate.transform.position = startPos;
+            _trunk.position = startPos;
         }
     }
 }
