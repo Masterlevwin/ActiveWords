@@ -3,17 +3,16 @@ using UnityEngine;
 public class Plate : MonoBehaviour
 {
   bool _isMove = false;
-  private Transform _trunk;
-  private Vector2 startPos;
-  private Vector2 _endPosition;
+  public GameObject _trunk;
+  private Vector2 _position;
   private Vector2 _startPosition;
+  private Vector2 _endPosition;
 
   void Start()
   {
-    startPos = transform.position;
-    _trunk = transform.GetChild(0);
-    _startPosition = _trunk.localPosition;
-    _endPosition = new Vector2(transform.localPosition.x, transform.localPosition.y + 3f);
+    _position = _trunk.transform.position;
+    _startPosition = _trunk.transform.localPosition;
+    _endPosition = new Vector2( _trunk.transform.position.x - 3f, _trunk.transform.position.y );
   }
   
   void OnTriggerEnter2D( Collider2D collision )
@@ -34,8 +33,8 @@ public class Plate : MonoBehaviour
     {
         if( _isMove )
         {
-            _trunk.transform.position = Vector2.MoveTowards( _trunk.position, _endPosition, Time.deltaTime );
-            if (Vector2.Distance( _trunk.localPosition, _startPosition) >= 3f )
+            _trunk.transform.position = Vector2.MoveTowards( _trunk.transform.position, _endPosition, Time.deltaTime );
+            if (Vector2.Distance( _trunk.transform.localPosition, _startPosition) >= 3f )
             {
                 GameBase.G.pl.SetHit(0);
                 _isMove = false;
@@ -43,7 +42,7 @@ public class Plate : MonoBehaviour
         }
         else 
         {
-            _trunk.position = startPos;
+            _trunk.transform.position = _position;
         }
     }
 }

@@ -216,7 +216,7 @@ public class Init : MonoBehaviour
 	        lets.Add(let);									// Добавляем букву в список
 		
 	        if( Random.Range(0,4) == 0 ) {
-                Instantiate(prefabPlate, let.transform.position, Quaternion.identity, wordAnchor);  // Инициализируем объект платформы
+                Instantiate( prefabPlate, let.transform.position, Quaternion.identity, wordAnchor );    // Инициализируем объект платформы
             }
             yield return new WaitForSeconds(.4f);           // Делаем паузу
         }                                         
