@@ -213,7 +213,7 @@ public class Init : MonoBehaviour
             yield return new WaitForSeconds(.4f);           // Делаем паузу
         }                                         
         CreateCells();                                      // Создаем конечные места букв
-	    if( GameBase.level > 4 ) CreateLeaves();            // Создаем бонус листиков в случайном доступном месте
+	    if( GameBase.level > 3 ) CreateLeaves();            // Создаем бонус листиков в случайном доступном месте
         GameBase.G.StartGame();                             // Запускаем игру
     }
 }
