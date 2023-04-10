@@ -75,6 +75,7 @@ public class Player : MonoBehaviour
     public void Downfall()
     {
     	_isFall = true;
+	GameBase.G._timer.BeginTimer( startPos, 3f );
 	// добавить звук падения
     }
     
