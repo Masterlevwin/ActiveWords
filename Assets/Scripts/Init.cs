@@ -10,7 +10,7 @@ public class Init : MonoBehaviour
     private Dictionary<string, string> dictWords;
     public TMP_Text wordLevelText;
     
-    public GameObject prefabLetter, prefabCell, prefabLeaves, prefabPlate, prefabBlock, prefabTeleport;
+    public GameObject prefabLetter, prefabCell, prefabLeaves, prefabPlate;
     private Transform wordAnchor, cellAnchor, blockAnchor;
     public GameObject[] animBlocks;
     public Sprite[] letters, cells, blocks;
@@ -90,10 +90,9 @@ public class Init : MonoBehaviour
 
     public void SetupLevel( string wordLevel )
     {
-        if (GameBase.level <= 1) wordLevelText.text = wordLevel;
-        else if (GameBase.level > 1 && GameBase.level <= 2) wordLevelText.text = InterpretationWord( wordLevel );
-        else if (GameBase.level > 2 && GameBase.level <= 3) wordLevelText.text = $"";
-        else if (GameBase.level > 3 && GameBase.level <= 4) wordLevelText.text = wordLevel;
+        if ( GameBase.level <= 1 ) wordLevelText.text = wordLevel;
+        else if ( GameBase.level > 1 && GameBase.level <= 3 ) wordLevelText.text = InterpretationWord( wordLevel );
+        else if ( GameBase.level > 3 && GameBase.level <= 5 ) wordLevelText.text = wordLevel;
         else wordLevelText.text = InterpretationWord( wordLevel );
     }
     
@@ -103,14 +102,7 @@ public class Init : MonoBehaviour
 	    for (int i = 0; i < numBlocks; i++)
 	    {
             Instantiate( animBlocks[Random.Range( 0, animBlocks.Length )], Spawn(), Quaternion.identity, blockAnchor );
-            //GameObject block = Instantiate(prefabBlock, Spawn(), Quaternion.identity, blockAnchor);	// Создаем блок в доступном месте
-            //block.GetComponent<SpriteRenderer>().sprite = blocks[Random.Range(0, blocks.Length)];	// Устанавливаем случайный спрайт блока
-        }
-		
-	    if (GameBase.level > 4)					// Со второго уровня создаем блок-телепорт
-    	{
-            Instantiate(prefabTeleport, Spawn(), Quaternion.identity, blockAnchor);
-    	} 
+        } 
     }
     
     private void CreateLeaves()					    // Метод создания бонуса листиков
@@ -215,13 +207,13 @@ public class Init : MonoBehaviour
             let.SetChar(chars[i]);							// Устанавливаем символ для дальнейшей проверки этого свойства
 	        lets.Add(let);									// Добавляем букву в список
 		
-	        if( Random.Range(0,4) == 0 ) {
+	        if( Random.Range(0,5) == 0 ) {
                 Instantiate( prefabPlate, let.transform.position, Quaternion.identity, wordAnchor );    // Инициализируем объект платформы
             }
             yield return new WaitForSeconds(.4f);           // Делаем паузу
         }                                         
         CreateCells();                                      // Создаем конечные места букв
-	    if( GameBase.level > 3 ) CreateLeaves();            // Создаем бонус листиков в случайном доступном месте
+	    if( GameBase.level > 4 ) CreateLeaves();            // Создаем бонус листиков в случайном доступном месте
         GameBase.G.StartGame();                             // Запускаем игру
     }
 }
