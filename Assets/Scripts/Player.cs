@@ -79,12 +79,6 @@ public class Player : MonoBehaviour
     
     void OnTriggerEnter2D( Collider2D collision )
     {
-        if( collision.gameObject.tag == "Teleport" )
-        {
-            gameObject.SetActive(false);
-            SetPos( startPos );
-        }
-        
         if( collision.gameObject.tag == "Leaves" ) {
             if( !leaveImg.gameObject.activeSelf ) leaveImg.gameObject.SetActive(true);
             SetLeavesCount( -10f );
