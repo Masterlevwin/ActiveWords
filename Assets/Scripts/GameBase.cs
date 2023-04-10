@@ -26,7 +26,7 @@ public class GameBase : MonoBehaviour
     public Image continueArea, levelUP, gameOver;
 
     public AIPath player, enemy;
-    public GameObject leavePrefab, coinPrefab;
+    public GameObject leavePrefab, coinPrefab, trainingPrefab;
     public Player pl;
     public Enemy en;
     public TimerEnemyRebirth _timer;
@@ -52,10 +52,18 @@ public class GameBase : MonoBehaviour
         levelText.text = $"{level}";
         if (letDict == null) letDict = new Dictionary<Vector2, Letter>();
         else letDict.Clear();
+        
+        if( level == 0 ) TextView( "Буквы выскочили из книги. Собери их обратно в слово!" );
+        if( level == 1 ) TextView( "Буквы могут быть спрятаны в листве, за стволами деревьев или камнями" );
+        if( level == 2 ) TextView( "Иногда некоторые слова придётся определить по их описанию" );
+        if( level == 3 ) TextView( "Некоторые буквы лежат на поленьях, которые долго не выдержат вес целой книги" );
+        if( level == 4 ) TextView( "Птицу, которая мешает собирать буквы, можно прогнать листиками, выстреливая по ней двойным кликом" );
+        
         if (!player.gameObject.activeSelf) Waiter.Wait( 1f, () => { player.gameObject.SetActive(true); pl.SetPos( init.Spawn() ); } );
         if (level > 3 && !enemy.gameObject.activeSelf) Waiter.Wait( 2f, () => { enemy.gameObject.SetActive(true); en.transform.position = init.Spawn(); } );
         pl.maxHit = pl.hitPlayer;
         enemy.SetPath(null);
+        
         _timer.BeginTimer( new Vector2( 10f, -4f ), 4f );
         Waiter.Wait( 4f, () => { phase = GamePhase.game; } );
     }
@@ -101,6 +109,12 @@ public class GameBase : MonoBehaviour
         SceneManager.LoadScene( SceneManager.GetActiveScene().name );
     }
 
+    public void TextView( string txt )
+    {
+        trainingPrefab.SetActive(true);
+        trainingPrefab.GetComponentInChildren<TMP_Text>().text = txt;
+    }
+    
     public void RemoveAtWord( Letter l )
     {
         if( letDict.ContainsValue(l) )
