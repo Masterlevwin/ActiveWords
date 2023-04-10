@@ -21,6 +21,7 @@ public class GameBase : MonoBehaviour
     public GamePhase phase = GamePhase.init;
     
     public static int level = 0;
+    public static string status = "Дошкольник";
     public int coins_count = 0;
     public TMP_Text levelText, coinText;
     public Image continueArea, levelUP, gameOver;
@@ -98,6 +99,7 @@ public class GameBase : MonoBehaviour
         level--;
         levelText.text = $"{level}";
         gameOver.gameObject.SetActive(true);
+        gameOver.gameObject.GetComponentInChildren<TMP_Text>().text = $"Вы достигли {level} уровня. Вы - {Status()}";
         pl.ResetProperties();
         pl.SetLeavesCount( pl.leaves_count );
         en.ResetProperties();
@@ -113,6 +115,14 @@ public class GameBase : MonoBehaviour
     {
         trainingPrefab.SetActive(true);
         trainingPrefab.GetComponentInChildren<TMP_Text>().text = txt;
+    }
+    
+    private void Status()
+    {
+        if( level > 2 ) status = $"Ученик";
+        if( level > 4 ) status = $"Студент";
+        if( level > 6 ) status = $"Мудрец";
+        else status = $"Философ";
     }
     
     public void RemoveAtWord( Letter l )
