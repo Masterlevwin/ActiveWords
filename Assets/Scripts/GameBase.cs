@@ -21,13 +21,10 @@ public class GameBase : MonoBehaviour
     public GamePhase phase = GamePhase.init;
     
     public static int level = 0;
-    public TMP_Text levelText;
-    public Image continueArea;
-    public Image levelUP;
-    public Image gameOver;
     public int coins_count = 0;
-    public TMP_Text coinText;
-    
+    public TMP_Text levelText, coinText;
+    public Image continueArea, levelUP, gameOver;
+
     public AIPath player, enemy;
     public GameObject leavePrefab, coinPrefab;
     public Player pl;
@@ -58,8 +55,9 @@ public class GameBase : MonoBehaviour
         if (!player.gameObject.activeSelf) Waiter.Wait( 1f, () => { player.gameObject.SetActive(true); pl.SetPos( init.Spawn() ); } );
         if (level > 3 && !enemy.gameObject.activeSelf) Waiter.Wait( 2f, () => { enemy.gameObject.SetActive(true); en.transform.position = init.Spawn(); } );
         pl.maxHit = pl.hitPlayer;
-        _timer.BeginTimer( new Vector2( 10f, -4f ), 3f );
-        Waiter.Wait( 3f, () => { phase = GamePhase.game; } );
+        enemy.SetPath(null);
+        _timer.BeginTimer( new Vector2( 10f, -4f ), 4f );
+        Waiter.Wait( 4f, () => { phase = GamePhase.game; } );
     }
     
     public void CompleteGame()
@@ -112,8 +110,6 @@ public class GameBase : MonoBehaviour
             l.GetComponent<BoxCollider2D>().isTrigger = true;
             l.GetComponent<SpriteRenderer>().color = Color.white;
             coins_count--;
-            //StartCoroutine( Move( l.gameObject, l.posLet, 4f, () => { l.GetComponent<BoxCollider2D>().isTrigger = true;
-            //    l.GetComponent<SpriteRenderer>().color = Color.white; coins_count--; } ) );
         }
     } 
     
