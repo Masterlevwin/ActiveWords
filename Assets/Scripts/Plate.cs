@@ -36,7 +36,7 @@ public class Plate : MonoBehaviour
             _trunk.transform.position = Vector2.MoveTowards( _trunk.transform.position, _endPosition, Time.deltaTime );
             if (Vector2.Distance( _trunk.transform.localPosition, _startPosition) >= 3f )
             {
-                GameBase.G.pl.SetHit(0);
+                GameBase.G.pl.Downfall();
                 _isMove = false;
             }
         }
