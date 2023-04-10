@@ -96,9 +96,9 @@ public class GameBase : MonoBehaviour
         coins_count = 0;
     }
 
-    public void RestartScene( string scene )
+    public void RestartScene()
     {
-        SceneManager.LoadScene( scene );
+        SceneManager.LoadScene( SceneManager.GetActiveScene().name );
     }
 
     public void RemoveAtWord( Letter l )
