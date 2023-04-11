@@ -70,13 +70,15 @@ public class Player : MonoBehaviour
         transform.position = pos;
     }
     
-    private bool _isFall = false;
-    
-    public void Downfall()
+    public void Boom()
     {
-    	_isFall = true;
-	GameBase.G._timer.BeginTimer( startPos, 3f );
-	// добавить звук падения
+	Damage(1);
+	if( GameBase.G.phase != GamePhase.complete ) {
+	    GameBase.G._timer.BeginTimer( startPos, 2f );
+	    gameObject.SetActive(false);
+	    SetPos( startPos );
+	    Waiter.Wait( 2f, () => { gameObject.SetActive(true); } );
+	}
     }
     
     public void SetLeavesCount( float lv )
@@ -100,19 +102,5 @@ public class Player : MonoBehaviour
         if ( Event.current.button == 0 && Event.current.clickCount == 2 && leaves_count > 0 && !GameBase.G._leaveActive ) {
 			GameBase.G.LeaveStart( Camera.main.ScreenToWorldPoint(Input.mousePosition) );
 		}
-    }
-    
-    void Update()
-    {
-    	if( _isFall )
-	{
-	    Vector2 _startPos = transform.position;
-	    transform.position = Vector2.MoveTowards( transform.position, Vector2.down, Time.deltaTime );
-	    if ( Vector2.Distance( transform.position, _startPos ) >= 2f ) {
-	    	_isFall = false;
-		Damage(1);
-		if( GameBase.G.phase != GamePhase.complete ) SetPos( startPos );
-	    }
-	}
     }
 }
