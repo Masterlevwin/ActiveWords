@@ -207,7 +207,7 @@ public class Init : MonoBehaviour
             let.SetChar(chars[i]);							// Устанавливаем символ для дальнейшей проверки этого свойства
 	        lets.Add(let);									// Добавляем букву в список
 		
-	        if( GameBase.level > 2 && Random.Range(0,5) == 0 ) {
+	        if( GameBase.level > 0 && Random.Range(0,5) == 0 ) {
                 Instantiate( prefabPlate, let.transform.position, Quaternion.identity, wordAnchor );    // Инициализируем объект платформы
             }
             yield return new WaitForSeconds(.4f);           // Делаем паузу
