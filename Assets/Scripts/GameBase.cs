@@ -66,7 +66,7 @@ public class GameBase : MonoBehaviour
         enemy.SetPath(null);
         
         _timer.BeginTimer( new Vector2( 10f, -4f ), 4f );
-        Waiter.Wait( 4f, () => { phase = GamePhase.game; } );
+        Waiter.Wait( 4f, () => { phase = GamePhase.game; trainingPrefab.SetActive(false); } );
     }
     
     public void CompleteGame()
@@ -117,12 +117,13 @@ public class GameBase : MonoBehaviour
         trainingPrefab.GetComponentInChildren<TMP_Text>().text = txt;
     }
     
-    private void Status()
+    private string Status()
     {
         if( level > 2 ) status = $"Ученик";
         if( level > 4 ) status = $"Студент";
         if( level > 6 ) status = $"Мудрец";
         else status = $"Философ";
+        return status ;
     }
     
     public void RemoveAtWord( Letter l )
