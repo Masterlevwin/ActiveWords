@@ -72,13 +72,12 @@ public class Player : MonoBehaviour
     
     public void Boom()
     {
-	Damage(1);
-	if( GameBase.G.phase != GamePhase.complete ) {
-	    GameBase.G._timer.BeginTimer( startPos, 2f );
-	    gameObject.SetActive(false);
-	    SetPos( startPos );
-	    Waiter.Wait( 2f, () => { gameObject.SetActive(true); } );
-	}
+	    Damage(1);
+        gameObject.SetActive(false);
+	    if( GameBase.G.phase != GamePhase.complete ) {
+	        GameBase.G._timer.BeginTimer( startPos, 3f );
+            Waiter.Wait( 3f, () => { gameObject.SetActive(true); SetPos( startPos ); } );
+	    }
     }
     
     public void SetLeavesCount( float lv )
