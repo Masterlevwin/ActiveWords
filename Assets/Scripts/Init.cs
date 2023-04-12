@@ -73,6 +73,7 @@ public class Init : MonoBehaviour
 
     public void Reset()				// Метод обновления уровня
     {
+    	StopAllCoroutines();
         GameBase.G.StopAllCoroutines();
         ClearLetters();
         if ( GameBase.G.levelUP.gameObject.activeSelf ) GameBase.G.levelUP.gameObject.SetActive(false);
@@ -207,7 +208,7 @@ public class Init : MonoBehaviour
             let.SetChar(chars[i]);							// Устанавливаем символ для дальнейшей проверки этого свойства
 	        lets.Add(let);									// Добавляем букву в список
 		
-	        if( GameBase.level > 0 && Random.Range(0,5) == 0 ) {
+	        if( Random.Range(0,1) == 0 ) {
                 Instantiate( prefabPlate, let.transform.position, Quaternion.identity, wordAnchor );    // Инициализируем объект платформы
             }
             yield return new WaitForSeconds(.4f);           // Делаем паузу
