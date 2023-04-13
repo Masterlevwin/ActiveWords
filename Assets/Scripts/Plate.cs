@@ -39,6 +39,7 @@ public class Plate : MonoBehaviour
     {
         if( _isMove )
         {
+            GameBase.G.player.gravity = Vector3.down;
             _trunk.transform.position = Vector2.MoveTowards( _trunk.transform.position, _endPosition, Time.deltaTime );
             _trunk.transform.rotation = Quaternion.Slerp( _trunk.transform.rotation, _endRotation, Time.deltaTime );
 
@@ -50,6 +51,7 @@ public class Plate : MonoBehaviour
         }
         else 
         {
+            GameBase.G.player.gravity = Vector3.zero;
             _trunk.transform.position = _position;
             _trunk.transform.rotation = _rotation;
         }
