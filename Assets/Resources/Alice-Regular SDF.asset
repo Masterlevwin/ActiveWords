@@ -4855,7 +4855,7 @@ Material:
     - _DistortionStrengthScaled: 0
     - _DstBlend: 0
     - _EmissionEnabled: 0
-    - _FaceDilate: 0
+    - _FaceDilate: -0.1
     - _FaceShininess: 0
     - _FaceUVSpeedX: 0
     - _FaceUVSpeedY: 0
@@ -4884,8 +4884,8 @@ Material:
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
     - _ScaleRatioA: 0.8333333
-    - _ScaleRatioB: 0.6770833
-    - _ScaleRatioC: 0.6770833
+    - _ScaleRatioB: 0.7604167
+    - _ScaleRatioC: 0.7604167
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0

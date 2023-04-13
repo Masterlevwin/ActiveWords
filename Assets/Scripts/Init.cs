@@ -13,7 +13,7 @@ public class Init : MonoBehaviour
     public GameObject prefabLetter, prefabCell, prefabLeaves, prefabPlate;
     private Transform wordAnchor, cellAnchor, blockAnchor;
     public GameObject[] animBlocks;
-    public Sprite[] letters, cells, blocks;
+    public Sprite[] letters, cells;
     public LayerMask obtacleMask;
     public List<Letter> lets;
     public List<Vector2> letPositions; 
@@ -85,7 +85,7 @@ public class Init : MonoBehaviour
     private void InitLevel()			// Метод инициализации уровня
     {
         GameBase.G.phase = GamePhase.init;      // Переводим игру в фазу инициализации уровня, запрещая двигать персонажа
-	    CreateBlocks();			    // Создаем блоки препятствий
+	    CreateBlocks();			    // Создаем блоки деревьев и т.п.
         CreateLetters();			// Создаем буквы уровня
     }
 
@@ -214,7 +214,7 @@ public class Init : MonoBehaviour
             yield return new WaitForSeconds(.4f);           // Делаем паузу
         }                                         
         CreateCells();                                      // Создаем конечные места букв
-	    if( GameBase.level > 3 ) CreateLeaves();            // Создаем бонус листиков в случайном доступном месте
+	    if( GameBase.level > 0 ) CreateLeaves();            // Создаем бонус листиков в случайном доступном месте
         GameBase.G.StartGame();                             // Запускаем игру
     }
 }
