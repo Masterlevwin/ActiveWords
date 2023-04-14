@@ -31,6 +31,7 @@ public class GameBase : MonoBehaviour
     public Player pl;
     public Enemy en;
     public TimerEnemyRebirth _timer;
+    private Vector2 _startTimerPosition;
     public Init init;
     private Dictionary<Vector2, Letter> letDict;
     
@@ -46,6 +47,8 @@ public class GameBase : MonoBehaviour
 
         player.gameObject.SetActive(false);
         enemy.gameObject.SetActive(false);
+
+        _startTimerPosition = _timer.transform.position;
     }
 
     public void StartGame()
@@ -65,7 +68,7 @@ public class GameBase : MonoBehaviour
         pl.maxHit = pl.hitPlayer;
         enemy.SetPath(null);
         
-        _timer.BeginTimer( new Vector2( 10f, -4f ), 4f );
+        _timer.BeginTimer( _startTimerPosition, 4f );
         Waiter.Wait( 4f, () => { phase = GamePhase.game; trainingPrefab.SetActive(false); } );
     }
     
@@ -150,7 +153,7 @@ public class GameBase : MonoBehaviour
                 CoinCreate( let.gameObject, 1 );
                 StartCoroutine( Move( let.gameObject, pos, 4f, () => { let.GetComponent<BoxCollider2D>().isTrigger = false; 
                     if ( letDict.TryGetValue(pos, out Letter l) && l.charLet == init.lets[i].charLet )
-                    let.GetComponent<SpriteRenderer>().color = Color.cyan; } ) );
+                    let.GetComponent<SpriteRenderer>().color = Color.magenta; } ) );
                 break;
             }
         }

@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
   cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
@@ -2886,12 +2888,12 @@ TextureImporter:
       1669940955_46-pibig-info-p-shrift-sprait-pinterest-48_124: -1928203122
       1669940955_46-pibig-info-p-shrift-sprait-pinterest-48_47: 383316938
       1669940955_46-pibig-info-p-shrift-sprait-pinterest-48_3: 615658385
-      1669940955_46-pibig-info-p-shrift-sprait-pinterest-48_17: -177140761
-      1669940955_46-pibig-info-p-shrift-sprait-pinterest-48_26: -1043891232
-      1669940955_46-pibig-info-p-shrift-sprait-pinterest-48_56: 1289882533
       1669940955_46-pibig-info-p-shrift-sprait-pinterest-48_42: -1318862911
-      1669940955_46-pibig-info-p-shrift-sprait-pinterest-48_123: 81629901
       1669940955_46-pibig-info-p-shrift-sprait-pinterest-48_121: -731623265
+      1669940955_46-pibig-info-p-shrift-sprait-pinterest-48_56: 1289882533
+      1669940955_46-pibig-info-p-shrift-sprait-pinterest-48_17: -177140761
+      1669940955_46-pibig-info-p-shrift-sprait-pinterest-48_123: 81629901
+      1669940955_46-pibig-info-p-shrift-sprait-pinterest-48_26: -1043891232
       1669940955_46-pibig-info-p-shrift-sprait-pinterest-48_45: -522750627
       1669940955_46-pibig-info-p-shrift-sprait-pinterest-48_43: -432803368
       1669940955_46-pibig-info-p-shrift-sprait-pinterest-48_99: 1183840418
@@ -2989,9 +2991,8 @@ TextureImporter:
       1669940955_46-pibig-info-p-shrift-sprait-pinterest-48_112: 2084089692
       1669940955_46-pibig-info-p-shrift-sprait-pinterest-48_86: -1133414795
       1669940955_46-pibig-info-p-shrift-sprait-pinterest-48_34: 635155938
-  spritePackingTag: 
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
