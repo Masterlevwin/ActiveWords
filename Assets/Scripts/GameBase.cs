@@ -61,15 +61,15 @@ public class GameBase : MonoBehaviour
         if( level == 1 ) TextView( "Буквы могут быть спрятаны в листве, за стволами деревьев или камнями" );
         if( level == 2 ) TextView( "Иногда некоторые слова придётся определить по их описанию" );
         if( level == 3 ) TextView( "Некоторые буквы лежат на поленьях, которые долго не выдержат вес целой книги" );
-        if( level == 4 ) TextView( "Птицу, которая мешает собирать буквы, можно прогнать листиками, выстреливая по ней двойным кликом" );
+        if( level == 4 ) TextView( "Надоедливую птицу можно прогнать листиками, выстреливая по ней двойным кликом" );
         
         if (!player.gameObject.activeSelf) Waiter.Wait( 1f, () => { player.gameObject.SetActive(true); pl.SetPos( init.Spawn() ); } );
         if (level > 3 && !enemy.gameObject.activeSelf) Waiter.Wait( 2f, () => { enemy.gameObject.SetActive(true); en.transform.position = init.Spawn(); } );
         pl.maxHit = pl.hitPlayer;
         enemy.SetPath(null);
         
-        _timer.BeginTimer( _startTimerPosition, 4f );
-        Waiter.Wait( 4f, () => { phase = GamePhase.game; trainingPrefab.SetActive(false); } );
+        _timer.BeginTimer( _startTimerPosition, 5f );
+        Waiter.Wait( 5f, () => { phase = GamePhase.game; trainingPrefab.SetActive(false); } );
     }
     
     public void CompleteGame()
@@ -100,6 +100,7 @@ public class GameBase : MonoBehaviour
     private void Lose()
     {
         level--;
+        if (level < 0) level = 0;
         levelText.text = $"{level}";
         gameOver.gameObject.SetActive(true);
         gameOver.gameObject.GetComponentInChildren<TMP_Text>().text = $"Вы достигли {level} уровня. Вы - {Status()}";
@@ -122,10 +123,24 @@ public class GameBase : MonoBehaviour
     
     private string Status()
     {
-        if( level > 2 ) status = $"Ученик";
-        if( level > 4 ) status = $"Студент";
-        if( level > 6 ) status = $"Мудрец";
-        else status = $"Философ";
+        switch ( level )
+        {
+            default:
+                status = $"Философ";
+                break;
+            case < 2:
+                status = $"Дошкольник";
+                break;
+            case < 4:
+                status = $"Ученик";
+                break;
+            case < 6:
+                status = $"Студент";
+                break;
+            case < 8:
+                status = $"Мудрец";
+                break;
+        }
         return status ;
     }
     

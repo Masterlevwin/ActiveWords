@@ -1,0 +1,974 @@
+fileFormatVersion: 2
+guid: 6ce3113b40c75264e8e9c759c359fc67
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_0
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 799
+        width: 96
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c4ef88a5977b064686bbee8b1c209e5
+      internalID: 1932391130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_1
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 801
+        width: 80
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c87b637d3be6d33488592607ddddc3b6
+      internalID: 1625341362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_2
+      rect:
+        serializedVersion: 2
+        x: 412
+        y: 806
+        width: 82
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26abeed47e8f4174380050450e21849b
+      internalID: 302448850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_3
+      rect:
+        serializedVersion: 2
+        x: 559
+        y: 802
+        width: 79
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccc4e424c1a2959408aeef393f9c50f2
+      internalID: -1152725709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_4
+      rect:
+        serializedVersion: 2
+        x: 699
+        y: 787
+        width: 97
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50a3e7b98dcd6af49878e5a424f53c58
+      internalID: 484649630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_5
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 802
+        width: 81
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 751f612aecdc53f439db116aa29d5bc1
+      internalID: 1514862688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_6
+      rect:
+        serializedVersion: 2
+        x: 1005
+        y: 798
+        width: 80
+        height: 139
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc6fd609a1cfc434792e44c1337d6d0a
+      internalID: 521991449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_7
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 621
+        width: 132
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a11970588d2ed2247be59e29385c46e1
+      internalID: -1868538318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_8
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 614
+        width: 79
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15e07de0527493f49acc2ef9bf0f6158
+      internalID: -1846235578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_9
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 621
+        width: 91
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f36675c273c8124cb50c0311fcf75f0
+      internalID: 350477515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_10
+      rect:
+        serializedVersion: 2
+        x: 558
+        y: 619
+        width: 90
+        height: 138
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76ceef6c3e1f44446b4948eeb3f86a5c
+      internalID: 1163012685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_11
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 614
+        width: 95
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27bed3d3f34671644af88d99592e548e
+      internalID: 1977603652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_12
+      rect:
+        serializedVersion: 2
+        x: 871
+        y: 615
+        width: 95
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2bc77af4db4d4c468b81096e1c19395
+      internalID: 1117580155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_13
+      rect:
+        serializedVersion: 2
+        x: 1031
+        y: 613
+        width: 99
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3592320aa2185174c96422264258ecd4
+      internalID: 651814149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_14
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 428
+        width: 90
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e3cce2678dd80b4caafbf9d2c2189ac
+      internalID: 1383636876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_15
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 433
+        width: 86
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ce35c4f05ee15f4ca992f1f360ae7d5
+      internalID: 1167311306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_16
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 430
+        width: 91
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 863a92d3c029eb74aa0dec1858a07260
+      internalID: 1591029187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_17
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 430
+        width: 78
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e4d85368eff39748bba76d2047af80c
+      internalID: -1835183229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_18
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 434
+        width: 81
+        height: 113
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6307f71dbbc934d4b9d858366b7663bb
+      internalID: -1843179228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_19
+      rect:
+        serializedVersion: 2
+        x: 773
+        y: 437
+        width: 82
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58e8f87a4098a1c4b8735ca53a8b7dba
+      internalID: -1329027679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_20
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 438
+        width: 94
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2dc555cc8d6ca3f4caaf0e7d262805c9
+      internalID: -208819892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_21
+      rect:
+        serializedVersion: 2
+        x: 1077
+        y: 433
+        width: 97
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c26dee2fe0e7bf6498b51d72747571fc
+      internalID: -1828558368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_22
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 252
+        width: 92
+        height: 113
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9eaa84d7e811e6a4ba72907680dcba57
+      internalID: 1108420524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_23
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 243
+        width: 92
+        height: 122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35a0c1e6dbab9e14882f6b2ca166f813
+      internalID: -1089452392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_24
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 253
+        width: 90
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b13f546a02671c43b51e1c253924f29
+      internalID: 146256312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_25
+      rect:
+        serializedVersion: 2
+        x: 498
+        y: 250
+        width: 124
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b269f5ddd3bff474da4159342a0050b4
+      internalID: 699368761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_26
+      rect:
+        serializedVersion: 2
+        x: 688
+        y: 236
+        width: 125
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 137439dfcfe73614a92335fce6122905
+      internalID: 1394807749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_27
+      rect:
+        serializedVersion: 2
+        x: 878
+        y: 253
+        width: 92
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc7040284a944814787aa479a93e0ea4
+      internalID: 1909718226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_28
+      rect:
+        serializedVersion: 2
+        x: 1036
+        y: 248
+        width: 121
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15f4006c32361d34ca05f20c992a4047
+      internalID: -268711397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_29
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 71
+        width: 79
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3266020393a2764eb010b0a0d2973f3
+      internalID: 582498186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_30
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 74
+        width: 80
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88844561e1bfdb147a6b03124a80c12f
+      internalID: 478696481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_31
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 69
+        width: 121
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a477ed084e628b4e928ca1a9909c23c
+      internalID: 17535583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_32
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 69
+        width: 88
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54f2aa9cba01bfc48898a0a7e6123c33
+      internalID: -1955425204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_33
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 67
+        width: 35
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d12b90fb7a51e20479b21b9866c55722
+      internalID: -166983429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_34
+      rect:
+        serializedVersion: 2
+        x: 831
+        y: 53
+        width: 35
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5d4462b5a8dc1c4fb8a45dbbb2bd2ee
+      internalID: 469069279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_35
+      rect:
+        serializedVersion: 2
+        x: 934
+        y: 70
+        width: 58
+        height: 113
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67d3b7d15562f1c46baa4afaecd5c3cd
+      internalID: 1191480459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_36
+      rect:
+        serializedVersion: 2
+        x: 1060
+        y: 72
+        width: 34
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f18a92e72eadfeb4cb8fd904a91d32fc
+      internalID: -548405993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_5: 1514862688
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_11: 1977603652
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_8: -1846235578
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_14: 1383636876
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_1: 1625341362
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_24: 146256312
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_36: -548405993
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_3: -1152725709
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_20: -208819892
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_22: 1108420524
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_28: -268711397
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_30: 478696481
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_33: -166983429
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_12: 1117580155
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_21: -1828558368
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_4: 484649630
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_10: 1163012685
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_35: 1191480459
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_16: 1591029187
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_29: 582498186
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_17: -1835183229
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_13: 651814149
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_31: 17535583
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_15: 1167311306
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_18: -1843179228
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_19: -1329027679
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_0: 1932391130
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_6: 521991449
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_32: -1955425204
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_26: 1394807749
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_23: -1089452392
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_27: 1909718226
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_2: 302448850
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_9: 350477515
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_34: 469069279
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_7: -1868538318
+      1669940902_37-pibig-info-p-shrift-sprait-pinterest-39_25: 699368761
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

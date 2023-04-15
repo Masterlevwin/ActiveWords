@@ -17,7 +17,7 @@ public class Plate : MonoBehaviour
     _position = _trunk.transform.position;
     _rotation = _trunk.transform.rotation;
     _startPosition = _trunk.transform.localPosition;
-    _endPosition = new Vector2( _trunk.transform.position.x - 2f, _trunk.transform.position.y - 1.5f);
+    _endPosition = new Vector2( _trunk.transform.position.x - 1.5f, _trunk.transform.position.y - 1f);
     _endRotation = Quaternion.Euler(0, 0, -90f);
   }
   
