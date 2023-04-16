@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class Init : MonoBehaviour
 {
     public TextAsset textAsset;
     private List<string> wordsFromTextAsset;
     private Dictionary<string, string> dictWords;
-    public TMP_Text wordLevelText;
+    public Button wordLevelButton;
+    private TMP_Text wordLevelText;
     
     public GameObject prefabLetter, prefabCell, prefabLeaves, prefabPlate;
     private Transform wordAnchor, cellAnchor, blockAnchor;
@@ -22,8 +24,10 @@ public class Init : MonoBehaviour
 
     void Start()
     {
-        wordsFromTextAsset = ParseText(textAsset.text);	// Загружаем в массив все слова из текстового ассета
-	    if (GameObject.Find("Letters") == null)			// Создаем пустой объект в иерархии, чтобы спрятать туда сгенерированные буквы
+        wordsFromTextAsset = ParseText(textAsset.text); // Загружаем в массив все слова из текстового ассета
+        wordLevelText = wordLevelButton.GetComponentInChildren<TMP_Text>();
+
+        if (GameObject.Find("Letters") == null)			// Создаем пустой объект в иерархии, чтобы спрятать туда сгенерированные буквы
 	    {
 	        GameObject wordGO = new GameObject("Letters");
 	        wordAnchor = wordGO.transform;
@@ -74,7 +78,14 @@ public class Init : MonoBehaviour
     public void Reset()				// Метод обновления уровня
     {
     	StopAllCoroutines();
+        
+        if (GameBase.G.gOs != null && GameBase.G.gOs.Count > 0)
+        {
+            foreach( GameObject g in GameBase.G.gOs ) { Destroy(g); }
+            GameBase.G.gOs.Clear();
+        }
         GameBase.G.StopAllCoroutines();
+
         ClearLetters();
         if ( GameBase.G.levelUP.gameObject.activeSelf ) GameBase.G.levelUP.gameObject.SetActive(false);
         if ( GameBase.G.gameOver.gameObject.activeSelf ) GameBase.G.gameOver.gameObject.SetActive(false);
@@ -87,14 +98,15 @@ public class Init : MonoBehaviour
         GameBase.G.phase = GamePhase.init;      // Переводим игру в фазу инициализации уровня, запрещая двигать персонажа
 	    CreateBlocks();			    // Создаем блоки деревьев и т.п.
         CreateLetters();			// Создаем буквы уровня
+        GameBase.G.TrainingView();  // Запускаем советы игры
     }
 
     public void SetupLevel( string wordLevel )
     {
-        if ( GameBase.level <= 1 ) wordLevelText.text = wordLevel;
-        else if ( GameBase.level > 1 && GameBase.level <= 3 ) wordLevelText.text = InterpretationWord( wordLevel );
-        else if ( GameBase.level > 3 && GameBase.level <= 5 ) wordLevelText.text = wordLevel;
-        else wordLevelText.text = InterpretationWord( wordLevel );
+        if ( GameBase.level <= 2 ) wordLevelText.text = wordLevel;
+        else if ( GameBase.level == 3 ) wordLevelText.text = InterpretationWord( wordLevel );
+        else if ( GameBase.level > 3 && Random.Range(0, 3) == 0 ) wordLevelText.text = InterpretationWord( wordLevel );
+        else wordLevelText.text = wordLevel;
     }
     
     private void CreateBlocks()			// Метод создания блоков препятствий
@@ -208,13 +220,19 @@ public class Init : MonoBehaviour
             let.SetChar(chars[i]);							// Устанавливаем символ для дальнейшей проверки этого свойства
 	        lets.Add(let);									// Добавляем букву в список
 		
-	        if( GameBase.level > 0 && Random.Range(0,4) == 0 ) {
+	        if( GameBase.level > 3 && Random.Range(0,4) == 0 ) {
                 Instantiate( prefabPlate, let.transform.position, Quaternion.identity, wordAnchor );    // Инициализируем объект платформы
             }
-            yield return new WaitForSeconds(.4f);           // Делаем паузу
+            yield return new WaitForSeconds(.6f);           // Делаем паузу
         }                                         
         CreateCells();                                      // Создаем конечные места букв
-	    if( GameBase.level > 0 ) CreateLeaves();            // Создаем бонус листиков в случайном доступном месте
+	    if( GameBase.level > 4 ) CreateLeaves();            // Создаем бонус листиков в случайном доступном месте
         GameBase.G.StartGame();                             // Запускаем игру
+    }
+
+    private void Update()
+    {
+        if( GameBase.G.phase != GamePhase.game ) wordLevelButton.interactable = false;
+        else wordLevelButton.interactable = true;
     }
 }

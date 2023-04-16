@@ -1262,6 +1262,7 @@ MonoBehaviour:
   _timer: {fileID: 496804720}
   init: {fileID: 519420035}
   _leaveActive: 0
+  gOs: []
 --- !u!114 &519420035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1275,7 +1276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textAsset: {fileID: 4900000, guid: c580a5def2782784cbf30605a602fbae, type: 3}
-  wordLevelText: {fileID: 565621471}
+  wordLevelButton: {fileID: 1623165278}
   prefabLetter: {fileID: 4570235006794951168, guid: bc4f577ebb6a97d4381e59718f96e239, type: 3}
   prefabCell: {fileID: 1258827677991170566, guid: af69b0ca06cff3a47b2dada72a6cfdc1, type: 3}
   prefabLeaves: {fileID: 5802254254012961828, guid: b387744bcec847a4991c0889e2c33303, type: 3}
@@ -4337,9 +4338,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 519420035}
-        m_TargetAssemblyTypeName: Init, Assembly-CSharp
-        m_MethodName: Reset
+      - m_Target: {fileID: 519420034}
+        m_TargetAssemblyTypeName: GameBase, Assembly-CSharp
+        m_MethodName: RestartLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

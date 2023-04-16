@@ -6,11 +6,15 @@ public class Letter : MonoBehaviour, IPointerClickHandler
     public Vector3 posLet { private set; get; }
     public char charLet { private set; get; }
 
-    private SpriteRenderer childRend;
+    private SpriteRenderer sRend, spinnerRend;
+    private BoxCollider2D col;
+
     private void OnEnable()
     {
         SetLetterPos(transform.position);
-        childRend = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        sRend = GetComponent<SpriteRenderer>();
+        spinnerRend = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        col = GetComponent<BoxCollider2D>();
     }
     
     public void SetLetterPos(Vector2 pos)
@@ -23,12 +27,15 @@ public class Letter : MonoBehaviour, IPointerClickHandler
         charLet = l;
     }
 
+    public bool _inWord = false;
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (GameBase.G.phase == GamePhase.game && Vector2.Distance(GameBase.G.pl.transform.position, posLet) > 1f)
+        if( eventData.button == PointerEventData.InputButton.Right ) return;
+
+        if( GameBase.G.phase == GamePhase.game && !_inWord
+            && Vector2.Distance(GameBase.G.pl.transform.position, posLet) > 1f )
         {
             GameBase.G.RemoveAtWord(this);
-            childRend.gameObject.SetActive(true);
         }
         else return;  // Отрисовка ошибочного нажатия - мигание posLet со звуком ошибки типа место занято
     }
@@ -39,7 +46,6 @@ public class Letter : MonoBehaviour, IPointerClickHandler
             && Vector2.Distance(transform.position, GameBase.G.player.destination) < 1f)
         {
             GameBase.G.AddToWord(this);
-            childRend.gameObject.SetActive(false);
         }
     }
 
@@ -51,7 +57,20 @@ public class Letter : MonoBehaviour, IPointerClickHandler
     {
         if ( _hasRotation )
         {
-            childRend.transform.localEulerAngles = new Vector3( 0, 0, -360 * rotationAnimationCurve.Evaluate( ( rotationSpeed * Time.time ) % 1 ) );
+            spinnerRend.transform.localEulerAngles = new Vector3( 0, 0, -360 * rotationAnimationCurve.Evaluate( ( rotationSpeed * Time.time ) % 1 ) );
+        }
+
+        if( _inWord )
+        {
+            sRend.color = Color.magenta;
+            spinnerRend.gameObject.SetActive(false);
+            col.isTrigger = false;
+        }
+        else
+        {
+            sRend.color = Color.white;
+            spinnerRend.gameObject.SetActive(true);
+            col.isTrigger = true;
         }
     }
 }
