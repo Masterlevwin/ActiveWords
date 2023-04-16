@@ -43,7 +43,6 @@ public class Init : MonoBehaviour
 	        blockAnchor = blockGO.transform;
 	    }
 	    table = GameObject.Find("Table").GetComponent<BoxCollider2D>();    // Сохраняем ссылку на коллайдер стола, к которому будем обращаться каждый раз, как потребуется спавнить объект
-	    InitLevel();				// Инициализируем уровень
     }
     
     private List<string> ParseText(string txt)  // Метод преобразования текста в массив строк

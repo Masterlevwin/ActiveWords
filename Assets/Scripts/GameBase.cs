@@ -33,7 +33,7 @@ public class GameBase : MonoBehaviour
     public Enemy en;
     public TimerEnemyRebirth _timer;
     private Vector2 _startTimerPosition;
-    public Init init;
+    private Init init;
     public Dictionary<Vector2, Letter> letDict;
     
     void Start()
@@ -41,11 +41,10 @@ public class GameBase : MonoBehaviour
         if (G == null) G = this;
         else if (G == this) Destroy(gameObject);
 
+        init = GetComponent<Init>();
         pl = player.GetComponent<Player>();
         en = enemy.GetComponent<Enemy>();
-
         en.DiedEnemy += CoinCreate;
-
         player.gameObject.SetActive(false);
         enemy.gameObject.SetActive(false);
 
