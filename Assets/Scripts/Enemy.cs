@@ -81,7 +81,7 @@ public class Enemy: MonoBehaviour
     
     public void SetSpeed( float _speed )
     {
-        GameBase.G.enemy.maxSpeed += (_speed - 1f);
+        GameBase.G.enemy.maxSpeed += _speed - 1f;
         if( GameBase.G.enemy.maxSpeed <= 0 ) GameBase.G.enemy.maxSpeed = 1f;
     }
 
@@ -90,38 +90,19 @@ public class Enemy: MonoBehaviour
         if (pos == startPos && !gameObject.activeSelf) gameObject.SetActive(true);
         transform.position = pos;
     }
-
-    private bool _isAttack = false;
     
     void OnTriggerEnter2D( Collider2D collision )
     {
         if (collision.gameObject.tag == "Player" )
         {
             GameBase.G.pl.Damage( attack );
-            //transform.position = (collision.transform.position - transform.position).normalized;
-            _isAttack = true;
-            //transform.position = Vector2.Reflect( transform.position, collision.transform.position );
+            SetPos( startPos );
         }
 
         if ( collision.gameObject.tag == "Leave" ) {
             SetHit( -GameBase.G.pl.attack_damage );
             collision.gameObject.SetActive( false );
             GameBase.G._leaveActive = false;
-        }
-    }
-    
-    void Update()
-    {
-        if( _isAttack )
-        {
-            Ray ray = new Ray( transform.position, transform.forward );
-            RaycastHit hit;
-            if( Physics.Raycast( ray, out hit, Time.deltaTime ) {
-                Vector2 reflectDir = Vector2.Reflect( ray.direction, hit.normal );
-                transform.position = transform.position + reflectDir;
-                
-            }
-            _isAttack = false;
         }
     }
 }

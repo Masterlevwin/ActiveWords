@@ -148,7 +148,7 @@ public class Init : MonoBehaviour
         for (int i = 0; i < lets.Count; i++) 
         {	    // Взависимости от количества букв сгенерированного слова уровня определяем позицию каждого места
             float cen = (float)lets.Count / 2.5f;
-            cellPos = new Vector2( .8f - cen + i * .8f, -4.5f );
+            cellPos = new Vector2( .8f - cen + i * .8f, -4f );
             c = Instantiate(prefabCell, cellPos, Quaternion.identity, cellAnchor);	// Создаем конечное место буквы
             c.GetComponent<SpriteRenderer>().sprite = cells[0];				        // Определяем спрайт этого места
             letPositions.Add(cellPos);							                    // Добавляем это место в список позиций
