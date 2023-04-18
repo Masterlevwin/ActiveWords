@@ -86,6 +86,9 @@ public class Init : MonoBehaviour
         GameBase.G.StopAllCoroutines();
 
         ClearLetters();
+        if ( GameBase.G._timer.gameObject.activeSelf ) GameBase.G._timer.StopTimer();
+        if ( GameBase.G.player.gameObject.activeSelf ) GameBase.G.player.gameObject.SetActive(false);
+        if ( GameBase.G.enemy.gameObject.activeSelf ) GameBase.G.enemy.gameObject.SetActive(false);
         if ( GameBase.G.levelUP.gameObject.activeSelf ) GameBase.G.levelUP.gameObject.SetActive(false);
         if ( GameBase.G.gameOver.gameObject.activeSelf ) GameBase.G.gameOver.gameObject.SetActive(false);
 	    if ( GameBase.G.continueArea.gameObject.activeSelf ) GameBase.G.continueArea.gameObject.SetActive(false);

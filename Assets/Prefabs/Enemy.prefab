@@ -445,7 +445,7 @@ MonoBehaviour:
   enableRotation: 0
   autoRepath:
     mode: 1
-    interval: 1
+    interval: 0.5
     sensitivity: 10
     maximumInterval: 5
     visualizeSensitivity: 0
