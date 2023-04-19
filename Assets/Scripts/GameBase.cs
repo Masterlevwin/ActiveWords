@@ -93,8 +93,10 @@ public class GameBase : MonoBehaviour
         levelText.text = $"{level}";
         gameOver.gameObject.SetActive(true);
         gameOver.gameObject.GetComponentInChildren<TMP_Text>().text = $"Вы достигли {level} уровня. Вы - {Status()}";
+        player.maxSpeed = 5;
         pl.ResetProperties();
         pl.SetLeavesCount( pl.leaves_count );
+        enemy.maxSpeed = 2;
         en.ResetProperties();
         coins_count = 0;
     }
