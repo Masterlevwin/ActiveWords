@@ -80,6 +80,7 @@ public class GameBase : MonoBehaviour
 
     private void Win()
     {
+        //SoundManager.PlaySound("Magic Spell_Coins_2");
         level++;
         levelText.text = $"{level}";
         if( level > 5 ) levelUP.gameObject.SetActive(true);
@@ -90,6 +91,7 @@ public class GameBase : MonoBehaviour
     
     private void Lose()
     {
+        //SoundManager.PlaySound("Dragon Spit Fire 1");
         level--;
         if (level < 0) level = 0;
         levelText.text = $"{level}";

@@ -32,12 +32,15 @@ public class Letter : MonoBehaviour, IPointerClickHandler
     {
         if( eventData.button == PointerEventData.InputButton.Right ) return;
 
-        if( GameBase.G.phase == GamePhase.game && !_inWord
-            && Vector2.Distance(GameBase.G.pl.transform.position, posLet) > 1f )
+        if (GameBase.G.phase == GamePhase.game && !_inWord
+            && Vector2.Distance(GameBase.G.pl.transform.position, posLet) > 1f)
         {
             GameBase.G.RemoveAtWord(this);
         }
-        else return;  // Отрисовка ошибочного нажатия - мигание posLet со звуком ошибки типа место занято
+        else {
+            SoundManager.PlaySound("Infect");
+            return;  // Отрисовка ошибочного нажатия - мигание posLet со звуком ошибки типа место занято
+        }
     }
     
     void OnTriggerEnter2D(Collider2D collision)
@@ -45,6 +48,7 @@ public class Letter : MonoBehaviour, IPointerClickHandler
         if (collision.gameObject.tag == "Player"
             && Vector2.Distance(transform.position, GameBase.G.player.destination) < 1f)
         {
+            SoundManager.PlaySound("Click1");
             GameBase.G.AddToWord(this);
         }
     }

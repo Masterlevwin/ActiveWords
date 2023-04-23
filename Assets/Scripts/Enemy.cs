@@ -55,7 +55,7 @@ public class Enemy: MonoBehaviour
         DiedEnemy?.Invoke( gameObject, 10, rebirth );
         gameObject.SetActive(false);
         SetHit( max_health );
-
+        Waiter.Wait( rebirth - 1, () => { SoundManager.PlaySound("Magic Spell_Short Reverse_1"); } );
         Waiter.Wait( rebirth, () =>
         {
             if( GameBase.G.phase == GamePhase.game ) {
@@ -63,6 +63,7 @@ public class Enemy: MonoBehaviour
                 max_health = health;
                 gameObject.SetActive(true);
                 GameBase.G.enemy.SearchPath();
+                SoundManager.PlaySound("Magic Spell_Short Reverse_1");
             }
         });
     }
@@ -89,6 +90,7 @@ public class Enemy: MonoBehaviour
     {
         if (pos == startPos && !gameObject.activeSelf) gameObject.SetActive(true);
         transform.position = pos;
+        SoundManager.PlaySound("Magic Spell_Short Reverse_1");
     }
     
     void OnTriggerEnter2D( Collider2D collision )
@@ -103,6 +105,7 @@ public class Enemy: MonoBehaviour
             SetHit( -GameBase.G.pl.attack_damage );
             collision.gameObject.SetActive( false );
             GameBase.G._leaveActive = false;
+            SoundManager.PlaySound("Laser Impact Light_6");
         }
     }
 }

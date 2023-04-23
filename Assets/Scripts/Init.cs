@@ -76,7 +76,8 @@ public class Init : MonoBehaviour
 
     public void Reset()				// Метод обновления уровня
     {
-    	StopAllCoroutines();
+        //SoundManager.PlaySound("Magic Spell_Coins_2");
+        StopAllCoroutines();
         
         if (GameBase.G.gOs != null && GameBase.G.gOs.Count > 0)
         {
@@ -228,7 +229,7 @@ public class Init : MonoBehaviour
             yield return new WaitForSeconds(.6f);           // Делаем паузу
         }                                         
         CreateCells();                                      // Создаем конечные места букв
-	    if( GameBase.level > 4 ) CreateLeaves();            // Создаем бонус листиков в случайном доступном месте
+	    if( GameBase.level > 0 ) CreateLeaves();            // Создаем бонус листиков в случайном доступном месте
         GameBase.G.StartGame();                             // Запускаем игру
     }
 
