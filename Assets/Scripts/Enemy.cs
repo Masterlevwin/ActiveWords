@@ -47,6 +47,7 @@ public class Enemy: MonoBehaviour
         health += _hp;
         txtHp.text = $"{health}";
         hpImg.fillAmount = health / max_health;
+        GameBase.G.FlyDamage( this.gameObject, _hp );
         if( health <= 0 ) Died();
     }
     
