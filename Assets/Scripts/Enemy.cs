@@ -15,7 +15,8 @@ public class Enemy: MonoBehaviour
     
     private Image hpImg;
     private TMP_Text txtHp;
-
+    private TMP_Text txtAtt;
+    
     private Vector2 startPos;
     private Action<float>[] actions;
     
@@ -25,7 +26,7 @@ public class Enemy: MonoBehaviour
     {
         hpImg = GetComponentsInChildren<Image>()[1];
         txtHp = GetComponentsInChildren<TMP_Text>()[0];
-        
+        txtAtt = GetComponentsInChildren<TMP_Text>()[2];
         startPos = transform.position;
         ResetProperties();
         actions = new Action<float>[] { SetHit, SetAttack, SetRebirth, SetSpeed } ;
@@ -33,6 +34,7 @@ public class Enemy: MonoBehaviour
     
     public void ResetProperties()
     {
+        transform.localScale = Vector3.one;
         health = 0;
         attack = 0;
         rebirth = 0;
@@ -73,6 +75,7 @@ public class Enemy: MonoBehaviour
     {
         attack += _attack;
         if( attack <= 0 ) attack = 1f;
+        txtAtt.text = $"{attack}";
     }
     
     public void SetRebirth( float _rebirth )
@@ -85,13 +88,14 @@ public class Enemy: MonoBehaviour
     {
         GameBase.G.enemy.maxSpeed += _speed - 1f;
         if( GameBase.G.enemy.maxSpeed <= 0 ) GameBase.G.enemy.maxSpeed = 1f;
+        transform.localScale *= .1f;
     }
 
-    public void SetPos(Vector2 pos)
+    public void SetPos( Vector2 pos )
     {
-        if (pos == startPos && !gameObject.activeSelf) gameObject.SetActive(true);
+        if( pos == startPos && !gameObject.activeSelf ) gameObject.SetActive(true);
         transform.position = pos;
-        SoundManager.PlaySound("Magic Spell_Short Reverse_1");
+        SoundManager.PlaySound( "Magic Spell_Short Reverse_1" );
     }
     
     void OnTriggerEnter2D( Collider2D collision )
