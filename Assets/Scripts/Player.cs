@@ -61,6 +61,7 @@ public class Player : MonoBehaviour
     public void Damage( float dmg )
     {
         hitPlayer -= dmg;
+	GameBase.G.FlyDamage( this.gameObject, dmg );
         SetHit( hitPlayer );
     }
     
