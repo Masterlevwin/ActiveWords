@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using Pathfinding;
-using Unity.VisualScripting;
 
 public enum GamePhase
 {
