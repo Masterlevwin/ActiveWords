@@ -27,7 +27,7 @@ public class GameBase : MonoBehaviour
     public Image continueArea, levelUP, gameOver;
 
     public AIPath player, enemy;
-    public GameObject leavePrefab, coinPrefab, trainingPrefab;
+    public GameObject leavePrefab, coinPrefab, trainingPrefab, damagePrefab;
     public Player pl;
     public Enemy en;
     public TimerEnemyRebirth _timer;
@@ -199,9 +199,16 @@ public class GameBase : MonoBehaviour
     public void PlateMove( GameObject go, bool b )
     {
         if ( b ) StartCoroutine( Move( go, go.transform.position + Vector3.up, .1f ) );
-        else StartCoroutine(Move(go, go.transform.position + Vector3.down, .3f));
+        else StartCoroutine ( Move( go, go.transform.position + Vector3.down, .3f ) );
     }
 
+    public void FlyDamage( GameObject go, float damage )
+    {
+        FlyDamage _flyDamage = Instantiate( damagePrefab, go.transform.position );
+        _flyDamage.SetDamage( damage );
+        StartCoroutine( Move( _flyDamage.gameObject, _flyDamage.transform.position + Vector3.up, , () => { Destroy( _flyDamage.gameObject ); } ) );
+    }
+    
     public List<GameObject> gOs = new List<GameObject>();
     private IEnumerator Move( GameObject go, Vector2 endPosition, float speed = 1f, Action action = null )
     {
@@ -212,7 +219,7 @@ public class GameBase : MonoBehaviour
             go.transform.position = Vector2.MoveTowards( go.transform.position, endPosition, step );
             yield return null;
         }
-        if (!go.GetComponent<Letter>()) gOs.Remove( go );
+        if( !go.GetComponent<Letter>() ) gOs.Remove( go );
         action?.Invoke();
     }
     
