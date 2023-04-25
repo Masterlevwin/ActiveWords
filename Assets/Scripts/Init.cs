@@ -117,7 +117,7 @@ public class Init : MonoBehaviour
     	int numBlocks = Random.Range(1, 10);	// Выбираем случайное количество блоков
 	    for (int i = 0; i < numBlocks; i++)
 	    {
-            Instantiate( animBlocks[Random.Range( 0, animBlocks.Length )], Spawn(), Quaternion.identity, blockAnchor );
+            Instantiate( animBlocks[Random.Range( 0, animBlocks.Length )], Spawn(1f), Quaternion.identity, blockAnchor );
         } 
     }
     
@@ -126,20 +126,20 @@ public class Init : MonoBehaviour
     	Instantiate( prefabLeaves, Spawn(), Quaternion.identity, blockAnchor );
     }
 
-    public Vector2 Spawn()						    // Метод генерации случайной точки спавна
+    public Vector2 Spawn( float size = 2f )					// Метод генерации случайной точки спавна
     {
-    	float x, y;								    // Выбираем случайные значения в пределах стола, основываясь на костях его коллайдера
+    	float x, y;								// Выбираем случайные значения в пределах стола, основываясь на костях его коллайдера
 	    x = Random.Range(table.transform.position.x - Random.Range(0, table.bounds.extents.x), table.transform.position.x + Random.Range(0, table.bounds.extents.x));
 	    y = Random.Range(table.transform.position.y - Random.Range(0, table.bounds.extents.y), table.transform.position.y + Random.Range(0, table.bounds.extents.y));
-	    Vector2 spawnPoint = new Vector2(x, y);		// Создаем точку спавна
-	    if (Point(spawnPoint)) return spawnPoint;	// Если точка доступна, возвращаем её из метода,
+	    Vector2 spawnPoint = new Vector2(x, y);				// Создаем точку спавна
+	    if( Point( spawnPoint, size ) ) return spawnPoint;			// Если точка доступна, возвращаем её из метода,
 	    else return Spawn();						// иначе ищем снова доступную точку
 	
-	    bool Point(Vector2 spawn)					// Внутренний метод проверки доступности точки
+	    bool Point( Vector2 spawn, float _size )				// Внутренний метод проверки доступности точки
 	    {
-	        Vector2 size = new Vector2(2f, 2f);		// Дистанция коллайдеров между объектами
-	        cols = Physics2D.OverlapBoxAll(spawn, size, 0f, obtacleMask);	// Определяем массив коллайдеров на столе,пересекающий точку спавна в данный момент
-	        if (cols.Length > 0) return false;		// Если такие коллайдеры есть, точка спавна не доступна,
+	        Vector2 sizeV = new Vector2( _size, _size );			// Дистанция коллайдеров между объектами
+	        cols = Physics2D.OverlapBoxAll(spawn, sizeV, 0f, obtacleMask);	// Определяем массив коллайдеров на столе,пересекающий точку спавна в данный момент
+	        if (cols.Length > 0) return false;				// Если такие коллайдеры есть, точка спавна не доступна,
 	        else return true;						// иначе доступна
 	    }
     }
