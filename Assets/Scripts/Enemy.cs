@@ -26,7 +26,7 @@ public class Enemy: MonoBehaviour
     {
         hpImg = GetComponentsInChildren<Image>()[1];
         txtHp = GetComponentsInChildren<TMP_Text>()[0];
-        txtAtt = GetComponentsInChildren<TMP_Text>()[2];
+        txtAtt = GetComponentsInChildren<TMP_Text>()[1];
         startPos = transform.position;
         ResetProperties();
         actions = new Action<float>[] { SetHit, SetAttack, SetRebirth, SetSpeed } ;
@@ -49,7 +49,6 @@ public class Enemy: MonoBehaviour
         health += _hp;
         txtHp.text = $"{health}";
         hpImg.fillAmount = health / max_health;
-        GameBase.G.FlyDamage( this.gameObject, _hp );
         if( health <= 0 ) Died();
     }
     
@@ -103,11 +102,13 @@ public class Enemy: MonoBehaviour
         if (collision.gameObject.tag == "Player" )
         {
             GameBase.G.pl.Damage( attack );
+            GameBase.G.FlyDamage( GameBase.G.pl.gameObject, attack );
             SetPos( startPos );
         }
 
         if ( collision.gameObject.tag == "Leave" ) {
             SetHit( -GameBase.G.pl.attack_damage );
+            GameBase.G.FlyDamage(gameObject, GameBase.G.pl.attack_damage );
             collision.gameObject.SetActive( false );
             GameBase.G._leaveActive = false;
             SoundManager.PlaySound("Laser Impact Light_6");

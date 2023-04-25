@@ -27,7 +27,8 @@ public class GameBase : MonoBehaviour
     public Image continueArea, levelUP, gameOver;
 
     public AIPath player, enemy;
-    public GameObject leavePrefab, coinPrefab, trainingPrefab, damagePrefab;
+    public GameObject leavePrefab, coinPrefab, trainingPrefab;
+    public FlyDamage damagePrefab;
     public Player pl;
     public Enemy en;
     public TimerEnemyRebirth _timer;
@@ -204,9 +205,10 @@ public class GameBase : MonoBehaviour
 
     public void FlyDamage( GameObject go, float damage )
     {
-        FlyDamage _flyDamage = Instantiate( damagePrefab, go.transform.position );
-        _flyDamage.SetDamage( damage );
-        StartCoroutine( Move( _flyDamage.gameObject, _flyDamage.transform.position + Vector3.up, , () => { Destroy( _flyDamage.gameObject ); } ) );
+        FlyDamage _flyDamage = Instantiate( damagePrefab, go.transform.position, Quaternion.identity );
+        _flyDamage.GetComponent<TMP_Text>().text = damage.ToString();
+        //_flyDamage.SetDamage( damage );
+        StartCoroutine( Move( _flyDamage.gameObject, coinText.gameObject.transform.position, 1f, () => { Destroy( _flyDamage.gameObject ); } ) );
     }
     
     public List<GameObject> gOs = new List<GameObject>();

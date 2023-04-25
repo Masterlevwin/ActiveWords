@@ -61,7 +61,6 @@ public class Player : MonoBehaviour
     public void Damage( float dmg )
     {
         hitPlayer -= dmg;
-	GameBase.G.FlyDamage( this.gameObject, dmg );
         SetHit( hitPlayer );
     }
     
@@ -74,6 +73,7 @@ public class Player : MonoBehaviour
     public void Boom()
     {
 	    Damage(1);
+        GameBase.G.FlyDamage(gameObject, 1);
         gameObject.SetActive(false);
 	    if( GameBase.G.phase != GamePhase.complete ) {
 	        GameBase.G._timer.BeginTimer( startPos, 3f );
