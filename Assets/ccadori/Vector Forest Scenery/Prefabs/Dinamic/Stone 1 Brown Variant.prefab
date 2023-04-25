@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 812610704011719143, guid: 411fd9c3f5ca15b49a058ff75af5542d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1828164993209728408, guid: 411fd9c3f5ca15b49a058ff75af5542d, type: 3}
       propertyPath: m_Name
       value: Stone 1 Brown Variant

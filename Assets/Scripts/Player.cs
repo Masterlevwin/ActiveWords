@@ -73,7 +73,7 @@ public class Player : MonoBehaviour
     public void Boom()
     {
 	    Damage(1);
-        GameBase.G.FlyDamage(gameObject, 1);
+        GameBase.G.FlyDamage( gameObject, 1f );
         gameObject.SetActive(false);
 	    if( GameBase.G.phase != GamePhase.complete ) {
 	        GameBase.G._timer.BeginTimer( startPos, 3f );
@@ -92,6 +92,7 @@ public class Player : MonoBehaviour
     {
         if( collision.gameObject.tag == "Leaves" ) {
             if( !leaveImg.gameObject.activeSelf ) leaveImg.gameObject.SetActive(true);
+            SoundManager.PlaySound("DragLeaves");
             SetLeavesCount( -10f );
             Destroy( collision.gameObject );
         }

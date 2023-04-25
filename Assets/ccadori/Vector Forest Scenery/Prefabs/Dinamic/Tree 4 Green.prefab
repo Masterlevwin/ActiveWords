@@ -325,7 +325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  uniqueID: 8045614038130433541
+  uniqueID: 2215280398402357292
   updateError: 1
   checkTime: 0.2
 --- !u!1 &1967415704172327279
@@ -1055,6 +1055,10 @@ PrefabInstance:
     - target: {fileID: 782005568822417169, guid: e98128221820fdf46b8f6f0251cfef59, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4224888799684098208, guid: e98128221820fdf46b8f6f0251cfef59, type: 3}
+      propertyPath: looping
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5627996312324513117, guid: e98128221820fdf46b8f6f0251cfef59, type: 3}
       propertyPath: m_RootOrder

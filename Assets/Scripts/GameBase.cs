@@ -28,7 +28,7 @@ public class GameBase : MonoBehaviour
 
     public AIPath player, enemy;
     public GameObject leavePrefab, coinPrefab, trainingPrefab;
-    public FlyDamage damagePrefab;
+    public TMP_Text damagePrefab;
     public Player pl;
     public Enemy en;
     public TimerEnemyRebirth _timer;
@@ -80,7 +80,7 @@ public class GameBase : MonoBehaviour
 
     private void Win()
     {
-        //SoundManager.PlaySound("Magic Spell_Coins_2");
+        SoundManager.PlaySound("WinLevel");
         level++;
         levelText.text = $"{level}";
         if( level > 5 ) levelUP.gameObject.SetActive(true);
@@ -91,7 +91,7 @@ public class GameBase : MonoBehaviour
     
     private void Lose()
     {
-        //SoundManager.PlaySound("Dragon Spit Fire 1");
+        SoundManager.PlaySound("LoseLevel");
         level--;
         if (level < 0) level = 0;
         levelText.text = $"{level}";
@@ -205,10 +205,10 @@ public class GameBase : MonoBehaviour
 
     public void FlyDamage( GameObject go, float damage )
     {
-        FlyDamage _flyDamage = Instantiate( damagePrefab, go.transform.position, Quaternion.identity );
-        _flyDamage.GetComponent<TMP_Text>().text = damage.ToString();
-        //_flyDamage.SetDamage( damage );
-        StartCoroutine( Move( _flyDamage.gameObject, coinText.gameObject.transform.position, 1f, () => { Destroy( _flyDamage.gameObject ); } ) );
+        TMP_Text _flyDamage = Instantiate( damagePrefab, go.transform.position, Quaternion.identity, FindObjectOfType<Canvas>().transform );
+        _flyDamage.text = damage.ToString();
+        //Vector3 pos = _flyDamage.gameObject.transform.position + Vector3.up * 2;
+        StartCoroutine( Move( _flyDamage.gameObject, coinText.gameObject.transform.position, 1f, () => { Destroy( _flyDamage.gameObject );} ) );
     }
     
     public List<GameObject> gOs = new List<GameObject>();

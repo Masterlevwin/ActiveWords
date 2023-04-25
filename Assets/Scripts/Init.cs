@@ -76,7 +76,7 @@ public class Init : MonoBehaviour
 
     public void Reset()				// Метод обновления уровня
     {
-        //SoundManager.PlaySound("Magic Spell_Coins_2");
+        SoundManager.PlaySound("ChangeLevel");
         StopAllCoroutines();
         
         if (GameBase.G.gOs != null && GameBase.G.gOs.Count > 0)
@@ -117,7 +117,7 @@ public class Init : MonoBehaviour
     	int numBlocks = Random.Range(1, 10);	// Выбираем случайное количество блоков
 	    for (int i = 0; i < numBlocks; i++)
 	    {
-            Instantiate( animBlocks[Random.Range( 0, animBlocks.Length )], Spawn(1f), Quaternion.identity, blockAnchor );
+            Instantiate( animBlocks[Random.Range( 0, animBlocks.Length )], Spawn(4f), Quaternion.identity, blockAnchor );
         } 
     }
     

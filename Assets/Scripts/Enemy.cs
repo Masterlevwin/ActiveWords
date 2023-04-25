@@ -57,7 +57,7 @@ public class Enemy: MonoBehaviour
         DiedEnemy?.Invoke( gameObject, 10, rebirth );
         gameObject.SetActive(false);
         SetHit( max_health );
-        Waiter.Wait( rebirth - 1, () => { SoundManager.PlaySound("Magic Spell_Short Reverse_1"); } );
+        Waiter.Wait( rebirth - 1, () => { SoundManager.PlaySound("RebirthEnemy"); } );
         Waiter.Wait( rebirth, () =>
         {
             if( GameBase.G.phase == GamePhase.game ) {
@@ -65,7 +65,6 @@ public class Enemy: MonoBehaviour
                 max_health = health;
                 gameObject.SetActive(true);
                 GameBase.G.enemy.SearchPath();
-                SoundManager.PlaySound("Magic Spell_Short Reverse_1");
             }
         });
     }
@@ -87,7 +86,7 @@ public class Enemy: MonoBehaviour
     {
         GameBase.G.enemy.maxSpeed += _speed - 1f;
         if( GameBase.G.enemy.maxSpeed <= 0 ) GameBase.G.enemy.maxSpeed = 1f;
-        transform.localScale *= .1f;
+        transform.localScale *= 1.1f;
     }
 
     public void SetPos( Vector2 pos )
@@ -108,10 +107,10 @@ public class Enemy: MonoBehaviour
 
         if ( collision.gameObject.tag == "Leave" ) {
             SetHit( -GameBase.G.pl.attack_damage );
-            GameBase.G.FlyDamage(gameObject, GameBase.G.pl.attack_damage );
+            GameBase.G.FlyDamage( gameObject, GameBase.G.pl.attack_damage );
             collision.gameObject.SetActive( false );
             GameBase.G._leaveActive = false;
-            SoundManager.PlaySound("Laser Impact Light_6");
+            SoundManager.PlaySound("BirdPunch");
         }
     }
 }

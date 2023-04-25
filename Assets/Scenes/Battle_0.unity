@@ -2024,7 +2024,7 @@ MonoBehaviour:
   leavePrefab: {fileID: 8318589681344882108, guid: 03e8321cf020fea4bba4aff04139fb9a, type: 3}
   coinPrefab: {fileID: 6245005728011083082, guid: a75a8f35e9b07e34d96d543fa689a1c4, type: 3}
   trainingPrefab: {fileID: 1672288668}
-  damagePrefab: {fileID: 2210213187048065518, guid: b1c84e3023a0b26438005362c582ca01, type: 3}
+  damagePrefab: {fileID: 3451951313955071202, guid: b1c84e3023a0b26438005362c582ca01, type: 3}
   pl: {fileID: 0}
   en: {fileID: 0}
   _timer: {fileID: 496804720}
@@ -6501,14 +6501,6 @@ PrefabInstance:
     - target: {fileID: 1258084832210441997, guid: b1643bfdea963d644b378feb3eff2137, type: 3}
       propertyPath: m_Name
       value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 4190259097155402878, guid: b1643bfdea963d644b378feb3eff2137, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: -20
-      objectReference: {fileID: 0}
-    - target: {fileID: 4190259097155402878, guid: b1643bfdea963d644b378feb3eff2137, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

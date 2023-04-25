@@ -48,7 +48,7 @@ public class Letter : MonoBehaviour, IPointerClickHandler
         if (collision.gameObject.tag == "Player"
             && Vector2.Distance(transform.position, GameBase.G.player.destination) < 1f)
         {
-            SoundManager.PlaySound("Click1");
+            SoundManager.PlaySound("Collect");
             GameBase.G.AddToWord(this);
         }
     }
