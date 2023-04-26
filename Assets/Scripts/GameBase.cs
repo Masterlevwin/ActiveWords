@@ -209,9 +209,11 @@ public class GameBase : MonoBehaviour
         _flyDamage.text = damage.ToString();
         //Vector3 pos = _flyDamage.gameObject.transform.position + Vector3.up * 2;
         StartCoroutine( Move( _flyDamage.gameObject, coinText.gameObject.transform.position, 1f, () => { Destroy( _flyDamage.gameObject );} ) );
+        
+        //_flyDamage.GetComponent<FlyDamage>().SetDamage( Mathf.Abs( damage ), go );
     }
     
-    public List<GameObject> gOs = new List<GameObject>();
+    public List<GameObject> gOs = new ();
     private IEnumerator Move( GameObject go, Vector2 endPosition, float speed = 1f, Action action = null )
     {
         if( !go.GetComponent<Letter>() ) gOs.Add( go );
