@@ -211,6 +211,8 @@ public class GameBase : MonoBehaviour
         StartCoroutine( Move( _flyDamage.gameObject, coinText.gameObject.transform.position, 1f, () => { Destroy( _flyDamage.gameObject );} ) );
         
         //_flyDamage.GetComponent<FlyDamage>().SetDamage( Mathf.Abs( damage ), go );
+        // FlyDamage _fD = new FlyDamage( damage.ToString() );
+        // _fD.transform.position = go.transform.position;
     }
     
     public List<GameObject> gOs = new ();
