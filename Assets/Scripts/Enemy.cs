@@ -113,4 +113,9 @@ public class Enemy: MonoBehaviour
             SoundManager.PlaySound("BirdPunch");
         }
     }
+    
+    void Update()
+    {
+        transform.LookAt(GameBase.G.pl.transform);
+    }
 }
