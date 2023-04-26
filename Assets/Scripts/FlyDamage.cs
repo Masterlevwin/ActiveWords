@@ -9,11 +9,6 @@ public class FlyDamage : MonoBehaviour
     private string damageView;
     private Vector3 start;
     
-    public FlyDamage( string damage )
-    {
-        damageView = damage;
-    }
-    
     private void Start()
     {
         damageText = GetComponent<TMP_Text>();
