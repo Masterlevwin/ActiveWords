@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
 using Pathfinding;
 
 public enum GamePhase
@@ -28,7 +27,7 @@ public class GameBase : MonoBehaviour
 
     public AIPath player, enemy;
     public GameObject leavePrefab, coinPrefab, trainingPrefab;
-    public TMP_Text damagePrefab;
+    public FlyDamage damagePrefab;
     public Player pl;
     public Enemy en;
     public TimerEnemyRebirth _timer;
@@ -80,7 +79,7 @@ public class GameBase : MonoBehaviour
 
     private void Win()
     {
-        SoundManager.PlaySound("WinLevel");
+        SoundManager.PlaySound("FinishWork");
         level++;
         levelText.text = $"{level}";
         if( level > 5 ) levelUP.gameObject.SetActive(true);
@@ -177,7 +176,7 @@ public class GameBase : MonoBehaviour
                 break;
             }
         }
-        if( init.lets.Count != 0 && letDict.Count == init.lets.Count ) CompleteGame();
+        if( init.lets.Count != 0 && letDict.Count == init.lets.Count ) Waiter.Wait( .5f, () => { CompleteGame(); } );
     }
 
     public bool _leaveActive = false;
@@ -205,12 +204,9 @@ public class GameBase : MonoBehaviour
 
     public void FlyDamage( GameObject go, float damage )
     {
-        TMP_Text _flyDamage = Instantiate( damagePrefab, go.transform.position, Quaternion.identity, FindObjectOfType<Canvas>().transform );
-        _flyDamage.text = damage.ToString();
-        //Vector3 pos = _flyDamage.gameObject.transform.position + Vector3.up * 2;
-        StartCoroutine( Move( _flyDamage.gameObject, coinText.gameObject.transform.position, 1f, () => { Destroy( _flyDamage.gameObject );} ) );
-        
-        //_flyDamage.GetComponent<FlyDamage>().SetDamage( Mathf.Abs( damage ), go );
+        FlyDamage _flyDamage = Instantiate( damagePrefab, go.transform.position,
+            Quaternion.identity, FindObjectOfType<Canvas>().transform );       
+        _flyDamage.SetDamage( Mathf.Abs( damage ) );
     }
     
     public List<GameObject> gOs = new ();

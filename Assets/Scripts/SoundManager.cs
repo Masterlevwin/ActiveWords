@@ -21,7 +21,7 @@ public class SoundManager : MonoBehaviour
     void Awake()
     {
         musicVolume = 1;
-        soundVolume = .3f;
+        soundVolume = .7f;
         _instance = this;
     }
 

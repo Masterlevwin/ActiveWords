@@ -57,7 +57,7 @@ public class Enemy: MonoBehaviour
         DiedEnemy?.Invoke( gameObject, 10, rebirth );
         gameObject.SetActive(false);
         SetHit( max_health );
-        Waiter.Wait( rebirth - 1, () => { SoundManager.PlaySound("RebirthEnemy"); } );
+        Waiter.Wait( rebirth - 1, () => { if (GameBase.G.phase == GamePhase.game) SoundManager.PlaySound("RebirthEnemy"); } );
         Waiter.Wait( rebirth, () =>
         {
             if( GameBase.G.phase == GamePhase.game ) {
@@ -93,7 +93,7 @@ public class Enemy: MonoBehaviour
     {
         if( pos == startPos && !gameObject.activeSelf ) gameObject.SetActive(true);
         transform.position = pos;
-        SoundManager.PlaySound( "Magic Spell_Short Reverse_1" );
+        if (GameBase.G.phase == GamePhase.game) SoundManager.PlaySound( "Magic Spell_Short Reverse_1" );
     }
     
     void OnTriggerEnter2D( Collider2D collision )
@@ -112,10 +112,5 @@ public class Enemy: MonoBehaviour
             GameBase.G._leaveActive = false;
             SoundManager.PlaySound("BirdPunch");
         }
-    }
-    
-    void Update()
-    {
-        transform.LookAt(GameBase.G.pl.transform);
     }
 }

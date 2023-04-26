@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class Plate : MonoBehaviour
 {
@@ -43,7 +42,7 @@ public class Plate : MonoBehaviour
             _trunk.transform.position = Vector2.MoveTowards( _trunk.transform.position, _endPosition, Time.deltaTime );
             _trunk.transform.rotation = Quaternion.Slerp( _trunk.transform.rotation, _endRotation, Time.deltaTime );
 
-            if (Vector2.Distance( _trunk.transform.localPosition, _startPosition) >= 3f )
+            if( Vector2.Distance( _trunk.transform.localPosition, _startPosition ) >= 3f )
             {
                 GameBase.G.pl.Boom(); 
                 _isMove = false; // добавить звук
