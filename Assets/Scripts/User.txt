@@ -130,3 +130,4 @@ Enemy.cs - заменить на Player.cs у врага;
 Добавить мигающий спиннер или эффект в стартовой позиции буквы, если эта позиция занята;
 
 Чтобы добавить игру в Яндекс игры, она должна быть сделана на платформе WebGL, проверить наличие файла index.html;
+https://unityhub.ru/guides/kak-nastroit-bild-webgl-i-zagruzit-igru-v-yandeks-igry_27
