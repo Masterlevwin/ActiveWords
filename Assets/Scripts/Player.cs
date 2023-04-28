@@ -61,6 +61,7 @@ public class Player : MonoBehaviour
     public void Damage( float dmg )
     {
         hitPlayer -= dmg;
+	GameBase.G.FlyDamage( gameObject, dmg );
         SetHit( hitPlayer );
     }
     
@@ -70,15 +71,15 @@ public class Player : MonoBehaviour
         transform.position = pos;
     }
     
-    public void Boom()
+    public void Boom( float dmg = 1f )
     {
-	    Damage(1);
-        GameBase.G.FlyDamage( gameObject, 1f );
+    	Damage( dmg );
+	SoundManager.PlaySound("ShotLeave");
         gameObject.SetActive(false);
-	    if( GameBase.G.phase != GamePhase.complete ) {
-	        GameBase.G._timer.BeginTimer( startPos, 3f );
+	if( GameBase.G.phase != GamePhase.complete ) {
+	    GameBase.G._timer.BeginTimer( startPos, 3f );
             Waiter.Wait( 3f, () => { gameObject.SetActive(true); SetPos( startPos ); } );
-	    }
+	}
     }
     
     public void SetLeavesCount( float lv )
