@@ -44,7 +44,7 @@ public class Plate : MonoBehaviour
             if( Vector2.Distance( _trunk.transform.localPosition, _startPosition ) >= 3f )
             {
                 GameBase.G.pl.Boom(); 
-                _isMove = false; // добавить звук
+                _isMove = false;
             }
         }
         else 
