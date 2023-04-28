@@ -101,7 +101,6 @@ public class Enemy: MonoBehaviour
         if (collision.gameObject.tag == "Player" )
         {
             GameBase.G.pl.Damage( attack );
-            GameBase.G.FlyDamage( GameBase.G.pl.gameObject, attack );
             SetPos( startPos );
         }
 
