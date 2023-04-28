@@ -61,6 +61,7 @@ public class Player : MonoBehaviour
     public void Damage( float dmg )
     {
         hitPlayer -= dmg;
+	SoundManager.PlaySound("Bloody punch");
 	GameBase.G.FlyDamage( gameObject, dmg );
         SetHit( hitPlayer );
     }
@@ -74,7 +75,6 @@ public class Player : MonoBehaviour
     public void Boom( float dmg = 1f )
     {
     	Damage( dmg );
-	SoundManager.PlaySound("ShotLeave");
         gameObject.SetActive(false);
 	if( GameBase.G.phase != GamePhase.complete ) {
 	    GameBase.G._timer.BeginTimer( startPos, 3f );
