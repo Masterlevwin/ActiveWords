@@ -57,7 +57,6 @@ public class Enemy: MonoBehaviour
         DiedEnemy?.Invoke( gameObject, 10, rebirth );
         gameObject.SetActive(false);
         SetHit( max_health );
-        Waiter.Wait( rebirth - 1, () => { if (GameBase.G.phase == GamePhase.game) SoundManager.PlaySound("RebirthEnemy"); } );
         Waiter.Wait( rebirth, () =>
         {
             if( GameBase.G.phase == GamePhase.game ) {
@@ -65,6 +64,7 @@ public class Enemy: MonoBehaviour
                 max_health = health;
                 gameObject.SetActive(true);
                 GameBase.G.enemy.SearchPath();
+                SoundManager.PlaySound("RebirthEnemy");
             }
         });
     }
