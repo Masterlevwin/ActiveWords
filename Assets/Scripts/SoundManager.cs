@@ -69,7 +69,6 @@ public class SoundManager : MonoBehaviour
             Debug.Log(_instance + " :: Music null.");
             return;
         }
-
         StartCoroutine(GetMusic(musicName, loop));
     }
 

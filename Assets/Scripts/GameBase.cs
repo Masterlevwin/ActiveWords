@@ -61,7 +61,7 @@ public class GameBase : MonoBehaviour
         pl.maxHit = pl.hitPlayer;
         
         _timer.BeginTimer( _startTimerPosition, 4f );
-        Waiter.Wait( 4f, () => { phase = GamePhase.game; trainingPrefab.SetActive(false); } );
+        Waiter.Wait( 4f, () => { phase = GamePhase.game; trainingPrefab.SetActive(false); SoundManager.PlaySound("MissCloud"); } );
     }
     
     public void CompleteGame()

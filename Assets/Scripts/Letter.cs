@@ -38,7 +38,7 @@ public class Letter : MonoBehaviour, IPointerClickHandler
             GameBase.G.RemoveAtWord(this);
         }
         else {
-            SoundManager.PlaySound("Infect");
+            SoundManager.PlaySound("Response");
             return;  // Отрисовка ошибочного нажатия - мигание posLet со звуком ошибки типа место занято
         }
     }
@@ -48,7 +48,7 @@ public class Letter : MonoBehaviour, IPointerClickHandler
         if (collision.gameObject.tag == "Player"
             && Vector2.Distance(transform.position, GameBase.G.player.destination) < 1f)
         {
-            SoundManager.PlaySound("Collect");
+            SoundManager.PlaySound("CollectLetter");
             GameBase.G.AddToWord(this);
         }
     }

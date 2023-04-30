@@ -10,7 +10,7 @@ public class FlyDamage : MonoBehaviour
     private void OnEnable()
     {
         damageText = GetComponent<TMP_Text>();
-        endPosition = transform.position + Vector3.up;
+        endPosition = transform.position + Vector3.up*2;
     }
     
     public void SetDamage( float damage )

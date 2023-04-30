@@ -24,6 +24,7 @@ public class Plate : MonoBehaviour
   {
     if( collision.gameObject.tag == "Player" ) {
       _isMove = true;
+      SoundManager.PlaySound("CrunchTree");
     }
   }
 
