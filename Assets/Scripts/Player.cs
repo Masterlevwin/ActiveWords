@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
         hitPlayer = hit;
         txtHp.text = $"{hitPlayer}";
         hpImg.fillAmount = hitPlayer / maxHit;
-        if( hitPlayer <= 0 ) Waiter.Wait(.5f, () => { GameBase.G.CompleteGame(); });
+        if( hitPlayer <= 0 ) GameBase.G.CompleteGame();
     }
     
     public void SetSpeed( float speed )
@@ -75,8 +75,7 @@ public class Player : MonoBehaviour
     public void Boom( float dmg = 1f )
     {
     	Damage( dmg );
-        Waiter.Wait(.1f, () => { gameObject.SetActive(false); } );
-        SoundManager.PlaySound("Falldown");
+        gameObject.SetActive(false);
         if ( GameBase.G.phase != GamePhase.complete ) {
 	        GameBase.G._timer.BeginTimer( startPos, 3f );
             Waiter.Wait( 3f, () => { gameObject.SetActive(true); SetPos( startPos ); } );

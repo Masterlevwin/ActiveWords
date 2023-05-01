@@ -47,6 +47,7 @@ public class SoundManager : MonoBehaviour
         if (current) current.mute = value;
     }
 
+    public static Coroutine _coroutine;
     void PlaySoundInternal(string soundName)
     {
         if (string.IsNullOrEmpty(soundName))
@@ -54,7 +55,12 @@ public class SoundManager : MonoBehaviour
             Debug.Log(_instance + " :: Sound null.");
             return;
         }
-        StartCoroutine(GetSound(soundName));
+        _coroutine = StartCoroutine(GetSound(soundName));
+    }
+
+    public static void StopSound()
+    {
+        if( _coroutine != null ) _instance.StopCoroutine(_coroutine);
     }
 
     public static void PlaySound(string name)
@@ -156,6 +162,7 @@ public class SoundManager : MonoBehaviour
         au.clip = clip;
         au.Play();
         Destroy(obj, clip.length);
+        _coroutine = null;
     }
 
     ResourceRequest LoadAsync(string name)

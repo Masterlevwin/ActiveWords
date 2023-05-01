@@ -2019,6 +2019,7 @@ MonoBehaviour:
   continueArea: {fileID: 769733217}
   levelUP: {fileID: 1324372404}
   gameOver: {fileID: 1125163044}
+  mainCanvas: {fileID: 1126804783}
   player: {fileID: 7985207288063439870}
   enemy: {fileID: 1695845699}
   leavePrefab: {fileID: 8318589681344882108, guid: 03e8321cf020fea4bba4aff04139fb9a, type: 3}

@@ -1,7 +1,9 @@
 using UnityEngine;
+using System.Collections;
 
 public class Plate : MonoBehaviour
 {
+  private AudioSource au;
   bool _isMove = false;
   public GameObject _trunk;
 
@@ -13,6 +15,8 @@ public class Plate : MonoBehaviour
 
   void Start()
   {
+    au = GetComponent<AudioSource>();
+
     _position = _trunk.transform.position;
     _rotation = _trunk.transform.rotation;
     _startPosition = _trunk.transform.localPosition;
@@ -24,7 +28,7 @@ public class Plate : MonoBehaviour
   {
     if( collision.gameObject.tag == "Player" ) {
       _isMove = true;
-      SoundManager.PlaySound("CrunchTree");
+      au.Play();
     }
   }
 
@@ -32,6 +36,7 @@ public class Plate : MonoBehaviour
   {
     if( collision.gameObject.tag == "Player" ) {
       _isMove = false;
+      au.Stop();
     }
   }
 

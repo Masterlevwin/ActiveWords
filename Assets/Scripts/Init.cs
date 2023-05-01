@@ -96,12 +96,12 @@ public class Init : MonoBehaviour
 	    InitLevel();				// Инициализируем новый уровень
     }
     
-    private void InitLevel()			// Метод инициализации уровня
+    private void InitLevel()		// Метод инициализации уровня
     {
         GameBase.G.phase = GamePhase.init;      // Переводим игру в фазу инициализации уровня, запрещая двигать персонажа
-	    CreateBlocks();			    // Создаем блоки деревьев и т.п.
+	    GameBase.G.TrainingView();  // Запускаем советы игры
+        CreateBlocks();			    // Создаем блоки деревьев и т.п.
         CreateLetters();			// Создаем буквы уровня
-        GameBase.G.TrainingView();  // Запускаем советы игры
     }
 
     public void SetupLevel( string wordLevel )

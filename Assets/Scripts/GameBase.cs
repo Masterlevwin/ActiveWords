@@ -24,7 +24,7 @@ public class GameBase : MonoBehaviour
     public int coins_count = 0;
     public TMP_Text levelText, coinText;
     public Image continueArea, levelUP, gameOver;
-
+    public Canvas mainCanvas;
     public AIPath player, enemy;
     public GameObject leavePrefab, coinPrefab, trainingPrefab;
     public FlyDamage damagePrefab;
@@ -176,7 +176,7 @@ public class GameBase : MonoBehaviour
                 break;
             }
         }
-        if( init.lets.Count != 0 && letDict.Count == init.lets.Count ) Waiter.Wait( .5f, () => { CompleteGame(); } );
+        if( init.lets.Count != 0 && letDict.Count == init.lets.Count ) Waiter.Wait( .3f, () => { CompleteGame(); } );
     }
 
     public bool _leaveActive = false;
@@ -204,8 +204,7 @@ public class GameBase : MonoBehaviour
 
     public void FlyDamage( GameObject go, float damage )
     {
-        FlyDamage _flyDamage = Instantiate( damagePrefab, go.transform.position,
-            Quaternion.identity, FindObjectOfType<Canvas>().transform );       
+        FlyDamage _flyDamage = Instantiate( damagePrefab, go.transform.position, Quaternion.identity, mainCanvas.transform );      
         _flyDamage.SetDamage( Mathf.Abs( damage ) );
     }
     

@@ -26,6 +26,16 @@ public class FlyDamage : MonoBehaviour
             transform.position = Vector3.Slerp( transform.position, endPosition, .1f );
             yield return null;
         }
+        StartCoroutine( Miss() );
+    }
+
+    private IEnumerator Miss()
+    {
+        while( damageText.alpha > .1f )
+        {
+            damageText.alpha = Mathf.Lerp( damageText.alpha, 0f, Time.deltaTime * 3 );
+            yield return null;
+        }
         Destroy( gameObject );
     }
 }
