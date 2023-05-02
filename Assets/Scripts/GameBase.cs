@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Pathfinding;
-using UnityEngine.SceneManagement;
 
 public enum GamePhase
 {
@@ -50,7 +49,7 @@ public class GameBase : MonoBehaviour
         enemy.gameObject.SetActive(false);
 
         _startTimerPosition = _timer.transform.position;
-        
+
         if( PlayerPrefs.HasKey( "SavedLevel" ) ) 
         {
             highscore = PlayerPrefs.GetInt( "SavedLevel" );
@@ -90,15 +89,6 @@ public class GameBase : MonoBehaviour
         SoundManager.PlaySound("FinishWork");
         level++;
         levelText.text = $"{level}";
-        
-        if( highscore < level ) 
-        {
-            highscore = level;
-            PlayerPrefs.SetInt( "SavedLevel", highscore );
-            PlayerPrefs.Save();
-            highscoreText.text = $"{ highscore }";
-        }
-        
         if( level > 5 ) levelUP.gameObject.SetActive(true);
         else continueArea.gameObject.SetActive(true);
         pl.SetHit( pl.maxHit );
@@ -108,27 +98,17 @@ public class GameBase : MonoBehaviour
     private void Lose()
     {
         SoundManager.PlaySound("LoseLevel");
-        level--;
-        if (level < 0) level = 0;
-        levelText.text = $"{level}";
         gameOver.gameObject.SetActive(true);
-         
-        if( highscore < level ) 
+
+        if ( highscore < level ) 
         {
             highscore = level;
             PlayerPrefs.SetInt( "SavedLevel", highscore );
             PlayerPrefs.Save();
             highscoreText.text = $"{ highscore }";
-            gameOver.gameObject.GetComponentInChildren<TMP_Text>().text = $"Вы достигли {level} уровня и установили новый рекорд!/nВы - {Status()}";
+            gameOver.gameObject.GetComponentInChildren<TMP_Text>().text = $"Вы достигли {level} уровня и установили новый рекорд!\nВы - {Status()}";
         }
-        else gameOver.gameObject.GetComponentInChildren<TMP_Text>().text = $"Вы достигли {level} уровня, но не превзошли свой рекорд./nВы - {Status()}";
-        
-        player.maxSpeed = 5;
-        pl.ResetProperties();
-        pl.SetLeavesCount( pl.leaves_count );
-        enemy.maxSpeed = 2;
-        en.ResetProperties();
-        coins_count = 0;
+        else gameOver.gameObject.GetComponentInChildren<TMP_Text>().text = $"Вы достигли {level} уровня, но не превзошли свой рекорд.\nВы - {Status()}";
     }
 
     public void RestartLevel()
@@ -143,13 +123,26 @@ public class GameBase : MonoBehaviour
 
     public void NewGame()
     {
+        phase = GamePhase.complete;
+        player.maxSpeed = 5;
+        pl.ResetProperties();
+        pl.SetLeavesCount(pl.leaves_count);
+        enemy.maxSpeed = 2;
+        en.ResetProperties();
+        level = coins_count = 0;
+        levelText.text = $"{level}";
+        init.Reset();
+    }
+
+    public void ResetHighscore()
+    {
         highscore = 0;
+        highscoreText.text = $"{ highscore }";
         PlayerPrefs.SetInt( "SavedLevel", highscore );
         PlayerPrefs.Save();
-        highscoreText.text = $"{ highscore }";
-        SceneManager.LoadScene( SceneManager.GetActiveScene().name );
+        NewGame();
     }
-    
+
     public void TrainingView()
     {
         if (level == 0) TextView("Буквы выскочили из книги. Собери их обратно в слово!");

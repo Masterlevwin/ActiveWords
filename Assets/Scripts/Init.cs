@@ -9,7 +9,7 @@ public class Init : MonoBehaviour
     public TextAsset textAsset;
     private List<string> wordsFromTextAsset;
     private Dictionary<string, string> dictWords;
-    public Button wordLevelButton;
+    public Button wordLevelButton, highscoreButton;
     private TMP_Text wordLevelText;
     
     public GameObject prefabLetter, prefabCell, prefabLeaves, prefabPlate;
@@ -235,7 +235,15 @@ public class Init : MonoBehaviour
 
     private void Update()
     {
-        if( GameBase.G.phase != GamePhase.game ) wordLevelButton.interactable = false;
-        else wordLevelButton.interactable = true;
+        if (GameBase.G.phase != GamePhase.game)
+        {
+            wordLevelButton.interactable = false;
+            highscoreButton.interactable = false;
+        }
+        else
+        {
+            wordLevelButton.interactable = true;
+            highscoreButton.interactable = true;
+        }
     }
 }
