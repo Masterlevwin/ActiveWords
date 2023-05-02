@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Pathfinding;
+using UnityEngine.SceneManagement;
 
 public enum GamePhase
 {
@@ -19,10 +20,11 @@ public class GameBase : MonoBehaviour
     public static GameBase G;
     public GamePhase phase = GamePhase.init;
     
+    public static int highscore = 0;
     public static int level = 0;
     public static string status = "Дошкольник";
     public int coins_count = 0;
-    public TMP_Text levelText, coinText;
+    public TMP_Text highscoreText, levelText, coinText;
     public Image continueArea, levelUP, gameOver;
     public Canvas mainCanvas;
     public AIPath player, enemy;
@@ -48,6 +50,12 @@ public class GameBase : MonoBehaviour
         enemy.gameObject.SetActive(false);
 
         _startTimerPosition = _timer.transform.position;
+        
+        if( PlayerPrefs.HasKey( "SavedLevel" ) ) 
+        {
+            highscore = PlayerPrefs.GetInt( "SavedLevel" );
+            highscoreText.text = $"{ highscore }";
+        }
     }
 
     public void StartGame()
@@ -57,7 +65,7 @@ public class GameBase : MonoBehaviour
         else letDict.Clear();
         
         if (!player.gameObject.activeSelf) Waiter.Wait( 1f, () => { player.gameObject.SetActive(true); pl.SetPos( init.Spawn() ); } );
-        if (level > 0 && !enemy.gameObject.activeSelf) Waiter.Wait( 2f, () => { enemy.gameObject.SetActive(true); en.transform.position = init.Spawn(); } );
+        if (level > 4 && !enemy.gameObject.activeSelf) Waiter.Wait( 2f, () => { enemy.gameObject.SetActive(true); en.transform.position = init.Spawn(); } );
         pl.maxHit = pl.hitPlayer;
         
         _timer.BeginTimer( _startTimerPosition, 4f );
@@ -82,6 +90,15 @@ public class GameBase : MonoBehaviour
         SoundManager.PlaySound("FinishWork");
         level++;
         levelText.text = $"{level}";
+        
+        if( highscore < level ) 
+        {
+            highscore = level;
+            PlayerPrefs.SetInt( "SavedLevel", highscore );
+            PlayerPrefs.Save();
+            highscoreText.text = $"{ highscore }";
+        }
+        
         if( level > 5 ) levelUP.gameObject.SetActive(true);
         else continueArea.gameObject.SetActive(true);
         pl.SetHit( pl.maxHit );
@@ -95,7 +112,17 @@ public class GameBase : MonoBehaviour
         if (level < 0) level = 0;
         levelText.text = $"{level}";
         gameOver.gameObject.SetActive(true);
-        gameOver.gameObject.GetComponentInChildren<TMP_Text>().text = $"Вы достигли {level} уровня. Вы - {Status()}";
+         
+        if( highscore < level ) 
+        {
+            highscore = level;
+            PlayerPrefs.SetInt( "SavedLevel", highscore );
+            PlayerPrefs.Save();
+            highscoreText.text = $"{ highscore }";
+            gameOver.gameObject.GetComponentInChildren<TMP_Text>().text = $"Вы достигли {level} уровня и установили новый рекорд!/nВы - {Status()}";
+        }
+        else gameOver.gameObject.GetComponentInChildren<TMP_Text>().text = $"Вы достигли {level} уровня, но не превзошли свой рекорд./nВы - {Status()}";
+        
         player.maxSpeed = 5;
         pl.ResetProperties();
         pl.SetLeavesCount( pl.leaves_count );
@@ -114,6 +141,15 @@ public class GameBase : MonoBehaviour
         init.Reset();
     }
 
+    public void NewGame()
+    {
+        highscore = 0;
+        PlayerPrefs.SetInt( "SavedLevel", highscore );
+        PlayerPrefs.Save();
+        highscoreText.text = $"{ highscore }";
+        SceneManager.LoadScene( SceneManager.GetActiveScene().name );
+    }
+    
     public void TrainingView()
     {
         if (level == 0) TextView("Буквы выскочили из книги. Собери их обратно в слово!");
@@ -137,20 +173,20 @@ public class GameBase : MonoBehaviour
             default:
                 status = $"Философ";
                 break;
-            case < 2:
+            case < 3:
                 status = $"Дошкольник";
                 break;
-            case < 4:
+            case < 6:
                 status = $"Ученик";
                 break;
-            case < 6:
+            case < 9:
                 status = $"Студент";
                 break;
-            case < 8:
+            case < 12:
                 status = $"Мудрец";
                 break;
         }
-        return status ;
+        return status;
     }
     
     public void RemoveAtWord( Letter l )
