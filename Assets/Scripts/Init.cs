@@ -11,14 +11,14 @@ public class Init : MonoBehaviour
     private Dictionary<string, string> dictWords;
     public Button wordLevelButton, highscoreButton;
     private TMP_Text wordLevelText;
-    
+
     public GameObject prefabLetter, prefabCell, prefabLeaves, prefabPlate;
     private Transform wordAnchor, cellAnchor, blockAnchor;
     public GameObject[] animBlocks;
     public Sprite[] letters, cells;
     public LayerMask obtacleMask;
     public List<Letter> lets;
-    public List<Vector2> letPositions; 
+    public List<Vector2> letPositions;
     private BoxCollider2D table;
     private Collider2D[] cols;
 
@@ -27,43 +27,43 @@ public class Init : MonoBehaviour
         wordsFromTextAsset = ParseText(textAsset.text); // Загружаем в массив все слова из текстового ассета
         wordLevelText = wordLevelButton.GetComponentInChildren<TMP_Text>();
 
-        if (GameObject.Find("Letters") == null)			// Создаем пустой объект в иерархии, чтобы спрятать туда сгенерированные буквы
-	    {
-	        GameObject wordGO = new GameObject("Letters");
-	        wordAnchor = wordGO.transform;
-	    }
-	    if (GameObject.Find("Cells") == null)			// Создаем пустой объект в иерархии, чтобы спрятать туда конечные места для букв
+        if (GameObject.Find("Letters") == null)         // Создаем пустой объект в иерархии, чтобы спрятать туда сгенерированные буквы
+        {
+            GameObject wordGO = new GameObject("Letters");
+            wordAnchor = wordGO.transform;
+        }
+        if (GameObject.Find("Cells") == null)			// Создаем пустой объект в иерархии, чтобы спрятать туда конечные места для букв
         {
             GameObject cellGO = new GameObject("Cells");
             cellAnchor = cellGO.transform;
         }
-	    if (GameObject.Find("Blocks") == null)			// Создаем пустой объект в иерархии, чтобы спрятать туда сгенерированные блоки
-	    {
-	        GameObject blockGO = new GameObject("Blocks");
-	        blockAnchor = blockGO.transform;
-	    }
-	    table = GameObject.Find("Table").GetComponent<BoxCollider2D>();    // Сохраняем ссылку на коллайдер стола, к которому будем обращаться каждый раз, как потребуется спавнить объект
-    }
-    
-    private List<string> ParseText(string txt)  // Метод преобразования текста в массив строк
-    {
-    	string[] lines = txt.Split( new char[] { ':', '\n' } );
-	
-	    if( dictWords == null ) dictWords = new Dictionary<string, string>();
-	    for( int i = 0; i < lines.Length - 1; i += 2 )
-	    {
-	        dictWords.TryAdd( lines[i], lines[i + 1] );
-	    }
-	    List<string> words = new List<string>( dictWords.Keys );
-	    return words;
+        if (GameObject.Find("Blocks") == null)          // Создаем пустой объект в иерархии, чтобы спрятать туда сгенерированные блоки
+        {
+            GameObject blockGO = new GameObject("Blocks");
+            blockAnchor = blockGO.transform;
+        }
+        table = GameObject.Find("Table").GetComponent<BoxCollider2D>();    // Сохраняем ссылку на коллайдер стола, к которому будем обращаться каждый раз, как потребуется спавнить объект
     }
 
-    private string InterpretationWord( string wordLevel )
+    private List<string> ParseText(string txt)  // Метод преобразования текста в массив строк
     {
-    	if( !dictWords.TryGetValue( wordLevel, out string str ) ) return wordLevel;
+        string[] lines = txt.Split(new char[] { ':', '\n' });
+
+        if (dictWords == null) dictWords = new Dictionary<string, string>();
+        for (int i = 0; i < lines.Length - 1; i += 2)
+        {
+            dictWords.TryAdd(lines[i], lines[i + 1]);
+        }
+        List<string> words = new List<string>(dictWords.Keys);
+        return words;
+    }
+
+    private string InterpretationWord(string wordLevel)
+    {
+        if (!dictWords.TryGetValue(wordLevel, out string str)) return wordLevel;
         return str;
     }
-    
+
     public void ClearLetters()			// Метод очищения уровня
     {
         wordLevelText.text = $"";           	                                    // Очищаем отображение слова
@@ -78,32 +78,39 @@ public class Init : MonoBehaviour
     {
         SoundManager.PlaySound("ChangeLevel");
         StopAllCoroutines();
-        
+
         if (GameBase.G.gOs != null && GameBase.G.gOs.Count > 0)
         {
-            foreach( GameObject g in GameBase.G.gOs ) { Destroy(g); }
+            foreach (GameObject g in GameBase.G.gOs) { Destroy(g); }
             GameBase.G.gOs.Clear();
         }
         GameBase.G.StopAllCoroutines();
-	GameBase.G.pl.SetHit( pl.maxHit );
-        GameBase.G.en.SetHit( en.max_health );
-	
+
+
         ClearLetters();
-        if ( GameBase.G._timer.gameObject.activeSelf ) GameBase.G._timer.StopTimer();
-        if ( GameBase.G.player.gameObject.activeSelf ) GameBase.G.player.gameObject.SetActive(false);
-        if ( GameBase.G.enemy.gameObject.activeSelf ) GameBase.G.enemy.gameObject.SetActive(false);
-        if ( GameBase.G.levelUP.gameObject.activeSelf ) GameBase.G.levelUP.gameObject.SetActive(false);
-        if ( GameBase.G.gameOver.gameObject.activeSelf ) GameBase.G.gameOver.gameObject.SetActive(false);
-	if ( GameBase.G.continueArea.gameObject.activeSelf ) GameBase.G.continueArea.gameObject.SetActive(false);
-	InitLevel();				// Инициализируем новый уровень
+        if (GameBase.G._timer.gameObject.activeSelf) GameBase.G._timer.StopTimer();
+        if (GameBase.G.player.gameObject.activeSelf) GameBase.G.player.gameObject.SetActive(false);
+        if (GameBase.G.enemy.gameObject.activeSelf) GameBase.G.enemy.gameObject.SetActive(false);
+        if (GameBase.G.levelUP.gameObject.activeSelf) GameBase.G.levelUP.gameObject.SetActive(false);
+        if (GameBase.G.gameOver.gameObject.activeSelf) GameBase.G.gameOver.gameObject.SetActive(false);
+        if (GameBase.G.continueArea.gameObject.activeSelf) GameBase.G.continueArea.gameObject.SetActive(false);
+        InitLevel();				// Инициализируем новый уровень
     }
-    
+
     private void InitLevel()		// Метод инициализации уровня
     {
-        GameBase.G.phase = GamePhase.init;      // Переводим игру в фазу инициализации уровня, запрещая двигать персонажа
-	    GameBase.G.TrainingView();  // Запускаем советы игры
+        GameBase.G.phase = GamePhase.init;              // Переводим игру в фазу инициализации уровня, запрещая двигать персонажа
+        if( _useTraining ) GameBase.G.TrainingView();   // Запускаем советы игры
         CreateBlocks();			    // Создаем блоки деревьев и т.п.
         CreateLetters();			// Создаем буквы уровня
+    }
+
+    private static bool _useTraining = true;
+
+    public void ClearTraining()
+    {
+        _useTraining = false;
+        GameBase.G.trainingPrefab.SetActive(false);
     }
 
     public void SetupLevel( string wordLevel )
@@ -128,21 +135,21 @@ public class Init : MonoBehaviour
     	Instantiate( prefabLeaves, Spawn(), Quaternion.identity, blockAnchor );
     }
 
-    public Vector2 Spawn( float size = 2f )					// Метод генерации случайной точки спавна
+    public Vector2 Spawn( float size = 2f )			// Метод генерации случайной точки спавна
     {
-    	float x, y;								// Выбираем случайные значения в пределах стола, основываясь на костях его коллайдера
+    	float x, y;		// Выбираем случайные значения в пределах стола, основываясь на костях его коллайдера
 	    x = Random.Range(table.transform.position.x - Random.Range(0, table.bounds.extents.x), table.transform.position.x + Random.Range(0, table.bounds.extents.x));
 	    y = Random.Range(table.transform.position.y - Random.Range(0, table.bounds.extents.y), table.transform.position.y + Random.Range(0, table.bounds.extents.y));
 	    Vector2 spawnPoint = new Vector2(x, y);				// Создаем точку спавна
-	    if( Point( spawnPoint, size ) ) return spawnPoint;			// Если точка доступна, возвращаем её из метода,
+	    if( Point( spawnPoint, size ) ) return spawnPoint;	// Если точка доступна, возвращаем её из метода,
 	    else return Spawn();						// иначе ищем снова доступную точку
 	
-	    bool Point( Vector2 spawn, float _size )				// Внутренний метод проверки доступности точки
+	    bool Point( Vector2 spawn, float _size )			// Внутренний метод проверки доступности точки
 	    {
-	        Vector2 sizeV = new Vector2( _size, _size );			// Дистанция коллайдеров между объектами
+	        Vector2 sizeV = new Vector2( _size, _size );	// Дистанция коллайдеров между объектами
 	        cols = Physics2D.OverlapBoxAll(spawn, sizeV, 0f, obtacleMask);	// Определяем массив коллайдеров на столе,пересекающий точку спавна в данный момент
 	        if (cols.Length > 0) return false;				// Если такие коллайдеры есть, точка спавна не доступна,
-	        else return true;						// иначе доступна
+	        else return true;						        // иначе доступна
 	    }
     }
     
@@ -224,9 +231,10 @@ public class Init : MonoBehaviour
             let.SetLetterPos(let.transform.position);		// Запоминаем начальную позицию буквы
             let.SetChar(chars[i]);							// Устанавливаем символ для дальнейшей проверки этого свойства
 	        lets.Add(let);									// Добавляем букву в список
-		
-	        if( GameBase.level > 3 && Random.Range(0,4) == 0 ) {
-                Instantiate( prefabPlate, let.transform.position, Quaternion.identity, wordAnchor );    // Инициализируем объект платформы
+		    
+            if( GameBase.level == 4 ) Instantiate( prefabPlate, let.transform.position, Quaternion.identity, wordAnchor );
+	        else if( GameBase.level > 4 && Random.Range(0,4) == 0 ) {                               // Инициализируем объект полена
+                Instantiate( prefabPlate, let.transform.position, Quaternion.identity, wordAnchor );
             }
             yield return new WaitForSeconds(.6f);           // Делаем паузу
         }                                         

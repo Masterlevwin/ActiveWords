@@ -26,7 +26,7 @@ public class ViewButton : MonoBehaviour
   public void Upgrade( int ability )
   {
     SoundManager.PlaySound("UpgradeLevel");
-    if ( ability == 1 ) GameBase.G.pl.SetDamage( 1 );
+    if( ability == 1 ) GameBase.G.pl.SetDamage( 1 );
     if( ability == 2 ) GameBase.G.pl.SetHit( ++GameBase.G.pl.maxHit );
     if( ability == 3 ) GameBase.G.player.maxSpeed++;
     if( ability == 4 ) GameBase.G.pl.SetSpeed( 2 );

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Pathfinding;
 
 public class Player : MonoBehaviour
 {
@@ -35,11 +36,12 @@ public class Player : MonoBehaviour
         attack_damage = 0;
         attack_speed = 0;
         startPos = transform.position;
-	GameBase.G.player.maxSpeed = 5;
+        GetComponent<AIPath>().maxSpeed = 5;
+        maxHit = start_hit;
         SetHit( start_hit );
         SetSpeed( start_speed );
         SetDamage( start_damage );
-	SetLeavesCount( leaves_count );
+	    SetLeavesCount( leaves_count );
     }
 
     public void Damage( float dmg )
@@ -53,9 +55,10 @@ public class Player : MonoBehaviour
     public void SetHit( float hit )
     {
         hitPlayer = hit;
+        if( hitPlayer >= maxHit ) maxHit = hitPlayer;
         txtHp.text = $"{hitPlayer}";
         hpImg.fillAmount = hitPlayer / maxHit;
-        if( hitPlayer <= 0 ) GameBase.G.CompleteGame();
+        if( hitPlayer <= 0 ) GameBase.G.CompleteGame();   
     }
     
     public void SetSpeed( float speed )
@@ -84,12 +87,12 @@ public class Player : MonoBehaviour
 	    }
     }
 
-    public void SetLeavesCount( int lv )
+    public void SetLeavesCount( int lv = 1 )
     {
         leaves_count -= lv;
         txtLeaves.text = $"{leaves_count}";
         if( leaves_count <= 0 ) leaveImg.gameObject.SetActive(false);
-	else leaveImg.gameObject.SetActive(true);
+	    else leaveImg.gameObject.SetActive(true);
     }
     
     void OnTriggerEnter2D( Collider2D collision )
@@ -97,7 +100,8 @@ public class Player : MonoBehaviour
         if( collision.gameObject.tag == "Leaves" )
 	{
             SoundManager.PlaySound( "DragLeaves" );
-            SetLeavesCount( -10f );
+            Instantiate(GameBase.G.fx[0], transform.position, Quaternion.identity );
+            SetLeavesCount( -10 );
             Destroy( collision.gameObject );
         }
     }

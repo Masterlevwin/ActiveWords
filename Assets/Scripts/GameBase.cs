@@ -35,7 +35,9 @@ public class GameBase : MonoBehaviour
     private Vector2 _startTimerPosition;
     private Init init;
     public Dictionary<Vector2, Letter> letDict;
-    
+
+    public GameObject[] fx;
+
     void Start()
     {
         if (G == null) G = this;
@@ -65,9 +67,9 @@ public class GameBase : MonoBehaviour
         
         if (!player.gameObject.activeSelf) Waiter.Wait( 1f, () => { player.gameObject.SetActive(true); pl.SetPos( init.Spawn() ); } );
         if (level > 4 && !enemy.gameObject.activeSelf) Waiter.Wait( 2f, () => { enemy.gameObject.SetActive(true); en.transform.position = init.Spawn(); 
-            if( level % 2 == 0 ) enemy.SetSpeed(1f); } );
-        pl.maxHit = pl.hitPlayer;
-
+            if( level % 5 == 0 ) en.SetSpeed(1f); } );
+        pl.SetHit(pl.maxHit);
+        en.SetHit(en.max_health);
         _timer.BeginTimer( _startTimerPosition, 4f );
         Waiter.Wait( 4f, () => { phase = GamePhase.game; trainingPrefab.SetActive(false); SoundManager.PlaySound("MissCloud"); } );
     }
@@ -105,9 +107,9 @@ public class GameBase : MonoBehaviour
             highscoreText.text = $"{ highscore }";
             PlayerPrefs.SetInt( "SavedLevel", highscore );
             PlayerPrefs.Save(); 
-            gameOver.gameObject.GetComponentInChildren<TMP_Text>().text = $"Вы достигли {level} уровня и установили новый рекорд!\nВы - {Status()}";
+            gameOver.gameObject.GetComponentInChildren<TMP_Text>().text = $"Вы достигли {level} уровня\nи установили новый рекорд!\nВы - {Status()}";
         }
-        else gameOver.gameObject.GetComponentInChildren<TMP_Text>().text = $"Вы достигли {level} уровня, но не превзошли свой рекорд.\nВы - {Status()}";
+        else gameOver.gameObject.GetComponentInChildren<TMP_Text>().text = $"Вы достигли {level} уровня,\nно не превзошли свой рекорд.\nВы - {Status()}";
     }
 
     public void RestartLevel()
@@ -209,7 +211,7 @@ public class GameBase : MonoBehaviour
     public void LeaveStart( Vector2 target )
     {
         GameObject leave = Instantiate( leavePrefab, pl.transform.position, Quaternion.identity );
-        pl.SetLeavesCount( 1f );
+        pl.SetLeavesCount();
         _leaveActive = true;
         StartCoroutine( Move( leave, target, pl.attack_speed, () => { Destroy( leave ); if( _leaveActive ) _leaveActive = false; } ) );
     }

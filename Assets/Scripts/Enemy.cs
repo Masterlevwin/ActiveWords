@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Pathfinding;
 
 public class Enemy: MonoBehaviour
 {
@@ -29,7 +30,7 @@ public class Enemy: MonoBehaviour
         txtAtt = GetComponentsInChildren<TMP_Text>()[1];
         startPos = transform.position;
         ResetProperties();
-        actions = new Action<float>[] { SetAttack, SetRebirth, SetMaxHealth, SetSpeed } ;
+        actions = new Action<float>[] { SetAttack, SetRebirth, SetMaxHealth } ;
     }
     
     public void ResetProperties()
@@ -38,7 +39,7 @@ public class Enemy: MonoBehaviour
         health = 0;
         attack = 0;
         rebirth = 0;
-        GameBase.G.enemy.maxSpeed = 2;
+        GetComponent<AIPath>().maxSpeed = 2;
         max_health = start_health;
         SetHit( start_health );
         SetAttack( start_attack );
@@ -99,7 +100,7 @@ public class Enemy: MonoBehaviour
     public void SetSpeed( float _speed )
     {
         GameBase.G.enemy.maxSpeed += _speed;
-        if( GameBase.G.enemy.maxSpeed - GameBase.G.player.maxSpeed > 1 ) GameBase.G.enemy.maxSpeed = GameBase.G.player.maxSpeed;
+        if( GameBase.G.enemy.maxSpeed - GameBase.G.player.maxSpeed > 1 ) GameBase.G.enemy.maxSpeed = GameBase.G.player.maxSpeed - 1;
         else transform.localScale *= 1.1f;
     }
 
