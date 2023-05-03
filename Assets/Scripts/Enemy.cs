@@ -29,7 +29,7 @@ public class Enemy: MonoBehaviour
         txtAtt = GetComponentsInChildren<TMP_Text>()[1];
         startPos = transform.position;
         ResetProperties();
-        actions = new Action<float>[] { SetAttack, SetRebirth, SetSpeed } ;
+        actions = new Action<float>[] { SetAttack, SetRebirth, SetMaxHealth, SetSpeed } ;
     }
     
     public void ResetProperties()
@@ -49,7 +49,6 @@ public class Enemy: MonoBehaviour
     {
         DiedEnemy?.Invoke( gameObject, 10, rebirth );
         gameObject.SetActive(false);
-        max_health++;
         SetHit( max_health );
         actions[ UnityEngine.Random.Range( 0, actions.Length ) ]( 1f );
         Waiter.Wait( rebirth, () =>
@@ -66,7 +65,7 @@ public class Enemy: MonoBehaviour
     public void Damage( float _damage )
     {
         health -= _damage;
-        SoundManager.PlaySound("BirdPunch");
+        SoundManager.PlaySound( "BirdPunch" );
         GameBase.G.FlyDamage( gameObject, GameBase.G.pl.attack_damage );
         SetHit( health );
     }
@@ -89,6 +88,12 @@ public class Enemy: MonoBehaviour
     {
         rebirth -= _rebirth;
         if( rebirth <= 0 ) rebirth = 1f;
+    }
+    
+    public void SetMaxHealth( float _max )
+    {
+        max_health += _max;
+        SetHit( max_health ); 
     }
     
     public void SetSpeed( float _speed )
