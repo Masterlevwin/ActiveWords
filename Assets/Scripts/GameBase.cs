@@ -92,7 +92,7 @@ public class GameBase : MonoBehaviour
         if( level > 5 ) levelUP.gameObject.SetActive(true);
         else continueArea.gameObject.SetActive(true);
         pl.SetHit( pl.maxHit );
-        en.SetHit( en.max_health - en.health );
+        en.SetHit( en.max_health );
     }    
     
     private void Lose()
@@ -103,9 +103,9 @@ public class GameBase : MonoBehaviour
         if ( highscore < level ) 
         {
             highscore = level;
-            PlayerPrefs.SetInt( "SavedLevel", highscore );
-            PlayerPrefs.Save();
             highscoreText.text = $"{ highscore }";
+            PlayerPrefs.SetInt( "SavedLevel", highscore );
+            PlayerPrefs.Save(); 
             gameOver.gameObject.GetComponentInChildren<TMP_Text>().text = $"Вы достигли {level} уровня и установили новый рекорд!\nВы - {Status()}";
         }
         else gameOver.gameObject.GetComponentInChildren<TMP_Text>().text = $"Вы достигли {level} уровня, но не превзошли свой рекорд.\nВы - {Status()}";
@@ -124,10 +124,7 @@ public class GameBase : MonoBehaviour
     public void NewGame()
     {
         phase = GamePhase.complete;
-        player.maxSpeed = 5;
         pl.ResetProperties();
-        pl.SetLeavesCount(pl.leaves_count);
-        enemy.maxSpeed = 2;
         en.ResetProperties();
         level = coins_count = 0;
         levelText.text = $"{level}";
