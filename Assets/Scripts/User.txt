@@ -140,3 +140,5 @@ https://www.wireguard.com/install/
 
 Создать текст Highscore и прикрепить его к камере;
 Создать кнопку с текстом "Сбросить рекорд и начать заново", подключить метод NewGame();
+
+https://www.youtube.com/watch?v=GqPuS9Q1EX8&list=PLPdV7K4KtaEI40DrMaZDj4D2Y79NyISnF&index=6
