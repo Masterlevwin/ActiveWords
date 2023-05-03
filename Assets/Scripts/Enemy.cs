@@ -93,13 +93,14 @@ public class Enemy: MonoBehaviour
     public void SetMaxHealth( float _max )
     {
         max_health += _max;
-        SetHit( max_health ); 
+        SetHit( max_health );
     }
     
     public void SetSpeed( float _speed )
     {
         GameBase.G.enemy.maxSpeed += _speed;
-        transform.localScale *= 1.1f;
+        if( GameBase.G.enemy.maxSpeed - GameBase.G.player.maxSpeed > 1 ) GameBase.G.enemy.maxSpeed = GameBase.G.player.maxSpeed;
+        else transform.localScale *= 1.1f;
     }
 
     public void SetPos( Vector2 pos )
