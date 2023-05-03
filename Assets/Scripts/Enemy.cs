@@ -49,16 +49,16 @@ public class Enemy: MonoBehaviour
     {
         DiedEnemy?.Invoke( gameObject, 10, rebirth );
         gameObject.SetActive(false);
-        SetHit( ++max_health );
-        max_health = health;
+        max_health++;
+        SetHit( max_health );
         actions[ UnityEngine.Random.Range( 0, actions.Length ) ]( 1f );
         Waiter.Wait( rebirth, () =>
         {
             if( GameBase.G.phase == GamePhase.game )
             {
+                SoundManager.PlaySound( "RebirthEnemy" );
                 gameObject.SetActive(true);
                 GameBase.G.enemy.SearchPath();
-                SoundManager.PlaySound( "RebirthEnemy" );
             }
         });
     }
