@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     public float start_speed;
     public float attack_damage { private set; get; }
     public float start_damage;
-    public float leaves_count { private set; get; }
+    public int leaves_count { private set; get; }
     
     private TMP_Text txtLeaves, txtHp;
     private Image leaveImg, hpImg;
@@ -35,11 +35,21 @@ public class Player : MonoBehaviour
         attack_damage = 0;
         attack_speed = 0;
         startPos = transform.position;
+	GameBase.G.player.maxSpeed = 5;
         SetHit( start_hit );
         SetSpeed( start_speed );
         SetDamage( start_damage );
+	SetLeavesCount( leaves_count );
     }
 
+    public void Damage( float dmg )
+    {
+        hitPlayer -= dmg;
+        SoundManager.PlaySound( "Bloody punch" );
+        GameBase.G.FlyDamage( gameObject, dmg );
+        SetHit( hitPlayer );
+    }
+    
     public void SetHit( float hit )
     {
         hitPlayer = hit;
@@ -58,14 +68,6 @@ public class Player : MonoBehaviour
         attack_damage += damage;
     }
     
-    public void Damage( float dmg )
-    {
-        hitPlayer -= dmg;
-        SoundManager.PlaySound("Bloody punch");
-        GameBase.G.FlyDamage( gameObject, dmg );
-        SetHit( hitPlayer );
-    }
-    
     public void SetPos( Vector2 pos )
     {
         if( pos == startPos && !gameObject.activeSelf ) gameObject.SetActive(true);
@@ -82,18 +84,19 @@ public class Player : MonoBehaviour
 	    }
     }
 
-    public void SetLeavesCount( float lv )
+    public void SetLeavesCount( int lv )
     {
         leaves_count -= lv;
         txtLeaves.text = $"{leaves_count}";
         if( leaves_count <= 0 ) leaveImg.gameObject.SetActive(false);
+	else leaveImg.gameObject.SetActive(true);
     }
     
     void OnTriggerEnter2D( Collider2D collision )
     {
-        if( collision.gameObject.tag == "Leaves" ) {
-            if( !leaveImg.gameObject.activeSelf ) leaveImg.gameObject.SetActive(true);
-            SoundManager.PlaySound("DragLeaves");
+        if( collision.gameObject.tag == "Leaves" )
+	{
+            SoundManager.PlaySound( "DragLeaves" );
             SetLeavesCount( -10f );
             Destroy( collision.gameObject );
         }
