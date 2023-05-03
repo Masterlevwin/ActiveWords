@@ -91,8 +91,6 @@ public class GameBase : MonoBehaviour
         levelText.text = $"{level}";
         if( level > 5 ) levelUP.gameObject.SetActive(true);
         else continueArea.gameObject.SetActive(true);
-        pl.SetHit( pl.maxHit );
-        en.SetHit( en.max_health );
     }    
     
     private void Lose()
