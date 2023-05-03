@@ -64,9 +64,10 @@ public class GameBase : MonoBehaviour
         else letDict.Clear();
         
         if (!player.gameObject.activeSelf) Waiter.Wait( 1f, () => { player.gameObject.SetActive(true); pl.SetPos( init.Spawn() ); } );
-        if (level > 4 && !enemy.gameObject.activeSelf) Waiter.Wait( 2f, () => { enemy.gameObject.SetActive(true); en.transform.position = init.Spawn(); } );
+        if (level > 4 && !enemy.gameObject.activeSelf) Waiter.Wait( 2f, () => { enemy.gameObject.SetActive(true); en.transform.position = init.Spawn(); 
+            if( level % 2 == 0 ) enemy.SetSpeed(1f); } );
         pl.maxHit = pl.hitPlayer;
-        
+
         _timer.BeginTimer( _startTimerPosition, 4f );
         Waiter.Wait( 4f, () => { phase = GamePhase.game; trainingPrefab.SetActive(false); SoundManager.PlaySound("MissCloud"); } );
     }
