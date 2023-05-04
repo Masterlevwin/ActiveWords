@@ -18,7 +18,8 @@ public class Enemy: MonoBehaviour
     private TMP_Text txtHp;
     private TMP_Text txtAtt;
     
-    private Vector2 startPos;
+    public Transform startPoint;
+    //private Vector2 startPos;
     private Action<float>[] actions;
     
     public event Action<GameObject, int, float> DiedEnemy;
@@ -28,7 +29,8 @@ public class Enemy: MonoBehaviour
         hpImg = GetComponentsInChildren<Image>()[1];
         txtHp = GetComponentsInChildren<TMP_Text>()[0];
         txtAtt = GetComponentsInChildren<TMP_Text>()[1];
-        startPos = transform.position;
+
+        //startPos = startPoint.position;
         ResetProperties();
         actions = new Action<float>[] { SetAttack, SetRebirth, SetMaxHealth } ;
     }
@@ -100,29 +102,48 @@ public class Enemy: MonoBehaviour
     public void SetSpeed( float _speed )
     {
         GameBase.G.enemy.maxSpeed += _speed;
-        if( GameBase.G.enemy.maxSpeed - GameBase.G.player.maxSpeed > 1 ) GameBase.G.enemy.maxSpeed = GameBase.G.player.maxSpeed - 1;
+        if( GameBase.G.enemy.maxSpeed == GameBase.G.player.maxSpeed ) GameBase.G.enemy.maxSpeed--;
         else transform.localScale *= 1.1f;
     }
 
-    public void SetPos( Vector2 pos )
+    /*public void SetPos( Vector2 pos )
     {
         if( pos == startPos && !gameObject.activeSelf ) gameObject.SetActive(true);
         transform.position = pos;
         if (GameBase.G.phase == GamePhase.game) SoundManager.PlaySound( "Magic Spell_Short Reverse_1" );
-    }
+    }*/
     
     void OnTriggerEnter2D( Collider2D collision )
     {
         if( collision.gameObject.tag == "Player" )
         {
             GameBase.G.pl.Damage( attack );
-            SetPos( startPos );
+            //SetPos( startPos );  
+            //StartCoroutine( MoveToStartPosition() );
+            GetComponent<AIDestinationSetter>().target = startPoint;
         }
 
-        if ( collision.gameObject.tag == "Leave" ) {
+        if( collision.gameObject.tag == "Leave" )
+        {
             Damage( GameBase.G.pl.attack_damage );
             collision.gameObject.SetActive( false );
             GameBase.G._leaveActive = false;
         }
+        
+        if( collision.transform == startPoint )
+        {
+            SoundManager.PlaySound( "Magic Spell_Short Reverse_1" );
+            GetComponent<AIDestinationSetter>().target = GameBase.G.pl.transform;
+        }
     }
+    
+    /*private IEnumerator MoveToStartPosition()
+    {
+        AIPath ai = GetComponent<AIPath>();
+        ai.destination = startPos;
+        ai.SearchPath();
+        while( !ai.reachedDestination ) {
+            yield return null;
+        }
+    }*/
 }
