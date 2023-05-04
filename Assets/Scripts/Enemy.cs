@@ -117,7 +117,7 @@ public class Enemy: MonoBehaviour
     {
         if( collision.gameObject.tag == "Player" )
         {
-            GameBase.G.pl.Damage( attack );
+            GameBase.G.pl.Boom( attack );
             //SetPos( startPos );  
             //StartCoroutine( MoveToStartPosition() );
             GetComponent<AIDestinationSetter>().target = startPoint;
