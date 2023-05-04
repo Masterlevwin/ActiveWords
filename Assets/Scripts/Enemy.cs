@@ -19,7 +19,6 @@ public class Enemy: MonoBehaviour
     private TMP_Text txtAtt;
     
     public Transform startPoint;
-    //private Vector2 startPos;
     private Action<float>[] actions;
     
     public event Action<GameObject, int, float> DiedEnemy;
@@ -30,7 +29,6 @@ public class Enemy: MonoBehaviour
         txtHp = GetComponentsInChildren<TMP_Text>()[0];
         txtAtt = GetComponentsInChildren<TMP_Text>()[1];
 
-        //startPos = startPoint.position;
         ResetProperties();
         actions = new Action<float>[] { SetAttack, SetRebirth, SetMaxHealth } ;
     }
@@ -105,25 +103,16 @@ public class Enemy: MonoBehaviour
         if( GameBase.G.enemy.maxSpeed == GameBase.G.player.maxSpeed ) GameBase.G.enemy.maxSpeed--;
         else transform.localScale *= 1.1f;
     }
-
-    /*public void SetPos( Vector2 pos )
-    {
-        if( pos == startPos && !gameObject.activeSelf ) gameObject.SetActive(true);
-        transform.position = pos;
-        if (GameBase.G.phase == GamePhase.game) SoundManager.PlaySound( "Magic Spell_Short Reverse_1" );
-    }*/
     
     void OnTriggerEnter2D( Collider2D collision )
     {
-        if( collision.gameObject.tag == "Player" )
+        if( collision.gameObject.CompareTag("Player") )
         {
             GameBase.G.pl.Boom( attack );
-            //SetPos( startPos );  
-            //StartCoroutine( MoveToStartPosition() );
             GetComponent<AIDestinationSetter>().target = startPoint;
         }
 
-        if( collision.gameObject.tag == "Leave" )
+        if( collision.gameObject.CompareTag("Leave") )
         {
             Damage( GameBase.G.pl.attack_damage );
             collision.gameObject.SetActive( false );
@@ -136,14 +125,4 @@ public class Enemy: MonoBehaviour
             GetComponent<AIDestinationSetter>().target = GameBase.G.pl.transform;
         }
     }
-    
-    /*private IEnumerator MoveToStartPosition()
-    {
-        AIPath ai = GetComponent<AIPath>();
-        ai.destination = startPos;
-        ai.SearchPath();
-        while( !ai.reachedDestination ) {
-            yield return null;
-        }
-    }*/
 }

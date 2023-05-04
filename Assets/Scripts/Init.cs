@@ -232,7 +232,7 @@ public class Init : MonoBehaviour
             let.SetChar(chars[i]);							// Устанавливаем символ для дальнейшей проверки этого свойства
 	        lets.Add(let);									// Добавляем букву в список
 		    
-            if( GameBase.level == 4 ) Instantiate( prefabPlate, let.transform.position, Quaternion.identity, wordAnchor );
+            if( GameBase.level == 4 && Random.Range(0, 2) == 0 ) Instantiate( prefabPlate, let.transform.position, Quaternion.identity, wordAnchor );
 	        else if( GameBase.level > 4 && Random.Range(0,4) == 0 ) {                               // Инициализируем объект полена
                 Instantiate( prefabPlate, let.transform.position, Quaternion.identity, wordAnchor );
             }
