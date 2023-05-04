@@ -80,10 +80,11 @@ public class Player : MonoBehaviour
     public void Boom( float dmg = 1f )
     {
     	Damage( dmg );
+	Instantiate( GameBase.G.fx[1], transform.position, Quaternion.identity );
         gameObject.SetActive(false);
         if ( GameBase.G.phase != GamePhase.complete ) {
-	        GameBase.G._timer.BeginTimer( startPos, 3f );
-            Waiter.Wait( 3f, () => { gameObject.SetActive(true); SetPos( startPos ); } );
+	        GameBase.G._timer.BeginTimer( startPos, dmg );
+            Waiter.Wait( dmg, () => { gameObject.SetActive(true); SetPos( startPos ); } );
 	    }
     }
 
@@ -100,7 +101,7 @@ public class Player : MonoBehaviour
         if( collision.gameObject.tag == "Leaves" )
 	{
             SoundManager.PlaySound( "DragLeaves" );
-            Instantiate(GameBase.G.fx[0], transform.position, Quaternion.identity );
+            Instantiate( GameBase.G.fx[0], transform.position, Quaternion.identity );
             SetLeavesCount( -10 );
             Destroy( collision.gameObject );
         }
