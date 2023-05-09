@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Pathfinding;
+using System.Linq;
 
 public enum GamePhase
 {
@@ -116,7 +117,7 @@ public class GameBase : MonoBehaviour
     {
         if (letDict.Count != init.lets.Count)
         {
-            coins_count -= 10;
+            coins_count -= letDict.Sum( x => x.Value.priceLet );
             if (coins_count < 0) coins_count = 0;
         }
         init.Reset();
@@ -186,7 +187,7 @@ public class GameBase : MonoBehaviour
         {
             letDict.Remove( l.transform.position );
             l.transform.position = l.posLet;
-            coins_count--;
+            coins_count -= l.priceLet;
         }
     }
     
@@ -198,7 +199,7 @@ public class GameBase : MonoBehaviour
             if( !letDict.ContainsValue(l) && !letDict.ContainsKey(pos) )
             {
                 letDict.Add( pos, l );
-                CoinCreate( l.gameObject, 1 );
+                CoinCreate( l.gameObject, l.priceLet );
                 StartCoroutine( Move( l.gameObject, pos, 4f, () => { if (l.charLet == init.lets[i].charLet) l._inWord = true; } ) );
                 break;
             }

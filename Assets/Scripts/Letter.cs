@@ -5,6 +5,7 @@ public class Letter : MonoBehaviour, IPointerClickHandler
 { 
     public Vector3 posLet { private set; get; }
     public char charLet { private set; get; }
+    public byte priceLet { private set; get; }
 
     private SpriteRenderer sRend, spinnerRend;
     private BoxCollider2D col;
@@ -25,6 +26,40 @@ public class Letter : MonoBehaviour, IPointerClickHandler
     public void SetChar(char l)
     {
         charLet = l;
+        if (l == 'а') priceLet = 1;
+        else if (l == 'б') priceLet = 3;
+        else if (l == 'в') priceLet = 2;
+        else if (l == 'г') priceLet = 3;
+        else if (l == 'д') priceLet = 2;
+        else if (l == 'е') priceLet = 1;
+        else if (l == 'ё') priceLet = 3;
+        else if (l == 'ж') priceLet = 4;
+        else if (l == 'з') priceLet = 4;
+        else if (l == 'и') priceLet = 1;
+        else if (l == 'й') priceLet = 3;
+        else if (l == 'к') priceLet = 2;
+        else if (l == 'л') priceLet = 2;
+        else if (l == 'м') priceLet = 2;
+        else if (l == 'н') priceLet = 1;
+        else if (l == 'о') priceLet = 1;
+        else if (l == 'п') priceLet = 2;
+        else if (l == 'р') priceLet = 2;
+        else if (l == 'с') priceLet = 2;
+        else if (l == 'т') priceLet = 2;
+        else if (l == 'у') priceLet = 3;
+        else if (l == 'ф') priceLet = 5;
+        else if (l == 'х') priceLet = 4;
+        else if (l == 'ц') priceLet = 5;
+        else if (l == 'ч') priceLet = 5;
+        else if (l == 'ш') priceLet = 4;
+        else if (l == 'щ') priceLet = 5;
+        else if (l == 'ъ') priceLet = 5;
+        else if (l == 'ы') priceLet = 5;
+        else if (l == 'ь') priceLet = 4;
+        else if (l == 'э') priceLet = 5;
+        else if (l == 'ю') priceLet = 5;
+        else if (l == 'я') priceLet = 4;
+        else priceLet = 0;
     }
 
     public bool _inWord = false;
@@ -37,12 +72,9 @@ public class Letter : MonoBehaviour, IPointerClickHandler
         {
             GameBase.G.RemoveAtWord(this);
         }
-        else {
-            SoundManager.PlaySound("Response");
-            return;  // Отрисовка ошибочного нажатия - мигание posLet со звуком ошибки типа место занято
-        }
+        else SoundManager.PlaySound("Response");
     }
-    
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player"
@@ -61,7 +93,7 @@ public class Letter : MonoBehaviour, IPointerClickHandler
     {
         if ( _hasRotation )
         {
-            spinnerRend.transform.localEulerAngles = new Vector3( 0, 0, -360 * rotationAnimationCurve.Evaluate( ( rotationSpeed * Time.time ) % 1 ) );
+            spinnerRend.transform.localEulerAngles = new Vector3( 0, 0, -360 * rotationAnimationCurve.Evaluate( rotationSpeed * Time.time % 1 ) );
         }
 
         if( _inWord )

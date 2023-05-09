@@ -228,7 +228,6 @@ public class Init : MonoBehaviour
             GameObject letGO = Instantiate(prefabLetter, Spawn(), Quaternion.identity, wordAnchor); // Инициализируем объект буквы
 	        letGO.GetComponent<SpriteRenderer>().sprite = SetLetterSprite(chars[i]);                // Устанавливаем спрайт буквы
 	        Letter let = letGO.GetComponent<Letter>();		// Получаем компонент Letter созданной буквы
-            let.SetLetterPos(let.transform.position);		// Запоминаем начальную позицию буквы
             let.SetChar(chars[i]);							// Устанавливаем символ для дальнейшей проверки этого свойства
 	        lets.Add(let);									// Добавляем букву в список
 		    
