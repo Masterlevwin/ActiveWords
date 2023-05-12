@@ -109,7 +109,7 @@ public class Enemy: MonoBehaviour
         if( collision.gameObject.CompareTag("Player") )
         {
             GameBase.G.pl.Boom( attack );
-            GetComponent<AIDestinationSetter>().target = startPoint;
+            if( GetComponent<AIDestinationSetter>().target != startPoint ) GetComponent<AIDestinationSetter>().target = startPoint;
         }
 
         if( collision.gameObject.CompareTag("Leave") )
@@ -119,7 +119,7 @@ public class Enemy: MonoBehaviour
             GameBase.G._leaveActive = false;
         }
         
-        if( collision.transform == startPoint )
+        if( collision.transform == startPoint && GetComponent<AIDestinationSetter>().target != GameBase.G.pl.transform )
         {
             SoundManager.PlaySound( "Magic Spell_Short Reverse_1" );
             GetComponent<AIDestinationSetter>().target = GameBase.G.pl.transform;
