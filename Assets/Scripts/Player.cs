@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     
     public Vector2 startPos;
 
-    void Start()
+    void Awake()
     {        
         hpImg = GetComponentsInChildren<Image>()[1];
         txtHp = GetComponentsInChildren<TMP_Text>()[0];
@@ -80,7 +80,7 @@ public class Player : MonoBehaviour
     public void Boom( float dmg = 1f )
     {
     	Damage( dmg );
-	Instantiate( GameBase.G.fx[1], transform.position, Quaternion.identity );
+        Instantiate( GameBase.G.fx[1], transform.position, Quaternion.identity );
         gameObject.SetActive(false);
         if ( GameBase.G.phase != GamePhase.complete ) {
 	        GameBase.G._timer.BeginTimer( startPos, dmg );

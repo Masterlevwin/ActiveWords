@@ -23,7 +23,7 @@ public class Enemy: MonoBehaviour
     
     public event Action<GameObject, int, float> DiedEnemy;
     
-    void Start()
+    void Awake()
     {
         hpImg = GetComponentsInChildren<Image>()[1];
         txtHp = GetComponentsInChildren<TMP_Text>()[0];
@@ -74,6 +74,7 @@ public class Enemy: MonoBehaviour
     public void SetHit( float _hp )
     {
         health = _hp;
+        if (health >= max_health) max_health = health;
         txtHp.text = $"{health}";
         hpImg.fillAmount = health / max_health;
         if( health <= 0 ) Died();

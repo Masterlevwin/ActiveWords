@@ -2104,8 +2104,8 @@ MonoBehaviour:
   coinPrefab: {fileID: 6245005728011083082, guid: a75a8f35e9b07e34d96d543fa689a1c4, type: 3}
   trainingPrefab: {fileID: 1672288668}
   damagePrefab: {fileID: 4896241508643742068, guid: b1c84e3023a0b26438005362c582ca01, type: 3}
-  pl: {fileID: 0}
-  en: {fileID: 0}
+  pl: {fileID: 7985207288063439871}
+  en: {fileID: 1695845703}
   _timer: {fileID: 496804720}
   fx:
   - {fileID: 2353600328335836179, guid: ceec7516237b4104b94300043ca39784, type: 3}
@@ -6946,6 +6946,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1695845703 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1699623363274135460, guid: b1643bfdea963d644b378feb3eff2137, type: 3}
+  m_PrefabInstance: {fileID: 1695845697}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bea325a41fcaf524a889e913fddaddf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1844393567
 GameObject:
   m_ObjectHideFlags: 0
@@ -8933,5 +8944,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7985207288063439871 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 451887132131533843, guid: e6113e9d8a47d6647bd10ee84202bf08, type: 3}
+  m_PrefabInstance: {fileID: 7985207288063439866}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23305b4058a7bc44cae934ab62cd891b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

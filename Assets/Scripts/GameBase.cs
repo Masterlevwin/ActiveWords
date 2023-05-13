@@ -23,21 +23,26 @@ public class GameBase : MonoBehaviour
     public static int highscore = 0;
     public static int level = 0;
     public static string status = "Дошкольник";
+    
     public int coins_count = 0;
+    public Dictionary<Vector2, Letter> letDict;
+
     public TMP_Text highscoreText, levelText, coinText;
     public Image continueArea, levelUP, gameOver;
     public Canvas mainCanvas;
-    public AIPath player, enemy;
-    public GameObject leavePrefab, coinPrefab, trainingPrefab;
-    public FlyDamage damagePrefab;
-    public Player pl;
-    public Enemy en;
-    public TimerEnemyRebirth _timer;
-    private Vector2 _startTimerPosition;
-    private Init init;
-    public Dictionary<Vector2, Letter> letDict;
 
     public GameObject[] fx;
+    public GameObject leavePrefab, coinPrefab, trainingPrefab;
+    public FlyDamage damagePrefab;
+    
+    public Player pl;
+    public Enemy en;
+    public AIPath player, enemy;
+    
+    public TimerEnemyRebirth _timer;
+    private Vector2 _startTimerPosition;
+    
+    private Init init;
 
     void Start()
     {
@@ -45,11 +50,10 @@ public class GameBase : MonoBehaviour
         else if (G == this) Destroy(gameObject);
 
         init = GetComponent<Init>();
-        pl = player.GetComponent<Player>();
-        en = enemy.GetComponent<Enemy>();
+        
         en.DiedEnemy += CoinCreate;
-        player.gameObject.SetActive(false);
-        enemy.gameObject.SetActive(false);
+        pl.gameObject.SetActive(false);
+        en.gameObject.SetActive(false);
 
         _startTimerPosition = _timer.transform.position;
 
@@ -63,23 +67,39 @@ public class GameBase : MonoBehaviour
     public void StartGame()
     {
         levelText.text = $"{level}";
-        if (letDict == null) letDict = new Dictionary<Vector2, Letter>();
+        if( letDict == null ) letDict = new Dictionary<Vector2, Letter>();
         else letDict.Clear();
-        
-        if (!player.gameObject.activeSelf) Waiter.Wait( 1f, () => { player.gameObject.SetActive(true); pl.SetPos( init.Spawn() ); } );
-        if (level > 4 && !enemy.gameObject.activeSelf) Waiter.Wait( 2f, () => { enemy.gameObject.SetActive(true); en.transform.position = init.Spawn(); 
-            if( level % 5 == 0 ) en.SetSpeed(1f); } );
-        pl.SetHit(pl.maxHit);
-        en.SetHit(en.max_health);
+
+        if( !pl.gameObject.activeSelf )
+            Waiter.Wait( 1f, () =>
+            {
+                pl.gameObject.SetActive(true);
+                pl.SetPos( init.Spawn() );
+                pl.SetHit( pl.maxHit );
+            });
+
+        if( level >= 0 && !en.gameObject.activeSelf )
+            Waiter.Wait( 2f, () =>
+            {
+                en.gameObject.SetActive(true);
+                en.transform.position = init.Spawn();
+                en.SetHit( en.max_health );
+                if( level % 5 == 0 ) en.SetSpeed(1f);
+            });
+
         _timer.BeginTimer( _startTimerPosition, 4f );
-        Waiter.Wait( 4f, () => { phase = GamePhase.game; trainingPrefab.SetActive(false); SoundManager.PlaySound("MissCloud"); } );
+        Waiter.Wait( 4f, () =>
+        {
+            phase = GamePhase.game; trainingPrefab.SetActive(false);
+            SoundManager.PlaySound("MissCloud");
+        });
     }
     
     public void CompleteGame()
     {
         phase = GamePhase.complete;
-        player.gameObject.SetActive(false);
-        enemy.gameObject.SetActive(false);
+        pl.gameObject.SetActive(false);
+        en.gameObject.SetActive(false);
         int numValues = 0;
         for (int i = 0; i < init.letPositions.Count; i++)
             if (letDict.TryGetValue(init.letPositions[i], out Letter l) && l.charLet == init.lets[i].charLet)
@@ -92,8 +112,8 @@ public class GameBase : MonoBehaviour
     {
         SoundManager.PlaySound("FinishWork");
         level++;
-        levelText.text = $"{level}";
-        if( level > 5 ) levelUP.gameObject.SetActive(true);
+        levelText.text = $"{ level }";
+        if( level >= 0 ) levelUP.gameObject.SetActive(true);
         else continueArea.gameObject.SetActive(true);
     }    
     
