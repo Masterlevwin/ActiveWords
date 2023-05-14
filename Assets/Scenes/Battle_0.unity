@@ -2098,18 +2098,18 @@ MonoBehaviour:
   levelUP: {fileID: 1324372404}
   gameOver: {fileID: 1125163044}
   mainCanvas: {fileID: 1126804783}
-  player: {fileID: 7985207288063439870}
-  enemy: {fileID: 1695845699}
+  fx:
+  - {fileID: 2353600328335836179, guid: ceec7516237b4104b94300043ca39784, type: 3}
+  - {fileID: 4553287630450876385, guid: 15483e51212e3d74886ea57291f4639a, type: 3}
   leavePrefab: {fileID: 8318589681344882108, guid: 03e8321cf020fea4bba4aff04139fb9a, type: 3}
   coinPrefab: {fileID: 6245005728011083082, guid: a75a8f35e9b07e34d96d543fa689a1c4, type: 3}
   trainingPrefab: {fileID: 1672288668}
   damagePrefab: {fileID: 4896241508643742068, guid: b1c84e3023a0b26438005362c582ca01, type: 3}
   pl: {fileID: 7985207288063439871}
   en: {fileID: 1695845703}
+  player: {fileID: 7985207288063439870}
+  enemy: {fileID: 1695845699}
   _timer: {fileID: 496804720}
-  fx:
-  - {fileID: 2353600328335836179, guid: ceec7516237b4104b94300043ca39784, type: 3}
-  - {fileID: 4553287630450876385, guid: 15483e51212e3d74886ea57291f4639a, type: 3}
   _leaveActive: 0
   gOs: []
 --- !u!114 &519420035

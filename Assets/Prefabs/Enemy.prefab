@@ -374,7 +374,7 @@ Transform:
   - {fileID: 1258084831160788703}
   - {fileID: 8991877061385707631}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1258084832210441998
 MonoBehaviour:
@@ -434,7 +434,7 @@ MonoBehaviour:
   radius: 0.7
   height: 1
   canMove: 1
-  maxSpeed: 2
+  maxSpeed: 1
   gravity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
@@ -476,6 +476,7 @@ MonoBehaviour:
   max_health: 0
   start_attack: 1
   start_rebirth: 8
+  startPoint: {fileID: 0}
 --- !u!61 &6523019013731485941
 BoxCollider2D:
   m_ObjectHideFlags: 0

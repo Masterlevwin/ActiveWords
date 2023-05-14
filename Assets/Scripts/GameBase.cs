@@ -52,8 +52,8 @@ public class GameBase : MonoBehaviour
         init = GetComponent<Init>();
         
         en.DiedEnemy += CoinCreate;
-        pl.gameObject.SetActive(false);
-        en.gameObject.SetActive(false);
+        player.gameObject.SetActive(false);
+        enemy.gameObject.SetActive(false);
 
         _startTimerPosition = _timer.transform.position;
 
@@ -70,18 +70,18 @@ public class GameBase : MonoBehaviour
         if( letDict == null ) letDict = new Dictionary<Vector2, Letter>();
         else letDict.Clear();
 
-        if( !pl.gameObject.activeSelf )
+        if( !player.gameObject.activeSelf )
             Waiter.Wait( 1f, () =>
             {
-                pl.gameObject.SetActive(true);
+                player.gameObject.SetActive(true);
                 pl.SetPos( init.Spawn() );
                 pl.SetHit( pl.maxHit );
             });
 
-        if( level >= 0 && !en.gameObject.activeSelf )
+        if( level >= 0 && !enemy.gameObject.activeSelf )
             Waiter.Wait( 2f, () =>
             {
-                en.gameObject.SetActive(true);
+                enemy.gameObject.SetActive(true);
                 en.transform.position = init.Spawn();
                 en.SetHit( en.max_health );
                 if( level % 5 == 0 ) en.SetSpeed(1f);
@@ -98,8 +98,8 @@ public class GameBase : MonoBehaviour
     public void CompleteGame()
     {
         phase = GamePhase.complete;
-        pl.gameObject.SetActive(false);
-        en.gameObject.SetActive(false);
+        player.gameObject.SetActive(false);
+        enemy.gameObject.SetActive(false);
         int numValues = 0;
         for (int i = 0; i < init.letPositions.Count; i++)
             if (letDict.TryGetValue(init.letPositions[i], out Letter l) && l.charLet == init.lets[i].charLet)
