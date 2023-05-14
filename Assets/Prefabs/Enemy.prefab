@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 4
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7f235ce35c88f7c4886e186f483290d7, type: 2}
   m_sharedMaterial: {fileID: 1380574074318782815, guid: 7f235ce35c88f7c4886e186f483290d7, type: 2}
@@ -374,7 +374,7 @@ Transform:
   - {fileID: 1258084831160788703}
   - {fileID: 8991877061385707631}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1258084832210441998
 MonoBehaviour:
@@ -1046,7 +1046,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7f235ce35c88f7c4886e186f483290d7, type: 2}
   m_sharedMaterial: {fileID: 1380574074318782815, guid: 7f235ce35c88f7c4886e186f483290d7, type: 2}

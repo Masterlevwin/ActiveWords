@@ -52,8 +52,6 @@ public class GameBase : MonoBehaviour
         init = GetComponent<Init>();
         
         en.DiedEnemy += CoinCreate;
-        player.gameObject.SetActive(false);
-        enemy.gameObject.SetActive(false);
 
         _startTimerPosition = _timer.transform.position;
 
