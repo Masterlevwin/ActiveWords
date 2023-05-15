@@ -258,7 +258,7 @@ public class GameBase : MonoBehaviour
     private IEnumerator Move( GameObject go, Vector2 endPosition, float speed = 1f, Action action = null )
     {
         if( !go.GetComponent<Letter>() ) gOs.Add( go );
-        float step = speed * Time.deltaTime;
+        float step = speed * Time.deltaTime * 3;
         while( Vector2.Distance( go.transform.position, endPosition ) > float.Epsilon )
         {
             go.transform.position = Vector2.MoveTowards( go.transform.position, endPosition, step );
