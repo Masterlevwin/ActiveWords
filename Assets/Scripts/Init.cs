@@ -230,14 +230,15 @@ public class Init : MonoBehaviour
             let.SetChar(chars[i]);							// Устанавливаем символ для дальнейшей проверки этого свойства
 	        lets.Add(let);									// Добавляем букву в список
 		    
+                // Инициализируем объект полена
             if( GameBase.level == 4 && Random.Range(0, 2) == 0 ) Instantiate( prefabPlate, let.transform.position, Quaternion.identity, wordAnchor );
-	        else if( GameBase.level > 4 && Random.Range(0,4) == 0 ) {                               // Инициализируем объект полена
+	        else if( GameBase.level > 4 && Random.Range( 0,4 ) == 0 ) {
                 Instantiate( prefabPlate, let.transform.position, Quaternion.identity, wordAnchor );
             }
             yield return new WaitForSeconds(.6f);           // Делаем паузу
         }                                         
         CreateCells();                                      // Создаем конечные места букв
-	    if( GameBase.level >= 0 ) CreateLeaves();            // Создаем бонус листиков в случайном доступном месте
+	    if( GameBase.level > 4 ) CreateLeaves();            // Создаем бонус листиков в случайном доступном месте
         GameBase.G.StartGame();                             // Запускаем игру
     }
 

@@ -55,11 +55,8 @@ public class GameBase : MonoBehaviour
 
         _startTimerPosition = _timer.transform.position;
 
-        if( PlayerPrefs.HasKey( "SavedLevel" ) ) 
-        {
-            highscore = PlayerPrefs.GetInt( "SavedLevel" );
-            highscoreText.text = $"{ highscore }";
-        }
+        if( PlayerPrefs.HasKey( "SavedLevel" ) ) highscore = PlayerPrefs.GetInt( "SavedLevel" );
+        highscoreText.text = $"{ highscore }";
     }
 
     public void StartGame()
@@ -76,7 +73,7 @@ public class GameBase : MonoBehaviour
                 pl.SetHit( pl.maxHit );
             });
 
-        if( level >= 0 && !enemy.gameObject.activeSelf )
+        if( level > 4 && !enemy.gameObject.activeSelf )
             Waiter.Wait( 2f, () =>
             {
                 enemy.gameObject.SetActive(true);
@@ -111,7 +108,7 @@ public class GameBase : MonoBehaviour
         SoundManager.PlaySound("FinishWork");
         level++;
         levelText.text = $"{ level }";
-        if( level >= 0 ) levelUP.gameObject.SetActive(true);
+        if( level > 5 ) levelUP.gameObject.SetActive(true);
         else continueArea.gameObject.SetActive(true);
     }    
     
@@ -145,7 +142,7 @@ public class GameBase : MonoBehaviour
     {
         phase = GamePhase.complete;
         pl.ResetProperties();
-        en.ResetProperties();
+        if( en.gameObject.activeSelf ) en.ResetProperties();
         level = coins_count = 0;
         levelText.text = $"{level}";
         init.Reset();

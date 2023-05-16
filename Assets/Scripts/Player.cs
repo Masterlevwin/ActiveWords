@@ -35,7 +35,6 @@ public class Player : MonoBehaviour
         hitPlayer = 0;
         attack_damage = 0;
         attack_speed = 0;
-        startPos = transform.position;
         GetComponent<AIPath>().maxSpeed = 5;
         maxHit = start_hit;
         SetHit( start_hit );
