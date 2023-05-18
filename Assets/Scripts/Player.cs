@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
         
         leaveImg.gameObject.SetActive(false);
         ResetProperties();
+        transform.GetChild(1).gameObject.SetActive(false);
     }
     
     public void ResetProperties()

@@ -47,20 +47,20 @@ public class Init : MonoBehaviour
 
     private List<string> ParseText(string txt)  // Метод преобразования текста в массив строк
     {
-        string[] lines = txt.Split(new char[] { ':', '\n' });
+        string[] lines = txt.Split( new char[] { ':', '\n' } );
 
-        if (dictWords == null) dictWords = new Dictionary<string, string>();
-        for (int i = 0; i < lines.Length - 1; i += 2)
+        dictWords ??= new Dictionary<string, string>();
+        for(int i = 0; i < lines.Length - 1; i += 2)
         {
             dictWords.TryAdd(lines[i], lines[i + 1]);
         }
-        List<string> words = new List<string>(dictWords.Keys);
+        List<string> words = new( dictWords.Keys );
         return words;
     }
 
     private string InterpretationWord(string wordLevel)
     {
-        if (!dictWords.TryGetValue(wordLevel, out string str)) return wordLevel;
+        if( !dictWords.TryGetValue( wordLevel, out string str ) ) return wordLevel;
         return str;
     }
 
@@ -139,16 +139,16 @@ public class Init : MonoBehaviour
     	float x, y;		// Выбираем случайные значения в пределах стола, основываясь на костях его коллайдера
 	    x = Random.Range(table.transform.position.x - Random.Range(0, table.bounds.extents.x), table.transform.position.x + Random.Range(0, table.bounds.extents.x));
 	    y = Random.Range(table.transform.position.y - Random.Range(0, table.bounds.extents.y), table.transform.position.y + Random.Range(0, table.bounds.extents.y));
-	    Vector2 spawnPoint = new Vector2(x, y);				// Создаем точку спавна
-	    if( Point( spawnPoint, size ) ) return spawnPoint;	// Если точка доступна, возвращаем её из метода,
+	    Vector2 spawnPoint = new(x, y);				// Создаем точку спавна
+	    if( Point( spawnPoint, size ) ) return spawnPoint;	                // Если точка доступна, возвращаем её из метода,
 	    else return Spawn();						// иначе ищем снова доступную точку
 	
-	    bool Point( Vector2 spawn, float _size )			// Внутренний метод проверки доступности точки
+	    bool Point( Vector2 spawn, float _size )	// Внутренний метод проверки доступности точки
 	    {
-	        Vector2 sizeV = new Vector2( _size, _size );	// Дистанция коллайдеров между объектами
+	        Vector2 sizeV = new( _size, _size );	// Дистанция коллайдеров между объектами
 	        cols = Physics2D.OverlapBoxAll(spawn, sizeV, 0f, obtacleMask);	// Определяем массив коллайдеров на столе,пересекающий точку спавна в данный момент
-	        if (cols.Length > 0) return false;				// Если такие коллайдеры есть, точка спавна не доступна,
-	        else return true;						        // иначе доступна
+	        if (cols.Length > 0) return false;		// Если такие коллайдеры есть, точка спавна не доступна,
+	        else return true;						// иначе доступна
 	    }
     }
     
@@ -159,7 +159,7 @@ public class Init : MonoBehaviour
         Vector2 cellPos;							// Объявляем переменную Vector2
         for (int i = 0; i < lets.Count; i++) 
         {	    // Взависимости от количества букв сгенерированного слова уровня определяем позицию каждого места
-            float cen = (float)lets.Count / 2.5f;
+            float cen = lets.Count / 2.5f;
             cellPos = new Vector2( .8f - cen + i * .8f, -4f );
             c = Instantiate(prefabCell, cellPos, Quaternion.identity, cellAnchor);	// Создаем конечное место буквы
             c.GetComponent<SpriteRenderer>().sprite = cells[0];				        // Определяем спрайт этого места

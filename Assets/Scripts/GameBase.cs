@@ -69,6 +69,7 @@ public class GameBase : MonoBehaviour
             Waiter.Wait( 1f, () =>
             {
                 player.gameObject.SetActive(true);
+                pl.transform.GetChild(1).gameObject.SetActive(true);
                 pl.SetPos( init.Spawn() );
                 pl.SetHit( pl.maxHit );
             });
