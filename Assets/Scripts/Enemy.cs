@@ -19,12 +19,14 @@ public class Enemy: MonoBehaviour
     private TMP_Text txtAtt;
     
     public Transform startPoint;
+    private SpriteRenderer sRend;
+
     private Action<float>[] actions;
-    
     public event Action<GameObject, int, float> DiedEnemy;
     
     void Awake()
     {
+        sRend = GetComponentInChildren<SpriteRenderer>();
         hpImg = GetComponentsInChildren<Image>()[1];
         txtHp = GetComponentsInChildren<TMP_Text>()[0];
         txtAtt = GetComponentsInChildren<TMP_Text>()[1];
@@ -39,7 +41,7 @@ public class Enemy: MonoBehaviour
         health = 0;
         attack = 0;
         rebirth = 0;
-        GetComponent<AIPath>().maxSpeed = 2;
+        GetComponent<AIPath>().maxSpeed = 1;
         max_health = start_health;
         SetHit( start_health );
         SetAttack( start_attack );
@@ -125,5 +127,11 @@ public class Enemy: MonoBehaviour
             SoundManager.PlaySound( "Magic Spell_Short Reverse_1" );
             GetComponent<AIDestinationSetter>().target = GameBase.G.pl.transform;
         }
+    }
+
+    void Update()
+    {
+        if (transform.position.x > GameBase.G.player.transform.position.x) sRend.flipX = true;
+        else sRend.flipX = false;
     }
 }

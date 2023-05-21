@@ -14,7 +14,7 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: DefaultCompany
   productName: Life Book
-  defaultCursor: {fileID: 0}
+  defaultCursor: {fileID: 2800000, guid: 6282b3628739a1f4cb6781df9aebc1a1, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
   m_ShowUnitySplashScreen: 1
@@ -277,7 +277,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 653cb522ce78bc04f8e18de065a79cf5, type: 3}
+      m_Icon: {fileID: 2800000, guid: 9a722486fe2629f489c4188f5b1f0be1, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0

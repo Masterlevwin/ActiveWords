@@ -74,7 +74,7 @@ public class GameBase : MonoBehaviour
                 pl.SetHit( pl.maxHit );
             });
 
-        if( level > 4 && !enemy.gameObject.activeSelf )
+        if( level >= 0 && !enemy.gameObject.activeSelf )
             Waiter.Wait( 2f, () =>
             {
                 enemy.gameObject.SetActive(true);
@@ -279,6 +279,17 @@ public class GameBase : MonoBehaviour
         {
             player.canMove = false;
             enemy.canMove = false;
+        }
+    }
+
+    public void OnApplicationFocus( bool focus )
+    {
+        if( highscore < level )
+        {
+            highscore = level;
+            highscoreText.text = $"{ highscore }";
+            PlayerPrefs.SetInt( "SavedLevel", highscore );
+            PlayerPrefs.Save();
         }
     }
 }
