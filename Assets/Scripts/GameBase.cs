@@ -7,6 +7,12 @@ using TMPro;
 using Pathfinding;
 using System.Linq;
 
+public enum GameMode
+{
+    easy,
+    hard
+}
+
 public enum GamePhase
 {
     init,
@@ -19,7 +25,8 @@ public class GameBase : MonoBehaviour
 {
     public static GameBase G;
     public GamePhase phase = GamePhase.init;
-    
+    public GameMode mode = GameMode.hard;
+
     public static int highscore = 0;
     public static int level = 0;
     public static string status = "Дошкольник";
@@ -74,7 +81,7 @@ public class GameBase : MonoBehaviour
                 pl.SetHit( pl.maxHit );
             });
 
-        if( level >= 0 && !enemy.gameObject.activeSelf )
+        if( mode == GameMode.hard && level > 4 && !enemy.gameObject.activeSelf )
             Waiter.Wait( 2f, () =>
             {
                 enemy.gameObject.SetActive(true);
@@ -109,8 +116,13 @@ public class GameBase : MonoBehaviour
         SoundManager.PlaySound("FinishWork");
         level++;
         levelText.text = $"{ level }";
-        if( level > 5 ) levelUP.gameObject.SetActive(true);
-        else continueArea.gameObject.SetActive(true);
+        if( mode == GameMode.hard && level > 5 ) levelUP.gameObject.SetActive(true);
+        else
+        {
+            continueArea.gameObject.SetActive(true);
+            Button but = continueArea.gameObject.GetComponentInChildren<Button>();
+            but.onClick.AddListener( () => init.Reset( (int)mode ) );
+        } 
     }    
     
     private void Lose()
@@ -136,7 +148,7 @@ public class GameBase : MonoBehaviour
             coins_count -= letDict.Sum( x => x.Value.priceLet );
             if (coins_count < 0) coins_count = 0;
         }
-        init.Reset();
+        init.Reset( (int)mode );
     }
 
     public void NewGame()
@@ -146,7 +158,7 @@ public class GameBase : MonoBehaviour
         if( en.gameObject.activeSelf ) en.ResetProperties();
         level = coins_count = 0;
         levelText.text = $"{level}";
-        init.Reset();
+        init.Reset( (int)mode );
     }
 
     public void ResetHighscore()
@@ -165,7 +177,7 @@ public class GameBase : MonoBehaviour
         if (level == 2) TextView("Если схватил неверную букву, нажми на неё, чтобы она вернулась на поле");
         if (level == 3) TextView("Иногда некоторые слова придётся определить по их описанию");
         if (level == 4) TextView("Некоторые буквы лежат на поленьях, которые долго не выдержат вес целой книги");
-        if (level == 5) TextView("Надоедливую птицу можно прогнать листиками, выстреливая по ней двойным кликом");
+        if ( mode == GameMode.hard && level == 5) TextView("Надоедливую птицу можно прогнать листиками, выстреливая по ней двойным кликом");
     }
 
     public void TextView( string txt )

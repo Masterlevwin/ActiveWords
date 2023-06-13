@@ -1,6 +1,8 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Audio;
 using System.Collections;
+using UnityEngine.Rendering;
 
 public class SoundManager : MonoBehaviour
 {
@@ -9,6 +11,9 @@ public class SoundManager : MonoBehaviour
     public string musicFolder = "Music";
 
     public float fadeSpeed = 3;
+    public Slider userVolume;
+
+    private AudioSource camMusic;
 
     public AudioMixerGroup musicGroup;
     public AudioMixerGroup soundGroup;
@@ -21,8 +26,16 @@ public class SoundManager : MonoBehaviour
     void Awake()
     {
         musicVolume = 1;
-        soundVolume = .7f;
+        soundVolume = 1;
         _instance = this;
+
+        camMusic = GetComponent<AudioSource>();
+    }
+
+    private void Update()
+    {
+        soundVolume = userVolume.value;
+        camMusic.volume = userVolume.value - .3f;
     }
 
     public static void SoundVolume(float volume)

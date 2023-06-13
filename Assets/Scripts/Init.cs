@@ -29,17 +29,17 @@ public class Init : MonoBehaviour
 
         if (GameObject.Find("Letters") == null)         // Создаем пустой объект в иерархии, чтобы спрятать туда сгенерированные буквы
         {
-            GameObject wordGO = new GameObject("Letters");
+            GameObject wordGO = new( "Letters" );
             wordAnchor = wordGO.transform;
         }
         if (GameObject.Find("Cells") == null)			// Создаем пустой объект в иерархии, чтобы спрятать туда конечные места для букв
         {
-            GameObject cellGO = new GameObject("Cells");
+            GameObject cellGO = new( "Cells" );
             cellAnchor = cellGO.transform;
         }
         if (GameObject.Find("Blocks") == null)          // Создаем пустой объект в иерархии, чтобы спрятать туда сгенерированные блоки
         {
-            GameObject blockGO = new GameObject("Blocks");
+            GameObject blockGO = new( "Blocks" );
             blockAnchor = blockGO.transform;
         }
         table = GameObject.Find("Table").GetComponent<BoxCollider2D>();    // Сохраняем ссылку на коллайдер стола, к которому будем обращаться каждый раз, как потребуется спавнить объект
@@ -74,8 +74,12 @@ public class Init : MonoBehaviour
         foreach (Transform child in blockAnchor) Destroy(child.gameObject);         // Удаляем объекты блоков}
     }
 
-    public void Reset()				// Метод обновления уровня
+    public void Reset( int _mode )		// Метод обновления уровня
     {
+        Button but = GameBase.G.continueArea.gameObject.GetComponentInChildren<Button>();
+        but.onClick.RemoveAllListeners();
+        GameBase.G.mode = (GameMode)_mode;
+
         SoundManager.PlaySound("ChangeLevel");
         StopAllCoroutines();
         GameBase.G.StopAllCoroutines();
@@ -236,9 +240,13 @@ public class Init : MonoBehaviour
                 Instantiate( prefabPlate, let.transform.position, Quaternion.identity, wordAnchor );
             }
             yield return new WaitForSeconds(.6f);           // Делаем паузу
-        }                                         
+        }
+        
         CreateCells();                                      // Создаем конечные места букв
-	    if( GameBase.level > 4 ) CreateLeaves();            // Создаем бонус листиков в случайном доступном месте
+
+	    // В сложном режиме создаем бонус листиков в случайном доступном месте
+        if( GameBase.G.mode == GameMode.hard && GameBase.level > 4 ) CreateLeaves();
+
         GameBase.G.StartGame();                             // Запускаем игру
     }
 
